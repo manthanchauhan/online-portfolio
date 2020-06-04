@@ -49,3 +49,5 @@
 2. Phone 
 3. Contact
 4. Thank you text
+
+* Order of these sections should be changeable, except the "About" and "Call of Contact" section.
