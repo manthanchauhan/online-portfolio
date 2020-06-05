@@ -19,5 +19,5 @@ from . import views
 app_name = 'accounts'
 
 urlpatterns = [
-    path('signup/', views.EnterEmail.as_view(), 'enter_email'),
+    path('signup/', views.EnterEmail.as_view(), name='enter_email'),
 ]
