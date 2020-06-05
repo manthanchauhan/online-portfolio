@@ -13,6 +13,8 @@
     * this is the portfolio which recruiters will see
 4. About Us page
     * to show developer & website details.
+5. Feedback page
+    * Using this, users can send emails to developers.
 
 ## Portfolio
 ### About 
