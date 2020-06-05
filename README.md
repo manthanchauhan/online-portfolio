@@ -62,4 +62,4 @@
 * PostgreSQL (No issue of scalability, so why use mongoDB?)
 * Heroku
   
-Find rest of the documentation [here](Index).  
+Find rest of the documentation [here](https://github.com/manthanchauhan/online-portfolio/wiki).  
