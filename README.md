@@ -52,7 +52,11 @@
 3. Contact
 4. Thank you text
 
-## Design Considerations
+### Design Considerations
 * Order of these sections should be changeable, except the "About" and "Call of Contact" section.
 * Since reads of portfolio will be multiple times greater than writes, we will store user portfolios as static files.
     Which will increase write time but, will reduce load time by about 75%.
+
+### Tech Stack
+* Django
+* PostgreSQL (No issue of scalability, so why use mongoDB?)
