@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% extends 'accounts/base.html' %}
 
-    <title>Sign Up</title>
-</head>
+{% block title %}
+Sign Up
+{% endblock %}
 
-<body style="text-align:center;">
+{% block content %}
     <div style="display:inline-block; margin-top:35vh;">
         <form method="post" action="{% url 'accounts:enter_email' %}">
             {% csrf_token %}
@@ -22,6 +18,4 @@
         <hr>
         <p class="text-muted">Already have an account? Login <a href="">here</a>.</p>
     </div>
-</body>
-</html>
-
+{% endblock %}

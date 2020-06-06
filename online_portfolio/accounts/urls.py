@@ -16,8 +16,9 @@ Including another URLconf
 from django.urls import path
 from . import views
 
-app_name = 'accounts'
+app_name = "accounts"
 
 urlpatterns = [
-    path('signup/', views.EnterEmail.as_view(), name='enter_email'),
+    path("signup/", views.EnterEmail.as_view(), name="enter_email"),
+    path("signup/<str:encoded_email>/", views.SignupView.as_view(), name="signup"),
 ]

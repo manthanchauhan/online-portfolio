@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
 
 def existing_email(email):
@@ -28,3 +29,35 @@ class EnterEmailForm(forms.Form):
             attrs={"placeholder": "Enter Your Email", "class": "form-control"}
         ),
     )
+
+
+class SignUpForm(UserCreationForm):
+    email = forms.EmailField(
+        validators=[existing_email],
+        widget=forms.EmailInput(
+            attrs={"disabled": True, "id": "email", "class": "form-control"}
+        ),
+    )
+
+    class Meta:
+        model = User
+        fields = ("username", "email", "password1", "password2")
+        widgets = {
+            "username": forms.TextInput(
+                attrs={"id": "username", "class": "form-control"}
+            ),
+            "password1": forms.TextInput(
+                attrs={"id": "password1", "class": "form-control"}
+            ),
+            "password2": forms.TextInput(
+                attrs={"id": "password2", "class": "form-control"}
+            ),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(SignUpForm, self).__init__(*args, **kwargs)
+
+        self.fields["password1"].widget.attrs["class"] = "form-control"
+        self.fields["password1"].widget.attrs["id"] = "password1"
+        self.fields["password2"].widget.attrs["class"] = "form-control"
+        self.fields["password2"].widget.attrs["id"] = "password2"
