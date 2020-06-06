@@ -89,7 +89,12 @@ def decode_data(pass_phrase, encoded_data):
     f = Fernet(key)
 
     decoded_form = f.decrypt(str.encode(encoded_data))
+
+    if isinstance(decoded_form, bytes):
+        return decoded_form.decode("utf-8")
+
     return decoded_form
+
 
 def send_mail(to_emails, content, subject):
     """
@@ -115,4 +120,3 @@ def send_mail(to_emails, content, subject):
 
     # send status
     return response == 202
-
