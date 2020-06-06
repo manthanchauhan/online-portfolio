@@ -2,13 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Enter Email</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Sign Up</title>
 </head>
-<body>
-    <form method="post" action="{% url 'accounts:enter_email' %}">
-        {% csrf_token %}
-        {{form.as_p}}
-        <button type="submit">Send Invite Link</button>
-    </form>
+
+<body style="text-align:center;">
+    <div style="display:inline-block; margin-top:35vh;">
+        <form method="post" action="{% url 'accounts:enter_email' %}">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                {{form.user_email}}
+            </div>
+
+            <button type="submit" class="btn btn-primary">Send Invite Link</button>
+        </form>
+        <hr>
+        <p class="text-muted">Already have an account? Login <a href="">here</a>.</p>
+    </div>
 </body>
 </html>
+
