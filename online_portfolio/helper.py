@@ -6,8 +6,8 @@ from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from passlib.context import CryptContext
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
+from decouple import config
 from django.conf import settings
-from django.core.mail import send_mail as send_mail_
 
 
 def generate_key(pass_phrase):
@@ -99,8 +99,20 @@ def send_mail(to_emails, content, subject):
     :param subject: subject of the email
     :return:
     """
-    if isinstance(to_emails, str):
-        to_emails = [to_emails]
+    # create sendgrid client
+    sg = SendGridAPIClient(settings.SENDGRID_API_KEY)
 
-    send_mail_(subject=subject, message='', from_email='manthanchauhan913@gmail.com', recipient_list=to_emails, html_message=content)
+    # create a Mail object to send
+    email = Mail(
+        from_email=settings.EMAIL_HOST_USER,
+        to_emails=to_emails,
+        subject=subject,
+        html_content=content,
+    )
+
+    # send email and catch the response
+    response = sg.send(message=email)
+
+    # send status
+    return response == 202
 
