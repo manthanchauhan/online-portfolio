@@ -15,10 +15,19 @@ Including another URLconf
 """
 from django.urls import path
 from . import views
+from django.contrib.auth.views import LoginView
+from .forms import LoginForm
 
 app_name = "accounts"
 
 urlpatterns = [
     path("signup/", views.EnterEmail.as_view(), name="enter_email"),
     path("signup/<str:encoded_email>/", views.SignupView.as_view(), name="signup"),
+    path(
+        "login/",
+        LoginView.as_view(
+            template_name="accounts/login.html", authentication_form=LoginForm
+        ),
+        name="login",
+    ),
 ]

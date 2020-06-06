@@ -1,0 +1,49 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block content %}
+    <div style="display:inline-block; margin-top:25vh;" class="col-lg-3">
+        <form method="post" action="{% url 'accounts:login' %}" style="text-align:left;">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="username">Username</label>
+                {{form.username}}
+                
+                <ul>
+                {% for error in form.username.errors %}
+                    <li><small class="text-danger">{{error}}</small></li>
+                {% endfor %}
+                </ul>
+                
+                <small class="text-muted">{{form.username.help_text}}</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                {{form.password}}
+                
+                <ul>
+                {% for error in form.password.errors %}
+                    <li><small class="text-danger">{{error}}</small></li>
+                {% endfor %}
+                </ul>
+                
+                <small class="text-muted">{{form.password.help_text}}</small>
+            </div>
+            
+            <ul>
+            {% for error in form.non_field_errors %}
+                <li><small class="text-danger">{{error}}</small></li>
+            {% endfor %}
+            </ul>
+            
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+        <hr>
+        <p class="text-muted">Do not have account? Signup <a href="{% url 'accounts:enter_email' %}">here</a>.</p>
+    </div>
+{% endblock %}
