@@ -5,6 +5,7 @@ from helper import encode_data, send_mail, decode_data
 from decouple import config
 from django.contrib import messages
 from django.template.loader import render_to_string
+from django.contrib.auth import authenticate, login
 
 # Create your views here.
 class EnterEmail(View):
@@ -73,5 +74,31 @@ class SignupView(View):
         # render the form
         return render(request, template_name=self.template, context={"form": form})
 
-    def post(self, request):
-        pass
+    def post(self, request, encoded_email):
+        form = SignUpForm(request.POST)
+
+        # if form is invalid, show errors to user
+        if not form.is_valid():
+            return render(request, template_name=self.template, context={"form": form})
+
+        """
+        check email field for any tampering by the user, by comparing to encoded_email.
+        """
+        decoded_email = decode_data(config("NEW_EMAIL_HASH"), encoded_email)
+
+        # warn user about the tampering
+        if decoded_email != form.cleaned_data["email"]:
+            messages.error(request, "Don't act over-smart!!")
+            return render(request, template_name=self.template, context={"form": form})
+
+        # in case of no tampering, register as new user.
+        form.save()
+
+        # login the new user
+        user = authenticate(
+            username=form.cleaned_data["username"],
+            password=form.cleaned_data["password1"],
+        )
+        login(request=request, user=user)
+
+        return redirect("home")

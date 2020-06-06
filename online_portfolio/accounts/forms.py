@@ -35,7 +35,7 @@ class SignUpForm(UserCreationForm):
     email = forms.EmailField(
         validators=[existing_email],
         widget=forms.EmailInput(
-            attrs={"disabled": True, "id": "email", "class": "form-control"}
+            attrs={"readonly": True, "id": "email", "class": "form-control"}
         ),
     )
 

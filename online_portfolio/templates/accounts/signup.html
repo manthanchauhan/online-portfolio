@@ -12,11 +12,24 @@ Create Account
         <div class="form-group">
             <label for="email">Email address:</label>
             {{form.email}}
+            
+            <ul>
+                {% for error in form.email.errors %}
+                <li><small class="text-danger">{{error}}</small></li>
+                {% endfor %}
+            </ul>
         </div>
         
         <div class="form-group">
             <label for="username">Username:</label>
             {{form.username}}
+        
+            <ul>
+                {% for error in form.username.errors %}
+                <li><small class="text-danger">{{error}}</small></li>
+                {% endfor %}
+            </ul>
+            
         </div>
         
         <div class="row">
@@ -30,8 +43,17 @@ Create Account
                 {{form.password2}}
             </div>
         </div>
-    
-        <p class="text-muted">{{form.password1.help_text}}</p>
+        
+        <ul>
+            {% for error in form.password2.errors %}
+            <li><small class="text-danger">{{error}}</small></li>
+            {% endfor %}
+            {% for error in form.password1.errors %}
+            <li><small class="text-danger">{{error}}</small></li>
+            {% endfor %}
+        </ul>
+        
+        <small class="text-muted">{{form.password1.help_text}}</small>
         
         <button type="submit" class="btn btn-primary">Create Account</button>
     </form>
