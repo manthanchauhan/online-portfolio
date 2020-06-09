@@ -129,3 +129,4 @@ EMAIL_USE_TLS = True
 
 # Login settings
 LOGIN_REDIRECT_URL = "/portfolio/edit/"
+LOGOUT_REDIRECT_URL = "/accounts/login"
