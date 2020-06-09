@@ -18,4 +18,6 @@ from . import views
 
 app_name = "portfolio"
 
-urlpatterns = []
+urlpatterns = [
+    path("edit/", views.PortfolioEdit.as_view(), name="portfolio_edit"),
+]

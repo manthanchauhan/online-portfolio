@@ -126,3 +126,6 @@ EMAIL_HOST_USER = "apikey"
 EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+# Login settings
+LOGIN_REDIRECT_URL = "/portfolio/edit/"
