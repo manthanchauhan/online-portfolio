@@ -1,0 +1,25 @@
+echo "starting set up ..."
+
+echo "cloning git repository .."
+git init
+git clone git@github.com:manthanchauhan/online-portfolio.git
+
+echo "creating virtualenv ..."
+echo "Provide Python path, skip for using default path: \c"
+read python_path
+
+if [ -z "$python_path" ]
+then
+  virtualenv venv
+else
+  virtualenv -p "$python_path" venv
+fi
+
+source venv/bin/activate
+
+echo "Installing libraries ..."
+pip install -r online-portfolio/requirements.txt
+
+
+
+
