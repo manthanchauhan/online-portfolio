@@ -116,8 +116,15 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-
 STATIC_URL = "/static/"
+
+# this is from where, django wills serve files
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+
+# this is where, django will collect static files
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static")
 
 # Email settings
 SENDGRID_API_KEY = config("SENDGRID_KEY")
