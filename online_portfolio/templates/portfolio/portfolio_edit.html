@@ -1,9 +1,20 @@
 {% extends 'portfolio/base.html' %}
+{% load static %}
 
 {% block title %}
 Edit | Portfolio
 {% endblock %}
 
 {% block content %}
-<h1>Hello World!</h1>
+<div style="text-align:center; width:100%;">
+    <div style="background:#990000; width: 90%; display:inline-block; height:100vh;padding:0px 30px 0px 30px;">
+        
+        <div id="name_and_pic" class="row">
+            <img src="{% static 'portfolio/avatar.png' %}" alt="Avatar" style="border-radius:50%;width:200px;">
+            <div style="height:200px; text-align:center;">
+                <h1 style="color:white; font-family: 'Arimo', sans-serif;">Manthan Chauhan</h1>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
