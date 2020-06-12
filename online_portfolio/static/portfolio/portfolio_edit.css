@@ -1,33 +1,11 @@
-@media screen and (max-width: 991px) {
-  #profile_pic {
-    margin: auto;
-    padding: auto;
-  }
-
-  #name_and_tag {
-    margin-left: auto;
-    padding-left: auto;
-  }
+#profile_pic {
+  margin: auto;
+  padding: auto;
 }
 
-@media screen and (max-width: 600px) {
-  #name {
-    font-size: 11vw;
-  }
-
-  #about {
-    margin-top: 7vh;
-  }
-}
-
-@media screen and (min-width: 601px) {
-  #name {
-    font-size: 7.7vw;
-  }
-
-  #about {
-    margin-top: 14vh;
-  }
+#name_and_tag {
+  margin-left: auto;
+  padding-left: auto;
 }
 
 @media screen and (min-width: 992px) {
@@ -39,6 +17,24 @@
   #name_and_tag {
     margin-left: 0;
     padding-left: 0;
+  }
+}
+
+#name {
+  font-size: 7.7vw;
+}
+
+#about {
+  margin-top: 14vh;
+}
+
+@media screen and (max-width: 600px) {
+  #name {
+    font-size: 11vw;
+  }
+
+  #about {
+    margin-top: 7vh;
   }
 }
 
