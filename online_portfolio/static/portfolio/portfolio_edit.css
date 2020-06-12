@@ -1,0 +1,53 @@
+@media screen and (max-width: 991px) {
+  #profile_pic {
+    margin: auto;
+    padding: auto;
+  }
+
+  #name_and_tag {
+    margin-left: auto;
+    padding-left: auto;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #name {
+    font-size: 11vw;
+  }
+
+  #about {
+    margin-top: 7vh;
+  }
+}
+
+@media screen and (min-width: 601px) {
+  #name {
+    font-size: 7.7vw;
+  }
+
+  #about {
+    margin-top: 14vh;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  #profile_pic {
+    margin-right: 0;
+    padding-right: 0;
+  }
+
+  #name_and_tag {
+    margin-left: 0;
+    padding-left: 0;
+  }
+}
+
+.container:before,
+.container:after {
+    content: "";
+    display: table;
+}
+
+.container:after {
+    clear: both;
+}
