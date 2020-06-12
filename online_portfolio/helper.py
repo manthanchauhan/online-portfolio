@@ -7,7 +7,6 @@ from passlib.context import CryptContext
 
 # from sendgrid import SendGridAPIClient
 # from sendgrid.helpers.mail import Mail
-from decouple import config
 from django.core.mail import send_mail as send_mail_
 from django.conf import settings
 

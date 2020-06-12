@@ -124,7 +124,7 @@ STATICFILES_DIRS = [
 ]
 
 # this is where, django will collect static files
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static")
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 # Email settings
 EMAIL_HOST = "smtp.gmail.com"
