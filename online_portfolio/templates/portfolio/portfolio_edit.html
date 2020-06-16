@@ -6,6 +6,26 @@ Edit | Portfolio
 {% endblock %}
 
 {% block content %}
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <p>Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <div style="text-align:center; width:100%;">
     <div class="container" style="background:#990000; width: 90%; display:inline-block; min-height:100vh;">
 
@@ -68,7 +88,7 @@ Edit | Portfolio
                   * bullet point.<br>
                 </div>
                 <div class="project_images float-right col-lg-5" style="text-align:center;">
-                  <img class="img-fluid img-thumbnail"  src="{% static 'portfolio/project_sample_image.png' %}" alt="">
+                  <img class="img-fluid img-thumbnail project_image"  src="{% static 'portfolio/project_sample_image.png' %}" alt="">
                 </div>
               </div>
 
@@ -79,13 +99,17 @@ Edit | Portfolio
                 </div>
 
                 <div class="project_links col-lg-4 float-right" style="text-align:right;">
+                    <button class="btn btn-success" type="button" name="button">Save</button>
                     <button class="btn btn-primary" type="button" name="button">Live Project</button>
-                    <button class="btn btn-success" type="button" name="button">Code</button>
+                    <button class="btn btn-light" type="button" name="button">Code</button>
                 </div>
               </div>
             </div>
 
         </div>
+
+        <!-- <button type="button" id="end_modal_trigger" data-target="#myModal" data-toggle="modal" class="btn btn-success">End Session</button> -->
+
 
         <div class="container project">
             <div class="card bg-dark project_card">
@@ -105,7 +129,7 @@ Edit | Portfolio
                   * bullet point.<br>
                 </div>
                 <div class="project_images float-right col-lg-5" style="text-align:center;">
-                  <img class="img-fluid img-thumbnail"  src="{% static 'portfolio/project_sample_image.png' %}" alt="">
+                  <img class="img-fluid img-thumbnail project_image"  src="{% static 'portfolio/project_sample_image.png' %}" alt="">
                 </div>
               </div>
 
@@ -116,11 +140,16 @@ Edit | Portfolio
                 </div>
 
                 <div class="project_links col-lg-4 float-right" style="text-align:right;">
+                    <button class="btn btn-success" type="button" name="button">Save</button>
                     <button class="btn btn-primary" type="button" name="button">Live Project</button>
-                    <button class="btn btn-success" type="button" name="button">Code</button>
+                    <button class="btn btn-light" type="button" name="button">Code</button>
                 </div>
               </div>
             </div>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="{% static 'portfolio/js/edit.js' %}"></script>
 {% endblock %}
