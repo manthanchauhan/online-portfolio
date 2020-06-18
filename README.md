@@ -61,5 +61,6 @@
 * Django
 * PostgreSQL (No issue of scalability, so why use mongoDB?)
 * Heroku
+* Amazon S3
   
 Find rest of the documentation [here](https://github.com/manthanchauhan/online-portfolio/wiki).  
