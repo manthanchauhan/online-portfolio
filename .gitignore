@@ -1,5 +1,6 @@
 migrations/
 *.env
 __pycache__/
+online_portfolio/online_portfolio/__pycache__/
 *.pyc
 *.idea
