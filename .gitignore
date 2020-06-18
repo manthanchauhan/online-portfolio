@@ -1,4 +1,5 @@
 migrations/
 *.env
 __pycache__/
+*.pyc
 *.idea
