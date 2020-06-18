@@ -76,7 +76,7 @@ Edit | Portfolio
 
         <div id="about" class="container" style="color:white;">​
             <h3>About Me</h3>
-            <p contenteditable="true" class="text-lead">This is your Welcome Paragraph. It’s a great place to add concise, but enticing information about your website. The Welcome Section is the first text your readers encounter on your website so make it stand out. Keep it short, simple and powerful. Grab attention with a strong Welcome Title and engage your readers with some important details so they continue to browse your site.</p>
+            <p contenteditable="true" id="about_me" class="text-lead">This is your Welcome Paragraph. It’s a great place to add concise, but enticing information about your website. The Welcome Section is the first text your readers encounter on your website so make it stand out. Keep it short, simple and powerful. Grab attention with a strong Welcome Title and engage your readers with some important details so they continue to browse your site.</p>
         </div>
 
         <!-- <br> -->
@@ -84,7 +84,7 @@ Edit | Portfolio
 <!--        <br>-->
 
         <div id="save_button" class="container">
-            <button class="btn btn-success float-right" style="margin:5px;">Save</button>
+            <button class="btn btn-success float-right" id="save_about" style="margin:5px;">Save</button>
 <!--            <button class="btn btn-secondary" style="margin:5px;">Skills</button>-->
 <!--            <button class="btn btn-secondary" style="margin:5px;">Work Samples</button>-->
 <!--            <button class="btn btn-secondary" style="margin:5px;">Profiles & Contact</button>-->
@@ -179,5 +179,5 @@ Edit | Portfolio
 {% endblock %}
 
 {% block scripts %}
-<!-- <script type="text/javascript" src="{% static 'portfolio/js/edit.js' %}"></script> -->
+<script type="text/javascript" src="{% static 'portfolio/js/edit.js' %}"></script>
 {% endblock %}
