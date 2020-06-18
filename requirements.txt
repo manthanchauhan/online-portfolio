@@ -16,6 +16,8 @@ docutils==0.15.2
 jmespath==0.10.0
 passlib==1.7.2
 pathspec==0.8.0
+phonenumbers==8.12.5
+Pillow==7.1.2
 psycopg2==2.8.5
 pycparser==2.20
 python-dateutil==2.8.1
