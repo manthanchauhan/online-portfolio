@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "accounts",
     "portfolio",
+    "storages",
 ]
 
 MIDDLEWARE = [
@@ -114,18 +115,6 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.0/howto/static-files/
-STATIC_URL = "/static/"
-
-# this is from where, django wills serve files
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-]
-
-# this is where, django will collect static files
-# STATIC_ROOT = os.path.join(BASE_DIR, "static")
-
 # Email settings
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_HOST_USER = "pythonic913@gmail.com"
@@ -136,3 +125,25 @@ EMAIL_USE_TLS = True
 # Login settings
 LOGIN_REDIRECT_URL = "/portfolio/edit/"
 LOGOUT_REDIRECT_URL = "/accounts/login"
+
+# static files (Amazon S3) configuration
+AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY")
+AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = "online-portfolio123"
+AWS_S3_CUSTOM_DOMAIN = AWS_STORAGE_BUCKET_NAME + ".s3.amazonaws.com"
+
+AWS_S3_OBJECT_PARAMETERS = {
+    "CacheControl": "max-age=86400",
+}
+
+AWS_LOCATION = "static"
+
+# this is from where, django wills serve files
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.0/howto/static-files/
+STATIC_URL = "https://" + AWS_S3_CUSTOM_DOMAIN + "/" + AWS_LOCATION + "/"
+STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
