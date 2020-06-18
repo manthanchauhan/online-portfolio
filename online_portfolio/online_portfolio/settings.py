@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "accounts",
     "portfolio",
     "storages",
+    "phonenumber_field",
 ]
 
 MIDDLEWARE = [
@@ -147,3 +148,10 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 STATIC_URL = "https://" + AWS_S3_CUSTOM_DOMAIN + "/" + AWS_LOCATION + "/"
 STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
+# phone number setup
+PHONENUMBER_DB_FORMAT = "INTERNATIONAL"
+
+# user uploaded files
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/"
