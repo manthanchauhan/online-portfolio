@@ -32,7 +32,9 @@ $(document).ready(function () {
 $("#save_about").on("click", function() {
   var name = $('#name').text();
   var tagline = $('#tagline').text();
-  var about = $('#about').text();
+  var about = $('#about_me').text();
+  var profile_pic =
+  console.log(tagline);
 
   $.ajax({
     url: '/portfolio/update_about/',
@@ -47,4 +49,9 @@ $("#save_about").on("click", function() {
       alert(response.responseJSON.message);
     }
   });
+});
+
+$("#profile_pic_alt").on("click", function() {
+  // console.log("hi");
+  $("#profile_picture").click();
 });

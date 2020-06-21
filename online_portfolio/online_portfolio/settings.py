@@ -159,3 +159,6 @@ PHONENUMBER_DB_FORMAT = "INTERNATIONAL"
 # user uploaded files
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
+
+# app functionality settings
+DEFAULT_PORTFOLIO = "manthanchauhan913@gmail.com"

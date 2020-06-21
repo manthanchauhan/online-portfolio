@@ -4,6 +4,7 @@
       <w>apikey</w>
       <w>sendgrid</w>
       <w>smtp</w>
+      <w>tagline</w>
     </words>
   </dictionary>
 </component>

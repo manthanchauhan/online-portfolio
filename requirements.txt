@@ -13,7 +13,9 @@ django-decouple==2.1
 django-phonenumber-field==4.0.0
 django-storages==1.9.1
 docutils==0.15.2
+importlib-metadata==1.6.1
 jmespath==0.10.0
+Markdown==3.2.2
 passlib==1.7.2
 pathspec==0.8.0
 phonenumbers==8.12.5
@@ -30,3 +32,4 @@ sqlparse==0.3.1
 toml==0.10.1
 typed-ast==1.4.1
 urllib3==1.25.9
+zipp==3.1.0

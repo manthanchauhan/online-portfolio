@@ -1,3 +1,7 @@
+.editable_{
+  white-space: pre-line;
+}
+
 #profile_pic {
   margin: auto;
   padding: auto;
@@ -25,6 +29,10 @@
   margin-bottom: 80px;
 }
 
+#about_me{
+  padding: auto;
+}
+
 @media screen and (min-width: 992px) {
   #profile_pic {
     margin-right: 0;
@@ -34,6 +42,11 @@
   #name_and_tag {
     margin-left: 0;
     padding-left: 0;
+  }
+
+  #about_me{
+    padding-left: 5vw;
+    padding-right: 5vw;
   }
 
   .project_images {

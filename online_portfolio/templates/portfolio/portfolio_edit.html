@@ -55,12 +55,13 @@ Edit | Portfolio
 
         <div id="name_and_pic" class="container" style="margin-top:13vh;">
           <div id="profile_pic" class="container col-lg-3 float-left">
-            <img class="img-fluid" src="{% static 'portfolio/avatar.png' %}" alt="Avatar" style="border-radius:50%;width:160px;">
+            <img id="profile_pic_alt" class="img-fluid" src="{% static 'portfolio/avatar.png' %}" alt="Avatar" style="border-radius:50%;width:160px;">
+            <input type="file" id="profile_picture" style="display:none;">
           </div>
 
           <div id="name_and_tag" class="container col-lg-9 float-right">
-              <h1 id="name" contenteditable="true" style="color:white; font-family: 'Arimo', sans-serif;">Your Name Here</h1>
-              <p id="tagline" contenteditable="true" class="h4" style="color:white;font-family: 'Poppins', sans-serif;">Web Developer & Competitive Programmer</p>
+              <h1 id="name" class="editable" contenteditable="true" style="color:white; font-family: 'Arimo', sans-serif;">{{name}}</h1>
+              <p id="tagline" contenteditable="true" class="h4 editable" style="color:white;font-family: 'Poppins', sans-serif;">{{tag_line}}</p>
           </div>
         </div>
 
@@ -76,7 +77,7 @@ Edit | Portfolio
 
         <div id="about" class="container" style="color:white;">​
             <h3>About Me</h3>
-            <p contenteditable="true" id="about_me" class="text-lead">This is your Welcome Paragraph. It’s a great place to add concise, but enticing information about your website. The Welcome Section is the first text your readers encounter on your website so make it stand out. Keep it short, simple and powerful. Grab attention with a strong Welcome Title and engage your readers with some important details so they continue to browse your site.</p>
+            <p contenteditable="true" id="about_me" class="text-lead">{{about}}</p>
         </div>
 
         <!-- <br> -->
