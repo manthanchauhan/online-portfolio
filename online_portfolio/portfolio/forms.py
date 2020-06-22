@@ -8,4 +8,4 @@ from django.forms import ModelForm
 class BasicInfoForm(ModelForm):
     class Meta:
         model = BasicInfo
-        fields = "__all__"
+        fields = ["name", "about", "tag_line", "profile_pic"]
