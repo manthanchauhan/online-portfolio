@@ -49,7 +49,7 @@ class UpdateAboutSection(LoginRequiredMixin, View):
         return JsonResponse({"success": True, "message": "success"})
 
 
-class AddProject(LoginRequiredMixin, View):
+class EditProjects(LoginRequiredMixin, View):
     @staticmethod
     def post(request):
         print(request.POST)
