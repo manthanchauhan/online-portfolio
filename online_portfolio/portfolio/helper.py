@@ -3,7 +3,7 @@ helper functions for portfolio app
 """
 from markdown import markdown
 from django.utils.html import mark_safe
-from .models import BasicInfo
+from .models import BasicInfo, Project
 from django.conf import settings
 
 
@@ -13,7 +13,7 @@ def as_markdown(content):
 
 def get_basic_info(user):
     basic_info = user.basicinfo
-    default_info = BasicInfo.objects.get(pk=settings.DEFAULT_PORTFOLIO)
+    default_info = BasicInfo.objects.get(pk=settings.DEFAULT_USER)
 
     def _get(key):
         real = getattr(basic_info, key)
@@ -33,3 +33,28 @@ def get_basic_info(user):
     }
 
     return user_data
+
+
+def get_projects_info(user):
+    projects = Project.objects.filter(user_profile=user.basicinfo)
+
+    if not projects.count():
+        default_info = BasicInfo.objects.get(pk=settings.DEFAULT_USER)
+        projects = Project.objects.filter(user_profile=default_info)
+
+    result = []
+
+    for project in projects:
+        project_data = {
+            "serial_no": project.serial_no,
+            "title": project.title,
+            "description": project.description,
+            "skills": project.skills,
+            "live_link": project.live_link,
+            "code_link": project.code_link,
+        }
+        result.append(project_data)
+
+    result.sort(key=lambda x: x["serial_no"])
+    print(result)
+    return result

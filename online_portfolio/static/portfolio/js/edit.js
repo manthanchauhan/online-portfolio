@@ -55,3 +55,10 @@ $("#profile_pic_alt").on("click", function() {
   // console.log("hi");
   $("#profile_picture").click();
 });
+
+function save_project(project) {
+  id = project.attr("proj_id");
+  title = $("#proj_title" + id).text();
+  description = $("#proj_desc" + id).text();
+  console.log(description);
+};

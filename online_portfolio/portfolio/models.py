@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+from django.core.validators import MinValueValidator
 from phonenumber_field.modelfields import PhoneNumberField
 from .validators import all_space_validator
 
@@ -38,4 +39,15 @@ class BasicInfo(models.Model):
             BasicInfo.objects.create(user=instance, email=instance.email)
 
 
-# class Project(models.Model)
+class Project(models.Model):
+    serial_no = models.IntegerField(validators=[MinValueValidator(0)])
+    user_profile = models.ForeignKey(BasicInfo, on_delete=models.CASCADE)
+    title = models.CharField(default="Project Title", max_length=25)
+    description = models.CharField(default="Description", max_length=200)
+    skills = models.CharField(default="Add skills here", max_length=50)
+    live_link = models.CharField(null=True, max_length=100)
+    code_link = models.CharField(null=True, max_length=100)
+    image = models.ImageField(null=True, upload_to="project_images/")
+
+    class Meta:
+        unique_together = (("user_profile", "title"), ("user_profile", "serial_no"))

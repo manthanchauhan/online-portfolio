@@ -161,4 +161,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
 
 # app functionality settings
-DEFAULT_PORTFOLIO = "manthanchauhan913@gmail.com"
+DEFAULT_USER = "manthanchauhan913@gmail.com"

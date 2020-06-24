@@ -12,8 +12,12 @@ class PortfolioEdit(LoginRequiredMixin, View):
 
     def get(self, request):
         basic_info = get_basic_info(request.user)
+        projects = get_projects_info(request.user)
 
-        return render(request, template_name=self.template, context=basic_info)
+        context = basic_info
+        context["projects"] = projects
+
+        return render(request, template_name=self.template, context=context)
 
 
 class UpdateAboutSection(LoginRequiredMixin, View):
