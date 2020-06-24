@@ -27,8 +27,9 @@ class BasicInfo(models.Model):
 
         self.__dict__.update(data)
 
+    @staticmethod
     @receiver(post_save, sender=User)
-    def create_profile(self, sender, instance, created, **kwargs):
+    def create_profile(sender, instance, created, **kwargs):
         """
         https://docs.djangoproject.com/en/3.0/ref/signals/#post-save
         :return: None
