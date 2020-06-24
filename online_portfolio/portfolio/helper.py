@@ -56,5 +56,4 @@ def get_projects_info(user):
         result.append(project_data)
 
     result.sort(key=lambda x: x["serial_no"])
-    print(result)
     return result

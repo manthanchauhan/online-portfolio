@@ -51,5 +51,6 @@ class UpdateAboutSection(LoginRequiredMixin, View):
 
 class AddProject(LoginRequiredMixin, View):
     @staticmethod
-    def get(request):
+    def post(request):
         print(request.POST)
+        return JsonResponse({"success": True, "message": "success"})

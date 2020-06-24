@@ -21,4 +21,5 @@ app_name = "portfolio"
 urlpatterns = [
     path("edit/", views.PortfolioEdit.as_view(), name="portfolio_edit"),
     path("update_about/", views.UpdateAboutSection.as_view(), name="update_about"),
+    path("edit_projects/", views.AddProject.as_view(), name="edit_projects"),
 ]

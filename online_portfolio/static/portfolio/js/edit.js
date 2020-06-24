@@ -33,8 +33,8 @@ $("#save_about").on("click", function() {
   var name = $('#name').text();
   var tagline = $('#tagline').text();
   var about = $('#about_me').text();
-  var profile_pic =
-  console.log(tagline);
+  var profile_pic = null;
+  //console.log(tagline);
 
   $.ajax({
     url: '/portfolio/update_about/',
@@ -60,5 +60,21 @@ function save_project(project) {
   id = project.attr("proj_id");
   title = $("#proj_title" + id).text();
   description = $("#proj_desc" + id).text();
-  console.log(description);
+  skills = $("#proj_skills" + id).text();
+  //console.log(description);
+
+  $.ajax({
+    url: '/portfolio/edit_projects/',
+    type: 'POST',
+    data: {
+      'id': id,
+      'title': title,
+      'description': description,
+      'skills': skills
+    },
+    dataType: "json",
+    complete: function (response) {
+      alert(response.responseJSON.message);
+    }
+  });
 };

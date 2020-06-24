@@ -95,23 +95,15 @@ Edit | Portfolio
     <div class="container" style="background:#f2f2f2; width: 90%; display:inline-block; min-height:100vh;">
         <h1 class="section_header" style="margin-top:70px;font-family: 'Poppins', sans-serif;">Projects & Work Samples</h1>
         <br>
+        {% for project in projects %}
         <div class="container project">
-            <div class="card bg-dark project_card" proj_id="0">
+            <div class="card bg-dark project_card" proj_id="{{project.serial_no}}">
               <div class="card-header project_title" style="color:white;">
-                <span class="float-left" contenteditable="true">Project Title</span>
+                <span class="float-left" id="proj_title{{project.serial_no}}" contenteditable="true">{{project.title}}</span>
               </div>
 
               <div class="card-body project_body">
-                <div class="project_desc float-left col-lg-7" style="text-align:left;color:white;" contenteditable="true">
-                  Here you can add a brief description of the project and organisation (in case of internships).<br><br>
-                  * Use (*) to create bullet points.<br>
-                  * Do not forget to mention the tasks you performed.<br>
-                  * bullet point.<br>
-                  * bullet point.<br>
-                  * bullet point.<br>
-                  * bullet point.<br>
-                  * bullet point.<br>
-                </div>
+                <div class="project_desc float-left col-lg-7" id="proj_desc{{project.serial_no}}" style="text-align:left;color:white;" contenteditable="true">{{project.description}}</div>
                 <div class="project_images float-right col-lg-5" style="text-align:center;">
                   <img class="img-fluid img-thumbnail project_image"  src="{% static 'portfolio/project_sample_image.png' %}" alt="">
                 </div>
@@ -120,11 +112,11 @@ Edit | Portfolio
               <div class="card-footer project-footer" style="color:white; text-align:left;">
                 <div class="container col-lg-8 float-left" style="padding:0px;">
                   <strong>Skills Used: </strong>
-                  <span contenteditable="true">Django, HTML, CSS, Postgres</span>
+                  <span id="proj_skills{{project.serial_no}}" contenteditable="true">{{project.skills}}</span>
                 </div>
 
                 <div class="project_links col-lg-4 float-right" style="text-align:right;">
-                    <button class="btn btn-success" type="button" name="button">Save</button>
+                    <button class="btn btn-success" proj_id="{{project.serial_no}}" onclick="save_project($(this));" type="button" name="button">Save</button>
                     <button class="btn btn-primary" type="button" name="button">Live Project</button>
                     <button class="btn btn-light" type="button" name="button">Code</button>
                 </div>
@@ -132,11 +124,12 @@ Edit | Portfolio
             </div>
 
         </div>
+        {% endfor %}
 
         <!-- <button type="button" id="end_modal_trigger" data-target="#myModal" data-toggle="modal" class="btn btn-success">End Session</button> -->
 
 
-        <div class="container project">
+        <!-- <div class="container project">
             <div class="card bg-dark project_card" proj_id="1">
               <div class="card-header project_title" style="color:white;">
                 <span class="float-left" contenteditable="true">Project Title</span>
@@ -171,7 +164,7 @@ Edit | Portfolio
                 </div>
               </div>
             </div>
-        </div>
+        </div> -->
 
         <div class="container" style="margin-bottom:15px;">
           <button type="button" class="btn btn-primary" name="Add Project">Add Project</button>
