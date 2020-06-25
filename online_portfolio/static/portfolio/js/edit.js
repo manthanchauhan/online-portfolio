@@ -78,3 +78,26 @@ function save_project(project) {
     }
   });
 };
+
+function delete_project(project) {
+  id = project.attr("proj_id");
+
+  if (!confirm('Do you want to delete the project?')) {
+    return false;
+  } 
+
+  project = $("#proj" +  id).hide();
+
+  $.ajax({
+    url: '/portfolio/delete_project/',
+    type: 'POST',
+    data: {
+      'id': id,
+    },
+    dataType: "json",
+    complete: function (response) {
+      alert(response.responseJSON.message);
+    }
+  });
+  //console.log("hidden");
+}

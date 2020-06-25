@@ -82,3 +82,20 @@ class EditProjects(LoginRequiredMixin, View):
         else:
             pass
         return JsonResponse({"success": True, "message": "success"})
+
+
+class DeleteProject(LoginRequiredMixin, View):
+    @staticmethod
+    def post(request):
+        id_ = int(request.POST["id"])
+
+        project = Project.objects.filter(
+            user_profile=request.user.basicinfo, serial_no=id_
+        )
+
+        if not project.count():
+            return JsonResponse({"success": True, "message": "error"})
+
+        project.delete()
+
+        return JsonResponse({"success": True, "message": "success"})

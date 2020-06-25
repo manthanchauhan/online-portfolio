@@ -23,6 +23,7 @@
 
 .project_links {
   margin-top: 10px;
+  text-align: right;
 }
 
 .project{
@@ -60,6 +61,7 @@
 
   .project_links{
     margin-top: 0px;
+    text-align: right;
   }
 }
 
@@ -122,6 +124,7 @@
 
   .project_links{
     padding: 0px;
+    text-align: right;
   }
 }
 

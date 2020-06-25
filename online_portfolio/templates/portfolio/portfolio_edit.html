@@ -96,7 +96,7 @@ Edit | Portfolio
         <h1 class="section_header" style="margin-top:70px;font-family: 'Poppins', sans-serif;">Projects & Work Samples</h1>
         <br>
         {% for project in projects %}
-        <div class="container project">
+        <div class="container project" id="proj{{project.serial_no}}">
             <div class="card bg-dark project_card" proj_id="{{project.serial_no}}">
               <div class="card-header project_title" style="color:white;">
                 <span class="float-left" id="proj_title{{project.serial_no}}" contenteditable="true">{{project.title}}</span>
@@ -110,15 +110,16 @@ Edit | Portfolio
               </div>
 
               <div class="card-footer project-footer" style="color:white; text-align:left;">
-                <div class="container col-lg-8 float-left" style="padding:0px;">
+                <div class="container col-lg-7 float-left" style="padding:0px;">
                   <strong>Skills Used: </strong>
                   <span id="proj_skills{{project.serial_no}}" contenteditable="true">{{project.skills}}</span>
                 </div>
 
-                <div class="project_links col-lg-4 float-right" style="text-align:right;">
+                <div class="project_links col-lg-5 float-right" style="text-align:right;">
                     <button class="btn btn-success" proj_id="{{project.serial_no}}" onclick="save_project($(this));" type="button" name="button">Save</button>
                     <button class="btn btn-primary" type="button" name="button">Live Project</button>
                     <button class="btn btn-light" type="button" name="button">Code</button>
+                    <button class="btn btn-danger" proj_id="{{project.serial_no}}" onclick="delete_project($(this));" type="button" name="button">Delete</button>
                 </div>
               </div>
             </div>
