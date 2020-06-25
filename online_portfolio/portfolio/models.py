@@ -20,7 +20,7 @@ class BasicInfo(models.Model):
     )
     tag_line = models.CharField(null=True, blank=True, max_length=55)
     call_of_contact = models.CharField(null=True, blank=True, max_length=400)
-    profile_pic = models.ImageField(null=True, blank=True, upload_to="profile_images/")
+    profile_pic = models.CharField(null=True, blank=False, max_length=200)
 
     def update(self, data):
         self.__dict__.update(data)

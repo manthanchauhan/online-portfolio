@@ -55,8 +55,9 @@ Edit | Portfolio
 
         <div id="name_and_pic" class="container" style="margin-top:13vh;">
           <div id="profile_pic" class="container col-lg-3 float-left">
-            <img id="profile_pic_alt" class="img-fluid" src="{% static 'portfolio/avatar.png' %}" alt="Avatar" style="border-radius:50%;width:160px;">
-            <input type="file" id="profile_picture" style="display:none;">
+            <img id="profile_pic_alt" class="img-fluid" {% if profile_pic %} src="{{profile_pic}}"
+            {% else %} src="{% static 'portfolio/avatar.png' %}" {% endif %} alt="Avatar" style="border-radius:50%;width:160px;height:160px;">
+            <input type="file" id="profile_picture" style="display:none;" onchange="UploadProfilePic('{{request.user.username}}');">
           </div>
 
           <div id="name_and_tag" class="container col-lg-9 float-right">
@@ -174,5 +175,6 @@ Edit | Portfolio
 {% endblock %}
 
 {% block scripts %}
+<script type="text/javascript" src="{% static 'portfolio/js/init-aws.js' %}"></script>
 <script type="text/javascript" src="{% static 'portfolio/js/edit.js' %}"></script>
 {% endblock %}

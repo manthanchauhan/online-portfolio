@@ -29,11 +29,47 @@ $(document).ready(function () {
   });
 });
 
+function UploadProfilePic(username) {
+  // console.log("hi");
+  var image = document.getElementById("profile_picture").files;
+
+  if (!image.length) {
+    return alert("Upload an image first");
+  }
+
+  var picture = image[0];
+  var filename = picture.name;
+
+  console.log(filename);
+
+  var upload = new AWS.S3.ManagedUpload({
+    params: {
+      Bucket: albumBucketName + "/" + folder,
+      Key: username + "_profile_pic." + filename.split('.').pop(),
+      Body: picture,
+      ACL: "public-read"
+    }
+  });
+
+  var promise = upload.promise();
+
+  promise.then(
+    function(data) {
+      url = "https://" + albumBucketName + ".s3." + bucketRegion + ".amazonaws.com/" + folder + "/" + username + "_profile_pic." + filename.split('.').pop();
+      $("#profile_pic_alt").attr("src", url);
+      // alert("Successfully uploaded photo.");
+    },
+    function(err) {
+      return alert("There was an error uploading your photo: ", err.message);
+    }
+  );
+};
+
 $("#save_about").on("click", function() {
   var name = $('#name').text();
   var tagline = $('#tagline').text();
   var about = $('#about_me').text();
-  var profile_pic = null;
+  var profile_pic = $("#profile_pic_alt").attr("src");
   //console.log(tagline);
 
   $.ajax({
@@ -42,7 +78,8 @@ $("#save_about").on("click", function() {
     data: {
       'name': name,
       'tagline': tagline,
-      'about': about
+      'about': about,
+      'profile_pic': profile_pic,
     },
     dataType: "json",
     complete: function (response) {
@@ -84,7 +121,7 @@ function delete_project(project) {
 
   if (!confirm('Do you want to delete the project?')) {
     return false;
-  } 
+  }
 
   project = $("#proj" +  id).hide();
 
