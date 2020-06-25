@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views import View
 from django.http import JsonResponse
 
-from .forms import BasicInfoForm
+from .forms import BasicInfoForm, ProjectForm
 from .helper import *
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -52,5 +52,33 @@ class UpdateAboutSection(LoginRequiredMixin, View):
 class EditProjects(LoginRequiredMixin, View):
     @staticmethod
     def post(request):
-        print(request.POST)
+        # print(request.POST)
+
+        project_id = int(request.POST["id"])
+        project = Project.objects.filter(
+            user_profile=request.user.basicinfo, serial_no=project_id
+        )
+
+        _get = request.POST.get
+
+        if project.count():
+            project = project[0]
+            data = {
+                "title": _get("title", project.title),
+                "description": _get("description", project.description),
+                "skills": _get("skills", project.skills),
+                "live_link": _get("live_link", project.live_link),
+                "code_link": _get("code_link", project.code_link),
+                "image": _get("image", project.image),
+            }
+
+            form = ProjectForm(data, instance=project)
+
+            if not form.is_valid():
+                print(form.errors)
+                return JsonResponse({"success": False, "message": "error"})
+
+            form.save()
+        else:
+            pass
         return JsonResponse({"success": True, "message": "success"})
