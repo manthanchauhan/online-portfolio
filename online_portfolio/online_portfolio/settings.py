@@ -159,6 +159,7 @@ PHONENUMBER_DB_FORMAT = "INTERNATIONAL"
 # user uploaded files
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
+DEFAULT_FILE_STORAGE = "online-portfolio.classes.MediaStorage"
 
 # app functionality settings
 DEFAULT_USER = "manthanchauhan913@gmail.com"
