@@ -53,6 +53,7 @@ def get_projects_info(user):
             "skills": project.skills,
             "live_link": project.live_link,
             "code_link": project.code_link,
+            "image": project.image,
         }
         result.append(project_data)
 

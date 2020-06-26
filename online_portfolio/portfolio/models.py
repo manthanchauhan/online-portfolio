@@ -46,7 +46,7 @@ class Project(models.Model):
     skills = models.CharField(default="Add skills here", max_length=100)
     live_link = models.CharField(blank=True, null=True, max_length=100)
     code_link = models.CharField(blank=True, null=True, max_length=100)
-    image = models.ImageField(blank=True, null=True, upload_to="project_images/")
+    image = models.CharField(blank=True, null=True, max_length=200)
 
     class Meta:
         unique_together = (("user_profile", "title"), ("user_profile", "serial_no"))

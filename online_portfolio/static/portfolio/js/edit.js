@@ -29,22 +29,53 @@ $(document).ready(function () {
   });
 });
 
-function UploadProfilePic(username) {
-  // console.log("hi");
-  var image = document.getElementById("profile_picture").files;
+function UploadProjectImage(username, sno) {
+  var image = document.getElementById("project_picture" + sno).files;
 
   if (!image.length) {
     return alert("Upload an image first");
   }
 
-  var picture = image[0];
-  var filename = picture.name;
-
+  image = image[0];
+  var filename = image.name;
   console.log(filename);
 
   var upload = new AWS.S3.ManagedUpload({
     params: {
-      Bucket: albumBucketName + "/" + folder,
+      Bucket: mediaPath + "/projectImages",
+      Key: username + "_projectImage_" + sno + "." + filename.split('.').pop(),
+      Body: image,
+      ACL: "public-read"
+    }
+  });
+
+  var promise = upload.promise();
+
+  promise.then(function(data) {
+    url = "https://" + albumBucketName + ".s3." + bucketRegion + ".amazonaws.com/media/projectImages/" + username + "_projectImage_" + sno + "." + filename.split('.').pop();
+    $("#project_thumb" + sno).attr("src", url);
+  },
+  function(err){
+    return alert("There was an error uploading your photo: ", err.message);
+  });
+};
+
+function UploadProfilePic(username) {
+  // console.log("hi");
+  var image = document.getElementById("profile_picture").files;
+
+  return alert("Upload an image first");
+  if (!image.length) {
+  }
+
+  var picture = image[0];
+  var filename = picture.name;
+
+  // console.log(filename);
+
+  var upload = new AWS.S3.ManagedUpload({
+    params: {
+      Bucket: mediaPath,
       Key: username + "_profile_pic." + filename.split('.').pop(),
       Body: picture,
       ACL: "public-read"
@@ -55,7 +86,8 @@ function UploadProfilePic(username) {
 
   promise.then(
     function(data) {
-      url = "https://" + albumBucketName + ".s3." + bucketRegion + ".amazonaws.com/" + folder + "/" + username + "_profile_pic." + filename.split('.').pop();
+      console.log(data);
+      url = "https://" + albumBucketName + ".s3." + bucketRegion + ".amazonaws.com/media/" + username + "_profile_pic." + filename.split('.').pop();
       $("#profile_pic_alt").attr("src", url);
       // alert("Successfully uploaded photo.");
     },
@@ -93,12 +125,18 @@ $("#profile_pic_alt").on("click", function() {
   $("#profile_picture").click();
 });
 
+function uploadProjImage(sno) {
+  // console.log(sno);
+  $("#project_picture" + sno).click();
+};
+
 function save_project(project) {
   id = project.attr("proj_id");
   title = $("#proj_title" + id).text();
   description = $("#proj_desc" + id).text();
   skills = $("#proj_skills" + id).text();
-  //console.log(description);
+  image = $("#project_thumb" + id).attr("src");
+  // console.log(description);
 
   $.ajax({
     url: '/portfolio/edit_projects/',
@@ -107,7 +145,8 @@ function save_project(project) {
       'id': id,
       'title': title,
       'description': description,
-      'skills': skills
+      'skills': skills,
+      'image': image
     },
     dataType: "json",
     complete: function (response) {
