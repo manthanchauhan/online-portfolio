@@ -69,8 +69,8 @@ class EditProjects(LoginRequiredMixin, View):
                 "title": _get("title", project.title),
                 "description": _get("description", project.description),
                 "skills": _get("skills", project.skills),
-                "live_link": _get("live_link", project.live_link),
-                "code_link": _get("code_link", project.code_link),
+                "live_link": _get("liveLink", project.live_link),
+                "code_link": _get("codeLink", project.code_link),
                 "image": _get("image", project.image),
             }
 

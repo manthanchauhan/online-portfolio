@@ -177,3 +177,25 @@ function delete_project(project) {
   });
   //console.log("hidden");
 }
+
+function saveProjLinks(sno){
+  liveLink = $("#projLiveLink" + sno).val();
+  codeLink = $("#projCodeLink" + sno).val();
+
+  $.ajax({
+    url: '/portfolio/edit_projects/',
+    type: 'POST',
+    data: {
+      'id': sno,
+      'liveLink': liveLink,
+      'codeLink': codeLink,
+    },
+    dataType: "json",
+    complete: function (response) {
+      alert(response.responseJSON.message);
+    }
+  });
+
+  $('#projectLinks' + sno).modal('toggle');
+  // console.log(liveLink);
+}
