@@ -81,9 +81,9 @@ class EditProjects(LoginRequiredMixin, View):
                 return JsonResponse({"success": False, "message": "error"})
 
             form.save()
-        else:
-            pass
-        return JsonResponse({"success": True, "message": "success"})
+            return JsonResponse({"success": True, "message": "success"})
+
+        return JsonResponse({"success": False, "message": "error"})
 
 
 class DeleteProject(LoginRequiredMixin, View):
@@ -101,3 +101,21 @@ class DeleteProject(LoginRequiredMixin, View):
         project.delete()
 
         return JsonResponse({"success": True, "message": "success"})
+
+
+class AddNewProject(LoginRequiredMixin, View):
+    @staticmethod
+    def post(request):
+        serial_no = request.user.basicinfo.project_id
+
+        basic_info = request.user.basicinfo
+        basic_info.project_id += 1
+        basic_info.save()
+
+        project = Project(serial_no=serial_no, user_profile=request.user.basicinfo)
+        project.save()
+
+        project_data = project.to_dict()
+        return JsonResponse(
+            {"success": True, "message": "success", "project_data": project_data}
+        )

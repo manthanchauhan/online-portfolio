@@ -138,16 +138,20 @@ function save_project(project) {
   image = $("#project_thumb" + id).attr("src");
   // console.log(description);
 
+  data = {
+    'id': id,
+    'title': title,
+    'description': description,
+    'skills': skills,
+    'image': image
+  };
+
+  console.log(data);
+
   $.ajax({
     url: '/portfolio/edit_projects/',
     type: 'POST',
-    data: {
-      'id': id,
-      'title': title,
-      'description': description,
-      'skills': skills,
-      'image': image
-    },
+    data: data,
     dataType: "json",
     complete: function (response) {
       alert(response.responseJSON.message);
@@ -176,6 +180,98 @@ function delete_project(project) {
     }
   });
   //console.log("hidden");
+}
+
+function addProject(avatar){
+  // console.log("hi");
+
+  $.ajax({
+    url: '/portfolio/add_project/',
+    type: 'POST',
+    data: {},
+    dataType: "json",
+    error: function (response) {
+      alert(response.responseJSON.message);
+      return false;
+    },
+    success: function (response) {
+      // console.log(response);
+      // console.log(response.responseJSON);
+      // console.log(response.project_data);
+      project = response.project_data;
+
+      var element = `<div class="modal" tabindex="-1" role="dialog" id="projectLinks` + project.serial_no + `">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Project Links</h5>
+
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <div class="modal-body">
+              <form>
+                <div class="form-group" style="text-align:left;">
+                  <label for="projLiveLink` + project.serial_no + `">Live Project Link:</label>
+                  <input type="text" class="form-control" id="projLiveLink` + project.serial_no + `">
+                </div>
+
+                <div class="form-group" style="text-align:left;">
+                  <label for="projCodeLink` + project.serial_no + `">GitHub (VCS) Link:</label>
+                  <input type="text" class="form-control" id="projCodeLink` + project.serial_no + `"
+                  placeholder="https://github.com/manthanchauhan/online-portfolio">
+                </div>
+              </form>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-success" onclick="saveProjLinks('` + project.serial_no + `')">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="container project" id="proj` + project.serial_no + `">
+          <div class="card bg-dark project_card" proj_id="` + project.serial_no + `">
+            <div class="card-header project_title" style="color:white;">
+              <span class="float-left" id="proj_title-1" contenteditable="true">` + project.title + `</span>
+            </div>
+
+            <div class="card-body project_body">
+              <div class="project_desc float-left col-lg-7" id="proj_desc` + project.serial_no + `" style="text-align:left;color:white;" contenteditable="true">` + project.description + `</div>
+              <div class="project_images float-right col-lg-5" style="text-align:center;">
+                <img class="img-fluid img-thumbnail project_image" id="project_thumb` + project.serial_no + `" onclick="uploadProjImage('` + project.serial_no + `')" src="` + project.image + `" alt="">
+                <input type="file" id="project_picture` + project.serial_no + `" style="display:none;" onchange="UploadProjectImage('{{request.user.username}}', '` + project.serial_no + `');">
+              </div>
+            </div>
+
+            <div class="card-footer project-footer" style="color:white; text-align:left;">
+              <div class="container col-lg-7 float-left" style="padding:0px;">
+                <strong>Skills Used: </strong>
+                <span id="proj_skills` + project.serial_no + `" contenteditable="true">` + project.skills + `</span>
+              </div>
+
+              <div class="project_links col-lg-5 float-right" style="text-align:right;">
+                  <button class="btn btn-success" proj_id="` + project.serial_no + `" onclick="save_project($(this));" type="button" name="button">Save</button>
+                  <button class="btn btn-primary" data-toggle="modal" data-target="#projectLinks` + project.serial_no + `" type="button" name="button">Live Project</button>
+                  <button class="btn btn-light" data-toggle="modal" data-target="#projectLinks` + project.serial_no + `" type="button" name="button">Code</button>
+                  <button class="btn btn-danger" proj_id="` + project.serial_no + `" onclick="delete_project($(this));" type="button" name="button">Delete</button>
+              </div>
+            </div>
+          </div>
+
+      </div>`;
+      $("#projectList").append(element);
+      $("#addProjectButton").attr("disabled", true);
+
+    }
+  });
+
+
 }
 
 function saveProjLinks(sno){

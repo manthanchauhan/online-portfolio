@@ -8,6 +8,7 @@ from .validators import all_space_validator
 
 # Create your models here.
 class BasicInfo(models.Model):
+    project_id = models.IntegerField(validators=[MinValueValidator(0)], default=0)
     user = models.OneToOneField(User, on_delete=models.CASCADE, editable=False)
     name = models.CharField(
         null=True, blank=True, max_length=40, validators=[all_space_validator]
@@ -46,10 +47,27 @@ class Project(models.Model):
     skills = models.CharField(default="Add skills here", max_length=100)
     live_link = models.CharField(blank=True, null=True, max_length=100)
     code_link = models.CharField(blank=True, null=True, max_length=100)
-    image = models.CharField(blank=True, null=True, max_length=200)
+    image = models.CharField(
+        blank=True,
+        null=True,
+        max_length=200,
+        default="https://online-portfolio123.s3.ap-south-1.amazonaws.com/static/portfolio/763856+(1).jpg",
+    )
 
     class Meta:
         unique_together = (("user_profile", "title"), ("user_profile", "serial_no"))
 
     def update(self, data):
         self.__dict__.update(data)
+
+    def to_dict(self):
+        ans = {
+            "serial_no": self.serial_no,
+            "title": self.title,
+            "description": self.description,
+            "skills": self.skills,
+            "live_link": self.live_link,
+            "code_link": self.code_link,
+            "image": self.image,
+        }
+        return ans
