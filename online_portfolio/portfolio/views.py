@@ -1,8 +1,12 @@
 from django.shortcuts import render
 from django.views import View
 from django.http import JsonResponse
+from django.template.loader import render_to_string
+from django.core.files.storage import FileSystemStorage
+from online_portfolio.classes import MediaStorage
 
 from .forms import BasicInfoForm, ProjectForm
+import os
 from .helper import *
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -88,7 +92,12 @@ class DeleteProject(LoginRequiredMixin, View):
         project = Project.objects.get(pk=id_)
 
         if project.user_profile != request.user.basicinfo:
-            return JsonResponse({"success": True, "message": "error"})
+            return JsonResponse({"success": False, "message": "error"})
+
+        if request.user.basicinfo.total_projects == 1:
+            return JsonResponse(
+                {"succes": False, "message": "Cannot Delete All Projects"}
+            )
 
         project.delete()
 
@@ -109,14 +118,49 @@ class AddNewProject(LoginRequiredMixin, View):
                 {"success": False, "message": "You cannot have more than 10 projects"}
             )
 
-        project = Project(user_profile=request.user.basicinfo)
-        project.save()
-
-        basic_info = request.user.basicinfo
-        basic_info.total_projects += 1
-        basic_info.save()
+        project = create_default_project(request.user)
 
         project_data = project.to_dict()
         return JsonResponse(
             {"success": True, "message": "success", "project_data": project_data}
         )
+
+
+class ExportPortfolio(LoginRequiredMixin, View):
+    template = "portfolio/portfolio_export.html"
+
+    def post(self, request):
+        # print(request.POST)
+        basic_info = request.user.basicinfo
+        about_data = {
+            "name": basic_info.name,
+            "profile_pic": basic_info.profile_pic,
+            "tag_line": basic_info.tag_line,
+            "about": as_markdown(basic_info.about),
+        }
+
+        projects = Project.objects.filter(user_profile=request.user.basicinfo)
+        projects = [project.to_dict() for project in projects]
+
+        for project in projects:
+            project["description"] = as_markdown(project["description"])
+
+        context = {
+            "projects": projects,
+            "username": request.user.username,
+        }
+        context = {**context, **about_data}
+
+        portfolio = render_to_string(self.template, context)
+
+        with open(os.path.join(settings.BASE_DIR, "media", "port.html"), "w") as file:
+            file.write(portfolio)
+
+        with open(os.path.join(settings.BASE_DIR, "media", "port.html"), "rb") as file:
+            fs = MediaStorage()
+            file = fs.save(request.user.username + "portfolio.html", file)
+            url = fs.url(file)
+
+        os.remove(os.path.join(settings.BASE_DIR, "media", "port.html"))
+
+        return JsonResponse({"success": True, "message": "success", "url": url})

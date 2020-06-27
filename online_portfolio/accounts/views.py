@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from .forms import EnterEmailForm, SignUpForm
 from helper import encode_data, send_mail, decode_data
+from portfolio.helper import create_default_project
 from decouple import config
 from django.contrib import messages
 from django.template.loader import render_to_string
@@ -93,6 +94,8 @@ class SignupView(View):
 
         # in case of no tampering, register as new user.
         form.save()
+
+        create_default_project(request.user)
 
         # login the new user
         user = authenticate(

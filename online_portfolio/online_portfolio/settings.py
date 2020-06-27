@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 from decouple import config
 import os
+import mimetypes
+
+mimetypes.add_type("text/css", ".css", True)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -128,20 +131,20 @@ LOGIN_REDIRECT_URL = "/portfolio/edit/"
 LOGOUT_REDIRECT_URL = "/accounts/login"
 
 # static files (Amazon S3) configuration
-# AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY")
-# AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY")
-# AWS_STORAGE_BUCKET_NAME = "online-portfolio123"
-# AWS_DEFAULT_ACL = None
-# AWS_S3_CUSTOM_DOMAIN = AWS_STORAGE_BUCKET_NAME + ".s3.amazonaws.com"
-#
-# AWS_S3_OBJECT_PARAMETERS = {
-#     "CacheControl": "max-age=86400",
-# }
-#
-# AWS_LOCATION = "static"
-#
-# # Static files (CSS, JavaScript, Images)
-# # https://docs.djangoproject.com/en/3.0/howto/static-files/
+AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY")
+AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = "online-portfolio123"
+AWS_DEFAULT_ACL = None
+AWS_S3_CUSTOM_DOMAIN = AWS_STORAGE_BUCKET_NAME + ".s3.amazonaws.com"
+
+AWS_S3_OBJECT_PARAMETERS = {
+    "CacheControl": "max-age=86400",
+}
+
+AWS_LOCATION = "static"
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.0/howto/static-files/
 # STATIC_URL = "https://" + AWS_S3_CUSTOM_DOMAIN + "/" + AWS_LOCATION + "/"
 # STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
@@ -159,7 +162,20 @@ PHONENUMBER_DB_FORMAT = "INTERNATIONAL"
 # user uploaded files
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
-DEFAULT_FILE_STORAGE = "online-portfolio.classes.MediaStorage"
+DEFAULT_FILE_STORAGE = "online_portfolio.classes.MediaStorage"
 
 # app functionality settings
+DEFAULT_BASIC_INFO = {
+    "name": "Manthan Chauhan",
+    "about": "Lorem Ipsum is simply dummy text of the **printing** and *typesetting* industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged",
+    "tag_line": "Django Developer & Competitive Programmer",
+    "profile_pic": "https://online-portfolio123.s3.ap-south-1.amazonaws.com/static/portfolio/avatar.png",
+}
+
+DEFAULT_PROJECT = {
+    "title": "Project Title",
+    "description": "Project Description",
+    "skills": "Skills Utilized",
+    "image": "https://online-portfolio123.s3.ap-south-1.amazonaws.com/static/portfolio/763856+(1).jpg",
+}
 DEFAULT_USER = "manthanchauhan913@gmail.com"

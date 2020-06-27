@@ -294,4 +294,30 @@ function saveProjLinks(sno){
 
   $('#projectLinks' + sno).modal('toggle');
   // console.log(liveLink);
+};
+
+function exportPortfolio(){
+  if(!confirm("Do you want to export your new portfolio?")){
+    return false;
+  }
+
+  $.ajax({
+    url: '/portfolio/export_portfolio/',
+    type: 'POST',
+    data: {},
+    dataType: "json",
+    success: function (response) {
+      // console.log(response.url);
+      // console.log(response);
+      $("#portLink").attr("value", response.url);
+      $("#portfolioLink").show();
+    },
+    error: function (response) {
+      alert(response, response.responseJSON.message);
+    }
+  });
+};
+
+function closePortLink(){
+  $("#portfolioLink").hide();
 }

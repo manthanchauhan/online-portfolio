@@ -39,10 +39,6 @@ def get_basic_info(user):
 def get_projects_info(user):
     projects = Project.objects.filter(user_profile=user.basicinfo)
 
-    if not projects.count():
-        default_info = BasicInfo.objects.get(pk=settings.DEFAULT_USER)
-        projects = Project.objects.filter(user_profile=default_info)
-
     result = []
 
     for project in projects:
@@ -60,3 +56,14 @@ def get_projects_info(user):
 
     result.sort(key=lambda x: x["timestamp"])
     return result
+
+
+def create_default_project(user):
+    project = Project(user_profile=user.basicinfo)
+    project.save()
+
+    basic_info = user.basicinfo
+    basic_info.total_projects += 1
+    basic_info.save()
+
+    return project
