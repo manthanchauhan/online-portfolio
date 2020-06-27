@@ -31,7 +31,7 @@ class BasicInfo(models.Model):
     profile_pic = models.CharField(
         max_length=200, default=settings.DEFAULT_BASIC_INFO["profile_pic"],
     )
-    portfolio = models.FileField(null=True)
+    portfolio = models.CharField(null=True, blank=False, max_length=200)
 
     def update(self, data):
         self.__dict__.update(data)

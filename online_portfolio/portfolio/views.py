@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.views import View
 from django.http import JsonResponse
 from django.template.loader import render_to_string
-from django.core.files.storage import FileSystemStorage
 from online_portfolio.classes import MediaStorage
 
 from .forms import BasicInfoForm, ProjectForm
@@ -160,7 +159,9 @@ class ExportPortfolio(LoginRequiredMixin, View):
             fs = MediaStorage()
             file = fs.save(request.user.username + "portfolio.html", file)
             url = fs.url(file)
+            basic_info.portfolio = url
 
+        basic_info.save()
         os.remove(os.path.join(settings.BASE_DIR, "media", "port.html"))
 
         return JsonResponse({"success": True, "message": "success", "url": url})

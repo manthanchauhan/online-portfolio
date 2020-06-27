@@ -310,6 +310,7 @@ function exportPortfolio(){
       // console.log(response.url);
       // console.log(response);
       $("#portLink").attr("value", response.url);
+      $("#portLink2").attr("href", response.url);
       $("#portfolioLink").show();
     },
     error: function (response) {

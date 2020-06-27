@@ -31,6 +31,7 @@ def get_basic_info(user):
         "tag_line": _get("tag_line"),
         "call_of_contact": _get("call_of_contact"),
         "profile_pic": basic_info.profile_pic,
+        "portfolio": basic_info.portfolio,
     }
 
     return user_data
