@@ -54,51 +54,47 @@ class UpdateAboutSection(LoginRequiredMixin, View):
 class EditProjects(LoginRequiredMixin, View):
     @staticmethod
     def post(request):
-        # print(request.POST)
-
         project_id = int(request.POST["id"])
-        project = Project.objects.filter(
-            user_profile=request.user.basicinfo, serial_no=project_id
-        )
+        project = Project.objects.get(pk=project_id)
+
+        if project.user_profile != request.user.basicinfo:
+            return JsonResponse({"success": False, "message": "error"})
 
         _get = request.POST.get
 
-        if project.count():
-            project = project[0]
-            data = {
-                "title": _get("title", project.title),
-                "description": _get("description", project.description),
-                "skills": _get("skills", project.skills),
-                "live_link": _get("liveLink", project.live_link),
-                "code_link": _get("codeLink", project.code_link),
-                "image": _get("image", project.image),
-            }
+        data = {
+            "title": _get("title", project.title),
+            "description": _get("description", project.description),
+            "skills": _get("skills", project.skills),
+            "live_link": _get("liveLink", project.live_link),
+            "code_link": _get("codeLink", project.code_link),
+            "image": _get("image", project.image),
+        }
 
-            form = ProjectForm(data, instance=project)
+        form = ProjectForm(data, instance=project)
 
-            if not form.is_valid():
-                print(form.errors)
-                return JsonResponse({"success": False, "message": "error"})
+        if not form.is_valid():
+            print(form.errors)
+            return JsonResponse({"success": False, "message": "error"})
 
-            form.save()
-            return JsonResponse({"success": True, "message": "success"})
-
-        return JsonResponse({"success": False, "message": "error"})
+        form.save()
+        return JsonResponse({"success": True, "message": "success"})
 
 
 class DeleteProject(LoginRequiredMixin, View):
     @staticmethod
     def post(request):
         id_ = int(request.POST["id"])
+        project = Project.objects.get(pk=id_)
 
-        project = Project.objects.filter(
-            user_profile=request.user.basicinfo, serial_no=id_
-        )
-
-        if not project.count():
+        if project.user_profile != request.user.basicinfo:
             return JsonResponse({"success": True, "message": "error"})
 
         project.delete()
+
+        basic_info = request.user.basicinfo
+        basic_info.total_projects -= 1
+        basic_info.save()
 
         return JsonResponse({"success": True, "message": "success"})
 
@@ -106,14 +102,19 @@ class DeleteProject(LoginRequiredMixin, View):
 class AddNewProject(LoginRequiredMixin, View):
     @staticmethod
     def post(request):
-        serial_no = request.user.basicinfo.project_id
+        total_projects = request.user.basicinfo.total_projects
+
+        if total_projects >= 10:
+            return JsonResponse(
+                {"success": False, "message": "You cannot have more than 10 projects"}
+            )
+
+        project = Project(user_profile=request.user.basicinfo)
+        project.save()
 
         basic_info = request.user.basicinfo
-        basic_info.project_id += 1
+        basic_info.total_projects += 1
         basic_info.save()
-
-        project = Project(serial_no=serial_no, user_profile=request.user.basicinfo)
-        project.save()
 
         project_data = project.to_dict()
         return JsonResponse(

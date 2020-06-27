@@ -47,7 +47,8 @@ def get_projects_info(user):
 
     for project in projects:
         project_data = {
-            "serial_no": project.serial_no,
+            "serial_no": project.pk,
+            "timestamp": project.timestamp,
             "title": project.title,
             "description": project.description,
             "skills": project.skills,
@@ -57,5 +58,5 @@ def get_projects_info(user):
         }
         result.append(project_data)
 
-    result.sort(key=lambda x: x["serial_no"])
+    result.sort(key=lambda x: x["timestamp"])
     return result

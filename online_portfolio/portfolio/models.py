@@ -8,7 +8,7 @@ from .validators import all_space_validator
 
 # Create your models here.
 class BasicInfo(models.Model):
-    project_id = models.IntegerField(validators=[MinValueValidator(0)], default=0)
+    total_projects = models.IntegerField(validators=[MinValueValidator(0)], default=0)
     user = models.OneToOneField(User, on_delete=models.CASCADE, editable=False)
     name = models.CharField(
         null=True, blank=True, max_length=40, validators=[all_space_validator]
@@ -38,7 +38,7 @@ class BasicInfo(models.Model):
 
 
 class Project(models.Model):
-    serial_no = models.IntegerField(validators=[MinValueValidator(0)], editable=False)
+    timestamp = models.DateTimeField(auto_now_add=True, editable=False)
     user_profile = models.ForeignKey(
         BasicInfo, on_delete=models.CASCADE, editable=False
     )
@@ -55,15 +55,16 @@ class Project(models.Model):
     )
 
     class Meta:
-        unique_together = (("user_profile", "title"), ("user_profile", "serial_no"))
+        unique_together = (("user_profile", "title"), ("user_profile", "timestamp"))
 
     def update(self, data):
         self.__dict__.update(data)
 
     def to_dict(self):
         ans = {
-            "serial_no": self.serial_no,
+            "serial_no": self.pk,
             "title": self.title,
+            "timestamp": self.timestamp,
             "description": self.description,
             "skills": self.skills,
             "live_link": self.live_link,
