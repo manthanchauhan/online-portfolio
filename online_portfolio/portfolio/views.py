@@ -152,8 +152,8 @@ class ExportPortfolio(LoginRequiredMixin, View):
 
         portfolio = render_to_string(self.template, context)
 
-        with open(os.path.join(settings.BASE_DIR, "media", "port.html"), "w") as file:
-            file.write(portfolio)
+        with open(os.path.join(settings.BASE_DIR, "media", "port.html"), "wb") as file:
+            file.write(portfolio.encode("utf-8"))
 
         with open(os.path.join(settings.BASE_DIR, "media", "port.html"), "rb") as file:
             fs = MediaStorage()

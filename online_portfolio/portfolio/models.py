@@ -12,7 +12,7 @@ class BasicInfo(models.Model):
     total_projects = models.IntegerField(validators=[MinValueValidator(0)], default=0)
     user = models.OneToOneField(User, on_delete=models.CASCADE, editable=False)
     name = models.CharField(
-        null=settings.DEFAULT_BASIC_INFO["name"],
+        default=settings.DEFAULT_BASIC_INFO["name"],
         max_length=40,
         validators=[all_space_validator],
     )

@@ -101,7 +101,7 @@ class SignupView(View):
             password=form.cleaned_data["password1"],
         )
 
-        create_default_project(request.user)
+        create_default_project(user)
 
         login(request=request, user=user)
 

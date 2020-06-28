@@ -66,5 +66,4 @@ def create_default_project(user):
     basic_info = user.basicinfo
     basic_info.total_projects += 1
     basic_info.save()
-
     return project
