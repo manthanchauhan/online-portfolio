@@ -95,13 +95,14 @@ class SignupView(View):
         # in case of no tampering, register as new user.
         form.save()
 
-        create_default_project(request.user)
-
         # login the new user
         user = authenticate(
             username=form.cleaned_data["username"],
             password=form.cleaned_data["password1"],
         )
+
+        create_default_project(request.user)
+
         login(request=request, user=user)
 
         return redirect("home")

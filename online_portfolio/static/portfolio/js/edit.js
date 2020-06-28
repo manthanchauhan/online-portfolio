@@ -64,8 +64,8 @@ function UploadProfilePic(username) {
   // console.log("hi");
   var image = document.getElementById("profile_picture").files;
 
-  return alert("Upload an image first");
   if (!image.length) {
+      return alert("Upload an image first");
   }
 
   var picture = image[0];
