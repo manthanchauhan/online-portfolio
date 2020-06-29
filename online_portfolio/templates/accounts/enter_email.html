@@ -5,7 +5,7 @@ Sign Up
 {% endblock %}
 
 {% block content %}
-    <div class="col-lg-3 col-md-4 col-sm-4" style="display:inline-block; margin-top:35vh;">
+    <div class="enterEmailForm" style="display:inline-block; margin-top:35vh; padding: 0px;">
         <form method="post" action="{% url 'accounts:enter_email' %}">
             {% csrf_token %}
             
