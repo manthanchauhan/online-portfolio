@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
 from django.views import View
+import threading
 from .forms import EnterEmailForm, SignUpForm
 from helper import encode_data, send_mail, decode_data
 from portfolio.helper import create_default_project
 from decouple import config
+from datetime import datetime
 from django.contrib import messages
 from django.template.loader import render_to_string
 from django.contrib.auth import authenticate, login
@@ -50,8 +52,10 @@ class EnterEmail(View):
         )
         email_subject = "<Port>folio Signup Link"
 
-        send_mail(user_email, email_content, email_subject)
-
+        mail = threading.Thread(
+            target=send_mail, args=(user_email, email_content, email_subject)
+        )
+        mail.start()
         # return to the same page
         messages.success(request, "Please check your email")
         return redirect("accounts:enter_email")
