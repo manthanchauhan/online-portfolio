@@ -34,7 +34,7 @@ jobs:
 #    - name: Test with pytest
 #      run: |
 #        pytest
-     - name: Deployment to EC2
+    - name: Deployment to EC2
        env:
          SSH_KEY: ${{ secrets.SSH_KEY }}
        if: github.ref == 'refs/head/master' && job.status == 'success'
