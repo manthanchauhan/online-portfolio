@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "portfolio",
     "storages",
     "phonenumber_field",
+    "social_django",
 ]
 
 MIDDLEWARE = [
@@ -57,7 +58,13 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "social_django.middleware.SocialAuthExceptionMiddleware",
 ]
+
+AUTHENTICATION_BACKENDS = (
+    "social_core.backends.github.GithubOAuth2",
+    "django.contrib.auth.backends.ModelBackend",
+)
 
 ROOT_URLCONF = "online_portfolio.urls"
 
@@ -72,6 +79,8 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "social_django.context_processors.backends",
+                "social_django.context_processors.login_redirect",
             ],
         },
     },
@@ -130,7 +139,9 @@ EMAIL_USE_TLS = True
 
 # Login settings
 LOGIN_REDIRECT_URL = "/portfolio/edit/"
-LOGOUT_REDIRECT_URL = "/accounts/login"
+LOGIN_URL = "/accounts/login/"
+LOGOUT_URL = "/accounts/logout/"
+LOGOUT_REDIRECT_URL = "/accounts/login/"
 
 # static files (Amazon S3) configuration
 AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY")
@@ -164,6 +175,10 @@ PHONENUMBER_DB_FORMAT = "INTERNATIONAL"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
 DEFAULT_FILE_STORAGE = "online_portfolio.classes.MediaStorage"
+
+# OAuth settings
+SOCIAL_AUTH_GITHUB_KEY = config("GITHUB_KEY")
+SOCIAL_AUTH_GITHUB_SECRET = config("GITHUB_SECRET")
 
 # app functionality settings
 DEFAULT_BASIC_INFO = {

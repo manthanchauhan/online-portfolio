@@ -23,6 +23,8 @@ Sign Up
 
             <button type="submit" class="btn btn-primary">Send Invite Link</button>
         </form>
+        OR<br>
+        Login with <a href="{% url 'social:begin' 'github' %}">GitHub</a>.
         <hr>
         <p class="text-muted">Already have an account? Login <a href="{% url 'accounts:login' %}">here</a>.</p>
     </div>
