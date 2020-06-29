@@ -35,9 +35,9 @@ jobs:
 #      run: |
 #        pytest
     - name: Deployment to EC2
-       env:
-         SSH_KEY: ${{ secrets.SSH_KEY }}
-       if: github.ref == 'refs/head/master' && job.status == 'success'
-       run: |
+      env:
+        SSH_KEY: ${{ secrets.SSH_KEY }}
+      if: github.ref == 'refs/head/master' && job.status == 'success'
+      run: |
          ssh -i $SSH_KEY ubuntu@13.233.158.174
          touch /home/ubuntu/cd.txt
