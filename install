@@ -1,15 +1,21 @@
-# mkdir portfolio2
-# cd /home/ubuntu/portfolio2
-# git init
-
+echo 'Removing old code'
 sudo rm -R /home/ubuntu/online-portfolio
+
+echo 'Cloning the Repository'
 git clone https://github.com/manthanchauhan/online-portfolio.git
 
+echo 'Removing old venv'
 sudo rm -R /home/ubuntu/venv
+
+echo 'Creating new venv'
 python3 -m virtualenv venv
 
+echo 'Installing libraries'
 source /home/ubuntu/venv/bin/activate
 pip install -r /home/ubuntu/online-portfolio/requirements.txt
 
+echo 'Collecting Static Files on S3'
 python /home/ubuntu/online-portfolio/online_portfolio/manage.py collectstatic --noinput
+
+echo 'Restart Apache server'
 sudo service apache2 restart
