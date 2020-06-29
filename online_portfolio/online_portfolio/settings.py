@@ -12,9 +12,6 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 from decouple import config
 import os
-import mimetypes
-
-mimetypes.add_type("text/css", ".css", True)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -24,13 +21,18 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "fp&8nwualuv*(q96=9fu^+$or9-4l-7ld7ev(!0pm%7h=8y6&9"
+SECRET_KEY = config("SECURITY_KEY")
 
+ENV = config("ENV", default="local")
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = ["www.online-portfolio.live"]
+if ENV == "local":
+    DEBUG = True
+    ALLOWED_HOSTS = []
 
+elif ENV == "prod":
+    DEBUG = False
+    ALLOWED_HOSTS = ["www.online-portfolio.live"]
 
 # Application definition
 
@@ -145,16 +147,15 @@ AWS_LOCATION = "static"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-STATIC_URL = "https://" + AWS_S3_CUSTOM_DOMAIN + "/" + AWS_LOCATION + "/"
-STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+if ENV == "prod":
+    STATIC_URL = "https://" + AWS_S3_CUSTOM_DOMAIN + "/" + AWS_LOCATION + "/"
+    STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
-# this is from where, django wills serve files
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-]
-
-# STATIC_URL = "/static/"
-
+else:
+    STATIC_URL = "/static/"
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, "static"),
+    ]
 
 # phone number setup
 PHONENUMBER_DB_FORMAT = "INTERNATIONAL"
