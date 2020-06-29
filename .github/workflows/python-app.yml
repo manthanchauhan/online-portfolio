@@ -39,5 +39,6 @@ jobs:
         SSH_KEY: ${{ secrets.SSH_KEY }}
       if: github.ref == 'refs/heads/master' && job.status == 'success'
       run: |
+         echo $SSH_KEY
          ssh -i $SSH_KEY ubuntu@13.233.158.174
          touch /home/ubuntu/cd.txt
