@@ -29,7 +29,7 @@ SECRET_KEY = "fp&8nwualuv*(q96=9fu^+$or9-4l-7ld7ev(!0pm%7h=8y6&9"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["www.online-portfolio.live"]
 
 
 # Application definition

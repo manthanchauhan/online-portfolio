@@ -11,5 +11,5 @@ python3 -m virtualenv venv
 source /home/ubuntu/venv/bin/activate
 pip install -r /home/ubuntu/online-portfolio/requirements.txt
 
-python /home/ubuntu/online-portfolio/online_portfolio/manage.py collectstatic
+python /home/ubuntu/online-portfolio/online_portfolio/manage.py collectstatic --noinput
 sudo service apache2 restart
