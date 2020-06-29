@@ -11,9 +11,9 @@ Sign Up
             
             {% if form.user_email.errors %}
             <div class="container text-danger" style="margin-bottom: 15px; padding: 0px;">
-                    {% for error in form.user_email.errors %}
-                        {{error}}
-                    {% endfor %}
+                {% for error in form.user_email.errors %}
+                    {{error}}
+                {% endfor %}
             </div>
             {% endif %}
             
