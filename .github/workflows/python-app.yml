@@ -34,12 +34,10 @@ jobs:
 #    - name: Test with pytest
 #      run: |
 #        pytest
-    - uses: webfactory/ssh-agent@v0.4.0
+    - name: Deploy to EC2
+      uses: garygrossgarten/github-action-ssh@release
       with:
-        ssh-private-key: ${{ secrets.SSH_KEY }}
-
-    - name: Deployment to EC2
-      if: github.ref == 'refs/heads/master' && job.status == 'success'
-      run: |
-         ssh -v ubuntu@13.233.158.174
-         touch /home/ubuntu/cd.txt
+        command: ls -a
+        host: 13.233.158.174
+        username: ubuntu
+        privateKey: ${{ secrets.SSH_KEY }}
