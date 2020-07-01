@@ -5,14 +5,17 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="{% static 'accounts/accounts.css' %}">
+    <link rel="stylesheet" href="{% static 'accounts/css/accounts.css' %}">
     
     <title>{% block title %}{% endblock %}</title>
 </head>
 
-<body style="text-align:center; width:100%;">
+<body style="text-align:center; width:100%; min-height: 100vh; position: relative;">
     {% block content %}
     {% endblock %}
 </body>
+
+{% block scripts %}
+{% endblock scripts %}
 </html>
 

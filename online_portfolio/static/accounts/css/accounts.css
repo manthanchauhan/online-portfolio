@@ -1,0 +1,49 @@
+#enterEmailContent{
+    /*border: 1px solid black;*/
+    width: 40vw;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -20vw;
+    margin-top: -83px;
+}
+
+#enterEmailImage{
+    margin-top: 33px;
+    cursor: pointer;
+}
+
+#enterEmailForm{
+    border-right: 1px solid #e6e6e6;
+}
+
+@media screen and (max-width: 1190px) {
+    #enterEmailContent{
+        width: 65vw;
+        margin-left: -32.5vw;
+    }
+}
+
+@media screen and (max-width: 730px) {
+    #enterEmailContent{
+        width: 85vw;
+        margin-left: -42.5vw;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    #enterEmailImage{
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+
+    #enterEmailContent{
+        margin-top: -150px;
+    }
+
+    #enterEmailForm{
+        padding-top: 15px;
+        border-right: none;
+        border-top: 1px solid #e6e6e6;
+    }
+}

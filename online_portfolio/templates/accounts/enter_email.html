@@ -1,12 +1,18 @@
 {% extends 'accounts/base.html' %}
-
+{% load static %}
 {% block title %}
 Sign Up
 {% endblock %}
 
 {% block content %}
-    <div class="enterEmailForm" style="display:inline-block; margin-top:35vh; padding: 0px;">
-        <form method="post" action="{% url 'accounts:enter_email' %}">
+    <div class="container" id="enterEmailContent" style="display:inline-block;">
+        <div id="enterEmailImage" class="container col-sm-4 float-right">
+            <img onclick="githubLogin();" src="{% static 'portfolio/github.png' %}" class="img-fluid" style="width: 100px;">
+            <a id="githubLogin" style="display: none;" href="{% url 'social:begin' 'github' %}"></a>
+        </div>
+        
+        <div class="container col-sm-8 float-left" id="enterEmailForm">
+            <form method="post" action="{% url 'accounts:enter_email' %}">
             {% csrf_token %}
             
             {% if form.user_email.errors %}
@@ -23,9 +29,41 @@ Sign Up
 
             <button type="submit" class="btn btn-primary">Send Invite Link</button>
         </form>
-        OR<br>
-        Login with <a href="{% url 'social:begin' 'github' %}">GitHub</a>.
-        <hr>
+<!--            <hr>-->
+            <br>
+
         <p class="text-muted">Already have an account? Login <a href="{% url 'accounts:login' %}">here</a>.</p>
+        </div>
+        
     </div>
+
+
+<!--    <div class="enterEmailForm" style="display:inline-block; margin-top:35vh; padding: 0px;">-->
+<!--        <form method="post" action="{% url 'accounts:enter_email' %}">-->
+<!--            {% csrf_token %}-->
+<!--            -->
+<!--            {% if form.user_email.errors %}-->
+<!--            <div class="container text-danger" style="margin-bottom: 15px; padding: 0px;">-->
+<!--                {% for error in form.user_email.errors %}-->
+<!--                    {{error}}-->
+<!--                {% endfor %}-->
+<!--            </div>-->
+<!--            {% endif %}-->
+<!--            -->
+<!--            <div class="form-group">-->
+<!--                {{form.user_email}}-->
+<!--            </div>-->
+
+<!--            <button type="submit" class="btn btn-primary">Send Invite Link</button>-->
+<!--        </form>-->
+<!--        OR<br>-->
+<!--        Login with <a href="{% url 'social:begin' 'github' %}">GitHub</a>.-->
+<!--        <hr>-->
+<!--        <p class="text-muted">Already have an account? Login <a href="{% url 'accounts:login' %}">here</a>.</p>-->
+<!--    </div>-->
+<!--    </div>-->
 {% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="{% static 'accounts/js/enter_email.js' %}"></script>
+{% endblock scripts %}

@@ -42,6 +42,8 @@ Login
             </ul>
             
             <button type="submit" class="btn btn-primary">Login</button>
+            <br>
+            <p>Login with <a href="{% url 'social:begin' 'github' %}">GitHub</a>.</p>
         </form>
         <hr>
         <p class="text-muted">Do not have account? Signup <a href="{% url 'accounts:enter_email' %}">here</a>.</p>
