@@ -158,15 +158,18 @@ AWS_LOCATION = "static"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+
 if ENV == "prod":
     STATIC_URL = "https://" + AWS_S3_CUSTOM_DOMAIN + "/" + AWS_LOCATION + "/"
     STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
 else:
     STATIC_URL = "/static/"
-    STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, "static"),
-    ]
+
 
 # phone number setup
 PHONENUMBER_DB_FORMAT = "INTERNATIONAL"
