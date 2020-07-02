@@ -20,6 +20,7 @@ from django.contrib.auth.views import (
     LogoutView,
     PasswordResetView,
     PasswordResetDoneView,
+    PasswordResetConfirmView,
 )
 from .forms import LoginForm, CustomPassReset
 
@@ -40,16 +41,22 @@ urlpatterns = [
         "password_reset/",
         PasswordResetView.as_view(
             template_name="accounts/password_reset_form.html",
-            email_template_name="accounts_password_reset_email.html",
-            subject_template_name="accounts_password_reset_sub.html",
-            success_url="password_reset_done/",
+            email_template_name="accounts/password_reset_email.html",
+            subject_template_name="accounts/password_reset_sub.txt",
+            success_url="/accounts/password_reset_done/",
             form_class=CustomPassReset,
         ),
         name="password_reset",
     ),
     path(
         "password_reset_done/",
-        PasswordResetDoneView.as_view(),
+        views.CustomPasswordResetDone.as_view(),
         name="password_reset_done",
+    ),
+    path(
+        "passsword_reset_confirm/",
+        PasswordResetConfirmView.as_view(
+            template_name="accounts/password_reset_confirm.html"
+        ),
     ),
 ]

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views import View
 import threading
-from .forms import EnterEmailForm, SignUpForm
+from .forms import EnterEmailForm, SignUpForm, CustomPassReset
 from helper import encode_data, send_mail, decode_data
 from portfolio.helper import create_default_project
 from decouple import config
@@ -110,3 +110,10 @@ class SignupView(View):
         login(request=request, user=user)
 
         return redirect("home")
+
+
+class CustomPasswordResetDone(View):
+    @staticmethod
+    def get(request):
+        messages.success(request, "Check your mail!")
+        return redirect(to="accounts:password_reset")
