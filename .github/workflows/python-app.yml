@@ -36,6 +36,7 @@ jobs:
 #        pytest
 #    -
     - name: Deploy to EC2
+      if: github.ref == 'ref/head/master'
       uses: garygrossgarten/github-action-ssh@release
       with:
         command: ./install
