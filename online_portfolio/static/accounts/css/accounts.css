@@ -8,6 +8,32 @@
     margin-top: -148px;
 }
 
+#loginContent{
+    /*border: 1px solid black;*/
+    display: inline-block;
+    width: 40vw;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -20vw;
+    margin-top: -210px;
+}
+
+#loginForm{
+    text-align: left;
+    padding-right: 20px;
+    border-right: 1px solid #e6e6e6;
+    width: 26vw;
+}
+
+#loginImage{
+    width: 100px;
+    padding: 0px;
+    margin-top: 92px;
+    margin-left: 15px;
+    cursor: pointer;
+}
+
 #enterEmailImage{
     margin-top: 33px;
     cursor: pointer;
@@ -22,12 +48,30 @@
         width: 65vw;
         margin-left: -32.5vw;
     }
+
+    #loginForm{
+        width: 42vw;
+    }
+
+    #loginContent{
+        width: 64vw;
+        margin-left: -32vw;
+    }
 }
 
 @media screen and (max-width: 730px) {
     #enterEmailContent{
         width: 85vw;
         margin-left: -42.5vw;
+    }
+
+    #loginContent{
+        width: 80vw;
+        margin-left: -40vw;
+    }
+
+    #loginForm{
+        width: 53vw;
     }
 }
 
@@ -43,6 +87,25 @@
 
     #enterEmailForm{
         padding-top: 15px;
+        border-right: none;
+        border-top: 1px solid #e6e6e6;
+    }
+
+    #loginContent{
+        text-align: center;
+        padding: 0;
+    }
+
+    #loginImage{
+        margin-top: 0px;
+        width: 80vw;
+        margin-left: 0;
+        margin-bottom: 20px;
+    }
+
+    #loginForm{
+        width: 80vw;
+        padding: 15px 0 0 0;
         border-right: none;
         border-top: 1px solid #e6e6e6;
     }
