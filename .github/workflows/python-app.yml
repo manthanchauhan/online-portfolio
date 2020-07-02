@@ -5,7 +5,7 @@ name: CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ * ]
   pull_request:
     branches: [ master ]
 
@@ -36,6 +36,7 @@ jobs:
 #        pytest
 #    -
     - name: Deploy to EC2
+      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
       uses: garygrossgarten/github-action-ssh@release
       with:
         command: ./install
@@ -43,6 +44,3 @@ jobs:
         username: ubuntu
         privateKey: ${{ secrets.SSH_KEY }}
 
-    - name: echo
-      run: |
-        echo ${{ github.event_name }}
