@@ -48,6 +48,7 @@
     }
 
     #enterEmailText{
-        font-max-size: 16px;
+        /*font-max-size: 16px;*/
+        text-size-adjust: none;
     }
 }
