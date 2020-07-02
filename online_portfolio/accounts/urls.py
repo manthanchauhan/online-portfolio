@@ -15,8 +15,13 @@ Including another URLconf
 """
 from django.urls import path
 from . import views
-from django.contrib.auth.views import LoginView, LogoutView
-from .forms import LoginForm
+from django.contrib.auth.views import (
+    LoginView,
+    LogoutView,
+    PasswordResetView,
+    PasswordResetDoneView,
+)
+from .forms import LoginForm, CustomPassReset
 
 app_name = "accounts"
 
@@ -31,4 +36,20 @@ urlpatterns = [
         name="login",
     ),
     path("logout/", LogoutView.as_view(), name="logout"),
+    path(
+        "password_reset/",
+        PasswordResetView.as_view(
+            template_name="accounts/password_reset_form.html",
+            email_template_name="accounts_password_reset_email.html",
+            subject_template_name="accounts_password_reset_sub.html",
+            success_url="password_reset_done/",
+            form_class=CustomPassReset,
+        ),
+        name="password_reset",
+    ),
+    path(
+        "password_reset_done/",
+        PasswordResetDoneView.as_view(),
+        name="password_reset_done",
+    ),
 ]
