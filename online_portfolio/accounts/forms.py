@@ -1,9 +1,11 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import PasswordResetForm
+from django.utils.safestring import mark_safe
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 
-def existing_email(email):
+def _existing_email(email):
     """
     It is a validator which checks if the any user with the given email exists in the system.
     :param email: email to check
@@ -11,13 +13,40 @@ def existing_email(email):
     :rtype: bool
     """
     try:
-        user = User.objects.get(email=email)
+        User.objects.get(email=email)
     except User.DoesNotExist:
-        # no such user exists
+        return False
+
+    return True
+
+
+def existing_email(should_exist=False):
+    """
+    It is a validator which checks if the any user with the given email exists in the system.
+    :param email: email to check
+    :param should_exist: the desired result, regarding email existence
+    :type: str
+    :rtype: bool
+    """
+
+    def validator(email):
+        result = _existing_email(email)
+
+        if result != should_exist:
+            if not should_exist:
+                raise forms.ValidationError(
+                    "User with this email already exists. Please login."
+                )
+
+            raise forms.ValidationError(
+                mark_safe(
+                    "User with this email does not exists. Please <a href='/accounts/signup/'>signup</a>."
+                )
+            )
+
         return
 
-    # user exists
-    raise forms.ValidationError("User with this email already exists. Please login.")
+    return validator
 
 
 class EnterEmailForm(forms.Form):
@@ -33,7 +62,7 @@ class EnterEmailForm(forms.Form):
 
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(
-        validators=[existing_email],
+        validators=[existing_email()],
         widget=forms.EmailInput(
             attrs={"readonly": True, "id": "email", "class": "form-control"}
         ),
@@ -68,8 +97,21 @@ class LoginForm(AuthenticationForm):
         widget=forms.TextInput(attrs={"class": "form-control", "id": "username"})
     )
     password = forms.CharField(
-        widget=forms.PasswordInput(attrs={"class": "form-control", "id": "password"})
+        widget=forms.PasswordInput(attrs={"class": "form-control", "id": "password"}),
+        help_text=mark_safe(
+            'Forgot Password? Click <a href="/accounts/password_reset/">here</a>.'
+        ),
     )
 
     def __init__(self, *args, **kwargs):
         super(LoginForm, self).__init__(*args, **kwargs)
+
+
+class CustomPassReset(PasswordResetForm):
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={"id": "emailInput", "class": "form-control"}),
+        validators=[existing_email(should_exist=True)],
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(CustomPassReset, self).__init__(*args, **kwargs)

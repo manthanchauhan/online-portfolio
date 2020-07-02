@@ -133,6 +133,7 @@ USE_TZ = True
 # Email settings
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_HOST_USER = "pythonic913@gmail.com"
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = config("EMAIL_PASSWORD")
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
