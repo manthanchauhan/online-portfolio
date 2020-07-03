@@ -6,6 +6,7 @@ Login
 {% endblock %}
 
 {% block content %}
+{% include 'render_messages.html' %}
     <div id="loginContent" class="container">
         <div id="loginImage" class="container float-right">
             <img style="max-width: 100px;" onclick="githubLogin();" src="{% static 'portfolio/github.png' %}" class="img-fluid">

@@ -117,3 +117,10 @@ class CustomPasswordResetDone(View):
     def get(request):
         messages.success(request, "Check your mail!")
         return redirect(to="accounts:password_reset")
+
+
+class CustomPassResetComp(View):
+    @staticmethod
+    def get(request):
+        messages.success(request, "Password Changed Successfully")
+        return redirect(to="accounts:login")
