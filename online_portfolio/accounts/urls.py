@@ -19,10 +19,9 @@ from django.contrib.auth.views import (
     LoginView,
     LogoutView,
     PasswordResetView,
-    PasswordResetDoneView,
     PasswordResetConfirmView,
 )
-from .forms import LoginForm, CustomPassReset
+from .forms import LoginForm, CustomPassReset, CustomPassResetConf
 
 app_name = "accounts"
 
@@ -54,9 +53,17 @@ urlpatterns = [
         name="password_reset_done",
     ),
     path(
-        "passsword_reset_confirm/",
+        "password_reset_confirm/<str:uidb64>/<str:token>/",
         PasswordResetConfirmView.as_view(
-            template_name="accounts/password_reset_confirm.html"
+            template_name="accounts/password_reset_confirm.html",
+            form_class=CustomPassResetConf,
+            success_url="/accounts/password_reset_complete/",
         ),
+        name="password_reset_confirm",
+    ),
+    path(
+        "password_reset_complete/",
+        views.CustomPassResetComp.as_view(),
+        name="password_reset_complete",
     ),
 ]

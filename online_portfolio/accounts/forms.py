@@ -2,7 +2,11 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordResetForm
 from django.utils.safestring import mark_safe
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import (
+    UserCreationForm,
+    AuthenticationForm,
+    SetPasswordForm,
+)
 
 
 def _existing_email(email):
@@ -115,3 +119,16 @@ class CustomPassReset(PasswordResetForm):
 
     def __init__(self, *args, **kwargs):
         super(CustomPassReset, self).__init__(*args, **kwargs)
+
+
+class CustomPassResetConf(SetPasswordForm):
+    new_password1 = forms.CharField(
+        widget=forms.PasswordInput(attrs={"id": "password1", "class": "form-control"})
+    )
+
+    new_password2 = forms.CharField(
+        widget=forms.PasswordInput(attrs={"id": "password2", "class": "form-control"})
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(CustomPassResetConf, self).__init__(*args, **kwargs)

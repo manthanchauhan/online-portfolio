@@ -54,6 +54,16 @@
     margin-left: -13vw;
 }
 
+#PassResetConfForm{
+    width: 90%;
+    max-width: 300px;
+    margin-top: 30vh;
+}
+
+.form-group{
+    text-align: left;
+}
+
 @media screen and (max-width: 1190px) {
     #enterEmailContent{
         width: 65vw;
