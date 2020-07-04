@@ -4,18 +4,34 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'generic/css/about.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">    <link rel="stylesheet" href="{% static 'generic/css/about.css' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 </head>
 <body style="background: #e6f7ff;">
-<div class="container" style="text-align: center;">
-    <div class="container" id="aboutContent">
-        <h1 id="aboutHeading">About Me</h1>
+<div style="text-align: center; margin-top: 50px;">
+    <div id="aboutContent">
+        <h1 id="aboutHeading"><strong>About Me</strong></h1>
         <p>My name is Manthan Chauhan, I'm a Web Developer and Competitive Programmer, and an occasional Technical Content Writer on Geeksforgeeks & Medium. At the moment, I'm a B.tech undergrad in Electronics & Communication at Indraprastha University, Delhi, and will be graduating this year (2020).</p>
-        <p>I started my programming journey with Competitive Programming at Codechef.com, with C & C++. After that, I started developing small to medium level projects using Python. Primarily I'm a Backend Developer in Django, but I also have some experience in Frontend Development and DevOps.</p>
+        <p id="aboutPara2">I started my programming journey with Competitive Programming at Codechef.com, with C & C++. After that, I started developing small to medium level projects using Python. Primarily I'm a Backend Developer in Django, but I also have some experience in Frontend Development and DevOps.</p>
         <p>This Online Portfolio Maker is my biggest solo project by now, which has encouraged me to expand my skill set into various domains. In case you're having any issues, or have discovered any bug, I'd appreciate you to let me know about the same through the Feedback form.</p>
+        <hr>
+        <p class="sectionHeadings"><strong>Lets connect to exchange thoughts</strong></p>
+
+        <div id="aboutSocial" class="card shadow">
+            <div class="card-body socialBody">
+                <img class="socialIcons" src="{% static 'portfolio/linkedin.png' %}">
+                <img class="socialIcons img-fluid" src="{% static 'portfolio/github.png' %}">
+                <img class="socialIcons img-fluid" src="{% static 'portfolio/gmail.png' %}">
+                <img id="socialCodechef" class="socialIcons img-fluid" src="{% static 'portfolio/codechef.svg' %}">
+            </div>
+        </div>
+        
+        <hr>
+        <p class="sectionHeadings"><strong>Support the project</strong></p>
+
+
     </div>
 </div>
 </body>

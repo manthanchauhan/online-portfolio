@@ -4,16 +4,55 @@
     display: inline-block;
     max-width: 700px;
     font-family: 'Noto Sans KR', sans-serif;
-    font-size: 1.2em;
+    font-size: 1.1em;
 }
 
 #aboutHeading{
     font-size: 2em;
 }
 
+.socialIcons{
+    width: 16%;
+    max-height: 50px;
+    max-width: 50px;
+    margin: 5px;
+}
+
+#socialCodechef{
+    width: 48%;
+    max-width: 150px;
+}
+
+.socialBody{
+    text-align: center;
+    padding: 10px;
+}
+
+.sectionHeadings{
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2em;
+}
+
 @media screen and (max-width: 500px) {
     #aboutContent{
-        font-size: 1.25em;
+        font-size: 0.8em;
         width: 90%;
     }
+
+    #aboutPara2{
+        display: none;
+    }
+
+    .socialBody{
+        padding: 10px;
+    }
+
+    .socialIcons{
+        margin: 0 5px 0 5px;
+    }
+
+    #socialCodechef{
+        margin-top: 10px;
+    }
+
 }
