@@ -23,4 +23,5 @@ urlpatterns = [
     path("accounts/", include("accounts.urls")),
     path("portfolio/", include("portfolio.urls")),
     path("oauth/", include("social_django.urls", namespace="social")),
+    path("about/", views.About.as_view(), name="about"),
 ]
