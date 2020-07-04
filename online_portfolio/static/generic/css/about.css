@@ -4,20 +4,16 @@
     display: inline-block;
     max-width: 700px;
     font-family: 'Noto Sans KR', sans-serif;
-    font-size: 1.25em;
+    font-size: 1.2em;
 }
 
 #aboutHeading{
-    font-size: 2.5em;
+    font-size: 2em;
 }
 
 @media screen and (max-width: 500px) {
     #aboutContent{
-        font-size: 1.5em;
-        background: red;
-    }
-
-    #aboutHeading{
-        font-size: 3em;
+        font-size: 1.25em;
+        width: 90%;
     }
 }
