@@ -33,6 +33,13 @@
     font-size: 1.2em;
 }
 
+.paymentIcons{
+    width: 30%;
+    max-height: 50px;
+    max-width: 50px;
+    margin: 5px;
+}
+
 @media screen and (max-width: 500px) {
     #aboutContent{
         font-size: 0.8em;
