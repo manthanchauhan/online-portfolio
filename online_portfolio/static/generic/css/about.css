@@ -12,14 +12,14 @@
 }
 
 .socialIcons{
-    width: 16%;
+    width: 14%;
     max-height: 50px;
     max-width: 50px;
     margin: 5px;
 }
 
 #socialCodechef{
-    width: 48%;
+    width: 42%;
     max-width: 150px;
 }
 
@@ -34,10 +34,15 @@
 }
 
 .paymentIcons{
-    width: 30%;
+    width: 40%;
     max-height: 50px;
     max-width: 50px;
     margin: 5px;
+}
+
+.aboutLinks{
+    color: #262626;
+    text-decoration: underline;
 }
 
 @media screen and (max-width: 500px) {

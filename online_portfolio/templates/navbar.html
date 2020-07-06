@@ -1,0 +1,49 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#"><strong>Portfolio</strong></a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+            {% if request.user.is_authenticated %}
+            <li class="nav-item {% if request.path == '/portfolio/edit/' %} active {% endif %}">
+                <a class="nav-link" href="#">Edit Portfolio</a>
+            </li>
+            {% if portfolio %}
+            <li class="nav-item">
+                <a class="nav-link" id="portLink2" href="{{portfolio}}" target="_blank">View Portfolio</a>
+            </li>
+            {% endif %}
+            {% endif %}
+            
+            <li class="nav-item">
+                <a class="nav-link {% if request.path == '/about/' %} active {% endif %}" href="{% url 'about' %}">About Me</a>
+            </li>
+            
+            {% if request.user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="#">Feedback</a>
+            </li>
+            {% endif %}
+            
+            {% if not request.user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'accounts:enter_email' %}">Sign Up</a>
+            </li>
+            {% endif %}
+        </ul>
+
+        {% if request.user.is_authenticated %}
+        <form class="form-inline my-2 my-lg-0" method="get" action="{% url 'accounts:logout' %}">
+            <button class="btn btn-success my-2 my-sm-0" type="submit">Log Out</button>
+        </form>
+        {% endif %}
+        
+    </div>
+</nav>
