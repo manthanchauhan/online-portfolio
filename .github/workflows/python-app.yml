@@ -35,7 +35,7 @@ jobs:
       if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
       uses: garygrossgarten/github-action-ssh@release
       with:
-        command: /home/ubuntu/online-portfolio/install
+        command: ./install
         host: 13.233.158.174
         username: ubuntu
         privateKey: ${{ secrets.SSH_KEY }}
