@@ -133,7 +133,7 @@ function uploadProjImage(sno) {
 function save_project(project) {
   id = project.attr("proj_id");
   title = $("#proj_title" + id).text();
-  description = $("#proj_desc" + id).text();
+  description = $("#proj_desc" + id).summernote('code');
   skills = $("#proj_skills" + id).text();
   image = $("#project_thumb" + id).attr("src");
   // console.log(description);
@@ -323,14 +323,31 @@ function closePortLink(){
   $("#portfolioLink").hide();
 }
 
-function toSummernote(element) {
+function toSummernote(element, type) {
   let content = $(element).text();
-  $(element).summernote({
-    toolbar: [
-        ['style', ['bold', 'italic', 'underline', 'clear']],
-    ]
-  });
 
-  $(element).summernote('code', content);
+  if (type === 'about') {
+    $(element).summernote({
+      toolbar: [
+        ['style', ['bold', 'italic', 'underline', 'clear']],
+      ],
+      code: content,
+    });
+  }
+
+  else if (type === 'projectDesc'){
+    $(element).summernote({
+      toolbar: [
+      ['style', ['style']],
+      ['font', ['bold', 'underline', 'clear']],
+      ['fontname', ['fontname']],
+      ['color', ['color']],
+      ['para', ['ul', 'ol', 'paragraph']]
+      ],
+      code: content,
+    });
+  }
+
+  // $(element).summernote('code', content);
 
 }
