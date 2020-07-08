@@ -17,5 +17,8 @@ pip install -r /home/ubuntu/online-portfolio/requirements.txt
 echo 'Collecting Static Files on S3'
 python /home/ubuntu/online-portfolio/online_portfolio/manage.py collectstatic --noinput
 
+echo 'Providing appropriate permissions'
+sudo chmod -R 777 /home/ubuntu/online-portfolio/online_portfolio/media/
+
 echo 'Restart Apache server'
 sudo service apache2 restart
