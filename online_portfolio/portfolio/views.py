@@ -30,7 +30,6 @@ class UpdateAboutSection(LoginRequiredMixin, View):
 
     @staticmethod
     def post(request):
-        print(request.POST)
         data = {
             "name": request.POST["name"].strip(),
             "about": request.POST["about"],
