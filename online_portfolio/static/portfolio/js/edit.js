@@ -328,9 +328,6 @@ function toSummernote(element) {
   $(element).summernote({
     toolbar: [
         ['style', ['bold', 'italic', 'underline', 'clear']],
-        ['fontsize', ['fontsize']],
-        ['color', ['color']],
-        ['para', ['ul', 'ol', 'paragraph']],
     ]
   });
 
