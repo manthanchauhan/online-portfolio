@@ -100,7 +100,7 @@ function UploadProfilePic(username) {
 $("#save_about").on("click", function() {
   var name = $('#name').text();
   var tagline = $('#tagline').text();
-  var about = $('#about_me').text();
+  var about = $('#about_me').summernote('code');
   var profile_pic = $("#profile_pic_alt").attr("src");
   //console.log(tagline);
 
@@ -321,4 +321,16 @@ function exportPortfolio(){
 
 function closePortLink(){
   $("#portfolioLink").hide();
+}
+
+function toSummernote(element) {
+  let content = $(element).text();
+  $(element).summernote({
+    toolbar: [
+        ['style', ['bold', 'italic', 'underline', 'clear']],
+    ]
+  });
+
+  $(element).summernote('code', content);
+
 }
