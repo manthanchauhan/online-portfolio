@@ -23,19 +23,13 @@
 </head>
 <body style="background:#ffff4d; ">
 
-{% block navbar %}{% endblock %}
+{% if not avoid_navbar %}
+{% include 'navbar.html' %}
+{% endif %}
 
 {% block content %}{% endblock %}
 
-<footer class="page-footer font-small bg-dark">
-
-  <!-- Copyright -->
-  <div class="footer-copyright text-center py-3" style="color:white;">© 2020 Copyright:
-    <a href="{{request.scheme}}://{{request.META.HTTP_HOST}}" style="color:white;"> {{request.META.HTTP_HOST}}</a>
-  </div>
-  <!-- Copyright -->
-
-</footer>
+{% include 'footer.html' %}
 
 <!-- include summernote css/js -->
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>

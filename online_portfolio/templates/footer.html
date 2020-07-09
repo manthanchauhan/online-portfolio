@@ -1,5 +1,9 @@
 <footer class="page-footer font-small bg-dark">
     <div class="footer-copyright text-center py-3" style="color:white;">© 2020 Copyright:
-        <a href="{{request.scheme}}://{{request.META.HTTP_HOST}}" style="color:white;"> {{request.META.HTTP_HOST}}</a>
+        {% if copyright_link and copyright_value %}
+        <a href="{{copyright_link}}" target="_blank" style="color: white;">{{copyright_value}}</a>
+        {% else %}
+        <a href="{{request.scheme}}://{{request.META.HTTP_HOST}}" target="_blank" style="color:white;"> {{request.META.HTTP_HOST}}</a>
+        {% endif %}
     </div>
 </footer>

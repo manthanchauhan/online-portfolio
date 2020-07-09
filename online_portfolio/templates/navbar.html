@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#"><strong>Portfolio</strong></a>
+    <a class="navbar-brand" href="{% url 'home' %}"><strong>Portfolio</strong></a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -9,13 +9,15 @@
         <ul class="navbar-nav ml-auto">
             {% if request.user.is_authenticated %}
             <li class="nav-item {% if request.path == '/portfolio/edit/' %} active {% endif %}">
-                <a class="nav-link" href="#">Edit Portfolio</a>
+                <a class="nav-link" href="{% url 'portfolio:portfolio_edit' %}">Edit Portfolio</a>
             </li>
-            {% if portfolio %}
+            
+            {% if request.user.basicinfo.portfolio %}
             <li class="nav-item">
-                <a class="nav-link" id="portLink2" href="{{portfolio}}" target="_blank">View Portfolio</a>
+                <a class="nav-link" id="portLink2" href="{{request.user.basicinfo.portfolio}}" target="_blank">View Portfolio</a>
             </li>
             {% endif %}
+            
             {% endif %}
             
             <li class="nav-item">
@@ -25,6 +27,9 @@
             {% if request.user.is_authenticated %}
             <li class="nav-item">
                 <a class="nav-link" href="#">Feedback</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'accounts:logout' %}">Log Out</a>
             </li>
             {% endif %}
             
@@ -38,12 +43,5 @@
             </li>
             {% endif %}
         </ul>
-
-        {% if request.user.is_authenticated %}
-        <form class="form-inline my-2 my-lg-0" method="get" action="{% url 'accounts:logout' %}">
-            <button class="btn btn-success my-2 my-sm-0" type="submit">Log Out</button>
-        </form>
-        {% endif %}
-        
     </div>
 </nav>
