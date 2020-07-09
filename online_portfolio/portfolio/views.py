@@ -146,6 +146,9 @@ class ExportPortfolio(LoginRequiredMixin, View):
         context = {
             "projects": projects,
             "username": request.user.username,
+            "avoid_navbar": True,
+            "copyright_link": request.scheme + "://" + request.get_host(),
+            "copyright_value": request.get_host(),
         }
         context = {**context, **about_data}
 
