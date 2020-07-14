@@ -73,48 +73,46 @@ Edit | Portfolio
   </div>
 </div>
 
-<div id="titleDiv">
-    <div id="titleWithButton">
-        <div id="titleDivInner">
-            <div>
-                <img id="picture" class="img-fluid" {% if profile_pic %} src="{{profile_pic}}"
-                {% else %} src="{% static 'portfolio/avatar.png' %}" {% endif %} alt="Avatar" style="border-radius:50%;width:80px;height:80px;">
-                
-                <h1 id="titleName"><strong>Manthan Chauhan</strong></h1>
-                <h5 id="titleTagline">Web Developer | Competitive Programmer</h5>
-            </div>
-        </div>
-        
-        <div class="container">
-            <button class="btn btn-secondary float-right" style="margin:5px;">Save</button>
-        </div>
-    </div>
-</div>
-
-<div id="aboutDiv">
-    <div id="aboutOrange">
-        <div style="text-align: left;">I'm a <u>Backend Engineer</u> whose top priorities are <b>Speed</b>, <b>Security</b>, <b>Scalability</b> and <b>Reliability</b>.</div>
-        <div style="text-align: left;"><br></div>
-        <div style="text-align: left;">I have good knowledge of basic front-end technologies and I'm capable of building <b>complex systems</b>, entirely <u>from scratch</u>.<br><br>I have <b>leaded</b> multiple Software Development teams toward the <b>GOAL</b>, I'm a <u>team leader &amp; team builder</u>.</div>
-    </div>
-    <div style="text-align: center">
-        <button class="btn btn-secondary" style="margin:5px;">Save</button>
-    </div>
-</div>
-
-<div id="skillsDiv">
-    <div id="skillsGrey">
-        <div id="sectionHeadingDiv">
-            <h2>Programming Languages</h2>
-        </div>
-    </div>
-</div>
-
 <div style="text-align:center; width:100%;">
     <div class="container" style="background:#990000; width: 90%; display:inline-block; min-height:100vh;">
 
+        <div id="name_and_pic" class="container" style="margin-top:13vh;">
+          <div id="profile_pic" class="container col-lg-3 float-left">
+            <img id="profile_pic_alt" class="img-fluid" {% if profile_pic %} src="{{profile_pic}}"
+            {% else %} src="{% static 'portfolio/avatar.png' %}" {% endif %} alt="Avatar" style="border-radius:50%;width:160px;height:160px;">
+            <input type="file" id="profile_picture" style="display:none;" onchange="UploadProfilePic('{{request.user.username}}');">
+          </div>
+
+          <div id="name_and_tag" class="container col-lg-9 float-right">
+              <h1 id="name" class="editable" contenteditable="true" style="color:white; font-family: 'Arimo', sans-serif;">{{name}}</h1>
+              <p id="tagline" contenteditable="true" class="h4 editable" style="color:white;font-family: 'Poppins', sans-serif;">{{tag_line}}</p>
+          </div>
+        </div>
+
+<!--        <div id="profiles" class="container">-->
+<!--            <a href=""><img class="float-right img-thumbnail" style="margin:5px;height:50px;" src="{% static 'portfolio/github.png' %}"></a>-->
+<!--            <a href=""><img class="float-right img-thumbnail" style="margin:5px;height:50px;" src="{% static 'portfolio/gmail.png' %}"></a>-->
+<!--            <a href=""><img class="float-right img-thumbnail" style="margin:5px;height:50px;" src="{% static 'portfolio/linkedin.png' %}"></a>-->
+<!--            <a href=""><img class="float-right img-thumbnail" style="margin:5px;height:50px;" src="{% static 'portfolio/codechef.svg' %}"></a>-->
+<!--        </div>-->
+
+<!--        <br>-->
+<!--        <br>-->
+
+        <div id="about" class="container" style="color:white;">​
+            <h3>About Me</h3>
+            <div onclick="toSummernote(this, 'about');" id="about_me" class="text-lead">{{about}}</div>
+        </div>
+
+        <!-- <br> -->
+        <!-- <br> -->
+<!--        <br>-->
+
         <div id="save_button" class="container">
             <button class="btn btn-success float-right" id="save_about" style="margin:5px;">Save</button>
+<!--            <button class="btn btn-secondary" style="margin:5px;">Skills</button>-->
+<!--            <button class="btn btn-secondary" style="margin:5px;">Work Samples</button>-->
+<!--            <button class="btn btn-secondary" style="margin:5px;">Profiles & Contact</button>-->
         </div>
     </div>
 

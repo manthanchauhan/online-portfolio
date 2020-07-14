@@ -1,3 +1,8 @@
+*{
+  padding:0px;
+  margin:0px;
+}
+
 .editable_{
   white-space: pre-line;
 }
@@ -144,3 +149,84 @@
 
 .note-editor.note-frame .note-editing-area .note-editable { color: white; }
 
+#titleDiv{
+  background-image: url("/static/portfolio/business-2717066_1920.jpg");
+  background-size: cover;
+  min-height: 100vh;
+  text-align: center;
+}
+
+#titleWithButton{
+  width: 80%;
+  max-width: 500px;
+  display: inline-block;
+  margin-top: 20vh;
+}
+
+#titleDivInner{
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+#titleName{
+  font-size: 3rem;
+}
+
+#titleTagline{
+  font-size: 1.2rem;
+}
+
+#aboutDiv{
+  padding-top: 50px;
+  background-image: url("/static/portfolio/about_backgroud.png");
+  background-size: cover;
+  min-height: 100vh;
+}
+
+#aboutOrange{
+  opacity: 86%;
+  font-family: 'Open Sans', sans-serif;
+  width:90%;
+  min-height: 450px;
+  color: black;
+  padding: 30px 5% 50px 15%;
+  border-radius: 0 25px 25px 0;
+  background: #ececec;
+  font-size: 1.6rem;
+}
+
+#skillsDiv{
+  min-height: 100vh;
+  background-image: url("/static/portfolio/computer-2788918_1920.jpg");
+  background-size: cover;
+  text-align: center;
+  padding-top: 15vh;
+}
+
+/*#skillsHeadDiv{*/
+/*  background: #23374d;*/
+/*  color: lightgray;*/
+/*  padding: 10px 7% 10px 0;*/
+/*  width: 90%;*/
+/*  margin-left: 10%;*/
+/*  margin-bottom: 20px;*/
+/*  font-size: 2rem;*/
+/*  border-radius: 15px 0 0 15px;*/
+/*  font-weight: 800;*/
+/*}*/
+#skillsGrey{
+  opacity: 94%;
+  height: 100%;
+  display: inline-block;
+  min-height: 85vh;
+  width: 80%;
+  background: #ececec;
+  border-radius: 20px 20px 0 0;
+  padding-top: 25px;
+}
+
+#sectionHeadingDiv{
+  font-family: 'Open Sans', sans-serif;
+}
