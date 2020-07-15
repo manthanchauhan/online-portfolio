@@ -217,16 +217,39 @@
 /*  font-weight: 800;*/
 /*}*/
 #skillsGrey{
-  opacity: 94%;
+  /*opacity: 94%;*/
   height: 100%;
   display: inline-block;
   min-height: 85vh;
   width: 80%;
-  background: #ececec;
+  background-color: rgba(236, 236, 236, 0.86);
   border-radius: 20px 20px 0 0;
   padding-top: 25px;
 }
 
 #sectionHeadingDiv{
   font-family: 'Open Sans', sans-serif;
+}
+
+#skillData{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 50vh;
+}
+
+.skillCell{
+  height: 4.5em;
+  width: 4.5em;
+  margin: 0.4em 0.4em 0.4em 0.4em;
+  font-size: 2rem;
+  background: #30475e;
+  color: white;
+  line-height: 4.5em;
+}
+
+.skillRow{
+  display: flex;
+  justify-content: center;
+  text-align: center;
 }
