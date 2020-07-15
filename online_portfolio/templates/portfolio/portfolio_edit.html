@@ -109,8 +109,15 @@ Edit | Portfolio
         </div>
         <br>
         
-        <div id="skillData">
-            <div class="skillRow">
+        <div id="skillContentDiv">
+            <div class="skillButtonDiv">
+                <button class="skillButton">
+                    <img src="{% static 'portfolio/icons8-chevron-left-96.png' %}">
+                </button>
+            </div>
+            
+            <div id="skillData">
+                <div class="skillRow">
                 <div class="skillCell">
                     Python
                 </div>
@@ -127,8 +134,15 @@ Edit | Portfolio
                     JS
                 </div>
             </div>
-
+            </div>
+            
+            <div class="skillButtonDiv">
+                <button class="skillButton" style="transform: rotate(180deg)">
+                    <img src="{% static 'portfolio/icons8-chevron-left-96.png' %}">
+                </button>
+            </div>
         </div>
+
     </div>
 </div>
 
