@@ -272,8 +272,37 @@
   background-color: transparent;
   outline: none;
   border: none;
+  width: 50px;
 }
 
 .skillButton img{
   width: 50px;
+}
+
+#projects_heading{
+  min-height: 100vh;
+  background-image: url("/static/portfolio/projects_heading.png");
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#project_heading_inner{
+  background-color: rgba(236, 236, 236, 0.86);
+  border-radius: 20px 20px 20px 20px;
+  margin: auto;
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#project_heading_text{
+  font-size: 3rem;
+  font-weight: 600;
+  font-family: 'Open Sans', sans-serif;
 }
