@@ -1,8 +1,3 @@
-// $(function () {
-//   $(".project_image").on("click", function() {
-//     $("#myModal").modal("show");
-//   });
-// });
 function getCookie(name) {
   var cookieValue = null;
 
@@ -89,39 +84,15 @@ function UploadProfilePic(username) {
       console.log(data);
       url = "https://" + albumBucketName + ".s3." + bucketRegion + ".amazonaws.com/media/" + username + "_profile_pic." + filename.split('.').pop();
       $("#profile_pic_alt").attr("src", url);
-      // alert("Successfully uploaded photo.");
+      updateAboutData(null, null, url, null);
     },
     function(err) {
-      return alert("There was an error uploading your photo: ", err.message);
+      return alert("There was an error uploading your photo: " + err.message);
     }
   );
 };
 
-$("#save_about").on("click", function() {
-  var name = $('#name').text();
-  var tagline = $('#tagline').text();
-  var about = $('#about_me').summernote('code');
-  var profile_pic = $("#profile_pic_alt").attr("src");
-  //console.log(tagline);
-
-  $.ajax({
-    url: '/portfolio/update_about/',
-    type: 'POST',
-    data: {
-      'name': name,
-      'tagline': tagline,
-      'about': about,
-      'profile_pic': profile_pic,
-    },
-    dataType: "json",
-    complete: function (response) {
-      alert(response.responseJSON.message);
-    }
-  });
-});
-
 $("#profile_pic_alt").on("click", function() {
-  // console.log("hi");
   $("#profile_picture").click();
 });
 
@@ -350,4 +321,55 @@ function toSummernote(element, type) {
 
   // $(element).summernote('code', content);
 
+}
+
+function updateTagline() {
+  let tag_line = document.getElementById("titleTagline").innerText;
+  updateAboutData(null, tag_line, null, null);
+}
+
+function updateName() {
+  let new_name = document.getElementById("titleName").innerText;
+
+  updateAboutData(new_name, null, null, null);
+};
+
+function showErrorModal(data, reason) {
+  $("#errorModal").show();
+  $("#errorModal").find(".modal-title").text(reason);
+
+  let html = '';
+  for (let key in data){
+    html = html + `<h7>Field '` + key + `' has the following error(s):</h7>`;
+    html = html + `<ul>`;
+
+    for (let n = 0; n < data[key].length; n ++){
+      html = html + `<li>` + data[key][n] + `</li>`;
+    }
+
+    html = html + `</ul><br>`;
+  }
+
+  $("#errorModal").find(".modal-body").html(html);
+}
+
+function closeErrorModal() {
+  $("#errorModal").hide();
+}
+
+function updateAboutData(name, tag_line, profile_pic, about) {
+  let data = {"name": name, "tag_line": tag_line, "profile_pic": profile_pic, "about": about}
+
+  $.ajax({
+    url: '/portfolio/update_about/',
+    type: 'POST',
+    data: data,
+    dataType: "json",
+    success: function (data, textStatus, response) {
+      // alert(response.statusText);
+    },
+    error: function (data) {
+      showErrorModal(data.responseJSON, data.statusText);
+    }
+  });
 }

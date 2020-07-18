@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views import View
 from django.http import JsonResponse
+from http import HTTPStatus
 from django.template.loader import render_to_string
 from online_portfolio.classes import MediaStorage
 
@@ -19,7 +20,6 @@ class PortfolioEdit(LoginRequiredMixin, View):
 
         context = basic_info
         context["projects"] = projects
-
         return render(request, template_name=self.template, context=context)
 
 
@@ -30,27 +30,55 @@ class UpdateAboutSection(LoginRequiredMixin, View):
 
     @staticmethod
     def post(request):
-        data = {
-            "name": request.POST["name"].strip(),
-            "about": request.POST["about"],
-            "tag_line": request.POST["tagline"],
-            "profile_pic": request.POST["profile_pic"],
-        }
-
         basic_info = request.user.basicinfo
 
-        # validate the data
+        name = (
+            request.POST["name"].strip()
+            if request.POST.get("name") is not ""
+            else basic_info.name
+        )
+        tagline = (
+            request.POST["tag_line"].strip()
+            if request.POST.get("tag_line") is not ""
+            else basic_info.tag_line
+        )
+        about = (
+            request.POST["about"].strip()
+            if request.POST.get("about") is not ""
+            else basic_info.about
+        )
+        picture = (
+            request.POST["profile_pic"]
+            if request.POST.get("profile_pic") is not ""
+            else basic_info.profile_pic
+        )
+
+        data = {
+            "name": name,
+            "about": about,
+            "tag_line": tagline,
+            "profile_pic": picture,
+        }
+
         form = BasicInfoForm(data)
 
         # show error if data is invalid
         if not form.is_valid():
-            print(form.errors)
-            return JsonResponse({"success": False, "message": "error"})
+            error_dict = dict(form.errors.items())
+            print(error_dict)
+
+            return JsonResponse(
+                data=error_dict,
+                status=HTTPStatus.UNPROCESSABLE_ENTITY,
+                reason="Invalid Data",
+            )
 
         basic_info.update(data)
         basic_info.save()
 
-        return JsonResponse({"success": True, "message": "success"})
+        return JsonResponse(
+            data={}, status=HTTPStatus.OK, reason="Data Edited Successfully!"
+        )
 
 
 class EditProjects(LoginRequiredMixin, View):
