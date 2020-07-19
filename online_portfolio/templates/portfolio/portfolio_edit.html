@@ -64,13 +64,9 @@ Edit | Portfolio
 </div>
 
 <div id="aboutDiv">
-    <div id="aboutOrange">
-        <div style="text-align: left;">I'm a <u>Backend Engineer</u> whose top priorities are <b>Speed</b>, <b>Security</b>, <b>Scalability</b> and <b>Reliability</b>.</div>
-        <div style="text-align: left;"><br></div>
-        <div style="text-align: left;">I have good knowledge of basic front-end technologies and I'm capable of building <b>complex systems</b>, entirely <u>from scratch</u>.<br><br>I have <b>leaded</b> multiple Software Development teams toward the <b>GOAL</b>, I'm a <u>team leader &amp; team builder</u>.</div>
-    </div>
-    <div style="text-align: center">
-        <button class="btn btn-secondary" style="margin:5px;">Save</button>
+    <div id="aboutOrangeCharCount" class="charCount"></div>
+    <div id="aboutOrange" onfocusin="aboutOrangeFocusIn(this, 500);" contenteditable="true">
+        {{about}}
     </div>
 </div>
 

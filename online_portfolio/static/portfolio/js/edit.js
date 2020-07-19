@@ -25,7 +25,6 @@ $(document).ready(function () {
 
   $("#titleName").keyup(function(e){ check_charcount("titleName", 40, e); });
   $("#titleTagline").keyup(function(e){ check_charcount("titleTagline", 55, e); });
-
 });
 
 function UploadProjectImage(username, sno) {
@@ -299,9 +298,9 @@ function closePortLink(){
 }
 
 function toSummernote(element, type) {
-  let content = $(element).text();
+  let content = $(element).innerHTML;
 
-  if (type === 'about') {
+  if (type === "aboutOrange") {
     $(element).summernote({
       toolbar: [
         ['style', ['bold', 'italic', 'underline', 'clear']],
@@ -395,14 +394,29 @@ function updateAboutData(name, tag_line, profile_pic, about) {
 }
 
 function check_charcount(content_id, max, e) {
-  let len = $('#'+content_id).text().length;
+  let len;
+
+  if (content_id == "aboutOrange") {
+    len = $("#aboutDiv").find(".note-editable").text().length;
+    $('#' + content_id + "CharCount").css("font-size", "1.5rem");
+  }
+  else if (content_id != "aboutOrange") {
+    len = $('#'+content_id).text().length;
+    $('#' + content_id + "CharCount").css("font-size", "1rem");
+  }
+
   $("#" + content_id + "CharCount").text(len + "/" + max);
-  $('#'+content_id + "CharCount").css("color", "green");
-  $('#'+content_id + "CharCount").css("font-size", "1rem");
+  $("#" + content_id + "CharCount").css("color", "green");
 
   if(len > max) {
     $('#'+content_id + "CharCount").css("color", "red");
-    $('#'+content_id + "CharCount").css("font-size", "1.5rem");
+
+    if (content_id == "aboutOrange") {
+      $('#' + content_id + "CharCount").css("font-size", "1.7rem");
+    }
+    else if (content_id != "aboutOrange") {
+      $('#' + content_id + "CharCount").css("font-size", "1.5rem");
+    }
   }
 }
 
@@ -412,3 +426,58 @@ function showCharCount(element, max) {
   $("#" + element.id + "CharCount").text(len + "/" + max);
 }
 
+function aboutOrangeFocusIn(element, max) {
+  let content = $(element).innerHTML;
+
+  $(element).summernote({
+    codemirror: {"theme": "ambiance"},
+    fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Open Sans'],
+    toolbar: [
+      ['fontsize', ['fontsize']],
+      ['fontname', ['fontname']],
+      ['color', ['color']],
+      ['para', ['ul', 'ol', 'paragraph']]
+    ],
+    code: content,
+  });
+
+  $("#aboutDiv").find(".note-editable").css({
+    "opacity": "86%",
+    "font-family": "'Open Sans', sans-serif",
+    "width":"90%",
+    "min-height": "450px",
+    "color": "black",
+    "padding": "30px 5% 50px 15%",
+    "border-radius": "0 25px 25px 0",
+    "background": "#ececec",
+    "font-size": "1.6rem",
+  });
+
+  $("#aboutDiv").find(".note-toolbar").css({
+    "text-align":"center",
+  });
+
+  $("#aboutDiv").find(".note-toolbar").find("button").css({
+    "background":"#ff8080",
+  });
+
+  $("#aboutDiv").find(".note-editable").keyup(function(e){ check_charcount("aboutOrange", 500, e); });
+
+  $("#aboutDiv").find(".note-editor").focusout(function () {
+    updateAbout();
+  });
+
+  showCharCount(element, max);
+}
+
+function updateAbout() {
+  let aboutHtml = $("#aboutOrange").summernote('code');
+  let max = 2000;
+  console.log(aboutHtml.length);
+
+  if (aboutHtml.length >= max) {
+    return;
+  }
+
+  updateAboutData(null, null, null, aboutHtml);
+}
