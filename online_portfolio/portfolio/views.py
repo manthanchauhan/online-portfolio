@@ -34,22 +34,22 @@ class UpdateAboutSection(LoginRequiredMixin, View):
 
         name = (
             request.POST["name"].strip()
-            if request.POST.get("name") is not ""
+            if request.POST.get("name", "") != ""
             else basic_info.name
         )
         tagline = (
             request.POST["tag_line"].strip()
-            if request.POST.get("tag_line") is not ""
+            if request.POST.get("tag_line", "") != ""
             else basic_info.tag_line
         )
         about = (
             request.POST["about"].strip()
-            if request.POST.get("about") is not ""
+            if request.POST.get("about", "") != ""
             else basic_info.about
         )
         picture = (
             request.POST["profile_pic"]
-            if request.POST.get("profile_pic") is not ""
+            if request.POST.get("profile_pic", "") != ""
             else basic_info.profile_pic
         )
 
