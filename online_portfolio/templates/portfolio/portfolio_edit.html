@@ -54,8 +54,10 @@ Edit | Portfolio
                 {% else %} src="{% static 'portfolio/avatar.png' %}" {% endif %} alt="Avatar">
                 <input type="file" id="profile_picture" onchange="UploadProfilePic('{{request.user.username}}');">
                 
-                <h1 id="titleName" contenteditable="true" onfocusout="updateName();"><strong>{{name}}</strong></h1>
-                <h5 id="titleTagline" contenteditable="true" onfocusout="updateTagline();">{{tag_line}}</h5>
+                <h1 id="titleName" contenteditable="true" onfocusin="showCharCount(this, 40);" onfocusout="updateName();"><strong>{{name}}</strong></h1>
+                <small id="titleNameCharCount" class="charCount"></small>
+                <h5 id="titleTagline" contenteditable="true" onfocusin="showCharCount(this, 55);" onfocusout="updateTagline();">{{tag_line}}</h5>
+                <small id="titleTaglineCharCount" class="charCount"></small>
             </div>
         </div>
     </div>

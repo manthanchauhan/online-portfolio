@@ -22,6 +22,10 @@ $(document).ready(function () {
         xhr.setRequestHeader("X-CSRFToken", csrftoken);
       }
   });
+
+  $("#titleName").keyup(function(e){ check_charcount("titleName", 40, e); });
+  $("#titleTagline").keyup(function(e){ check_charcount("titleTagline", 55, e); });
+
 });
 
 function UploadProjectImage(username, sno) {
@@ -325,11 +329,27 @@ function toSummernote(element, type) {
 
 function updateTagline() {
   let tag_line = document.getElementById("titleTagline").innerText;
+  let len = tag_line.length;
+  let max = 55;
+
+  if (len > max){
+    return;
+  }
+
+  $("#titleTaglineCharCount").hide();
   updateAboutData(null, tag_line, null, null);
 }
 
 function updateName() {
   let new_name = document.getElementById("titleName").innerText;
+  let len = new_name.length;
+  let max = 40;
+
+  if (len > max){
+    return;
+  }
+
+  $("#titleNameCharCount").hide();
 
   updateAboutData(new_name, null, null, null);
 };
@@ -373,3 +393,22 @@ function updateAboutData(name, tag_line, profile_pic, about) {
     }
   });
 }
+
+function check_charcount(content_id, max, e) {
+  let len = $('#'+content_id).text().length;
+  $("#" + content_id + "CharCount").text(len + "/" + max);
+  $('#'+content_id + "CharCount").css("color", "green");
+  $('#'+content_id + "CharCount").css("font-size", "1rem");
+
+  if(len > max) {
+    $('#'+content_id + "CharCount").css("color", "red");
+    $('#'+content_id + "CharCount").css("font-size", "1.5rem");
+  }
+}
+
+function showCharCount(element, max) {
+  let len = $(element).text().length;
+  $("#" + element.id + "CharCount").show();
+  $("#" + element.id + "CharCount").text(len + "/" + max);
+}
+
