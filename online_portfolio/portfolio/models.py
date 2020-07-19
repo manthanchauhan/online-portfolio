@@ -21,7 +21,7 @@ class BasicInfo(models.Model):
     phone2 = PhoneNumberField(null=True, blank=True)
     about = models.CharField(
         default=settings.DEFAULT_BASIC_INFO["about"],
-        max_length=500,
+        max_length=2000,
         validators=[all_space_validator],
     )
     tag_line = models.CharField(

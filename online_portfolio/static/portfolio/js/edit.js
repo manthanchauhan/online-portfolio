@@ -1,8 +1,3 @@
-// $(function () {
-//   $(".project_image").on("click", function() {
-//     $("#myModal").modal("show");
-//   });
-// });
 function getCookie(name) {
   var cookieValue = null;
 
@@ -27,6 +22,9 @@ $(document).ready(function () {
         xhr.setRequestHeader("X-CSRFToken", csrftoken);
       }
   });
+
+  $("#titleName").keyup(function(e){ check_charcount("titleName", 40, e); });
+  $("#titleTagline").keyup(function(e){ check_charcount("titleTagline", 55, e); });
 });
 
 function UploadProjectImage(username, sno) {
@@ -89,39 +87,15 @@ function UploadProfilePic(username) {
       console.log(data);
       url = "https://" + albumBucketName + ".s3." + bucketRegion + ".amazonaws.com/media/" + username + "_profile_pic." + filename.split('.').pop();
       $("#profile_pic_alt").attr("src", url);
-      // alert("Successfully uploaded photo.");
+      updateAboutData(null, null, url, null);
     },
     function(err) {
-      return alert("There was an error uploading your photo: ", err.message);
+      return alert("There was an error uploading your photo: " + err.message);
     }
   );
 };
 
-$("#save_about").on("click", function() {
-  var name = $('#name').text();
-  var tagline = $('#tagline').text();
-  var about = $('#about_me').summernote('code');
-  var profile_pic = $("#profile_pic_alt").attr("src");
-  //console.log(tagline);
-
-  $.ajax({
-    url: '/portfolio/update_about/',
-    type: 'POST',
-    data: {
-      'name': name,
-      'tagline': tagline,
-      'about': about,
-      'profile_pic': profile_pic,
-    },
-    dataType: "json",
-    complete: function (response) {
-      alert(response.responseJSON.message);
-    }
-  });
-});
-
 $("#profile_pic_alt").on("click", function() {
-  // console.log("hi");
   $("#profile_picture").click();
 });
 
@@ -324,9 +298,9 @@ function closePortLink(){
 }
 
 function toSummernote(element, type) {
-  let content = $(element).text();
+  let content = $(element).innerHTML;
 
-  if (type === 'about') {
+  if (type === "aboutOrange") {
     $(element).summernote({
       toolbar: [
         ['style', ['bold', 'italic', 'underline', 'clear']],
@@ -350,4 +324,160 @@ function toSummernote(element, type) {
 
   // $(element).summernote('code', content);
 
+}
+
+function updateTagline() {
+  let tag_line = document.getElementById("titleTagline").innerText;
+  let len = tag_line.length;
+  let max = 55;
+
+  if (len > max){
+    return;
+  }
+
+  $("#titleTaglineCharCount").hide();
+  updateAboutData(null, tag_line, null, null);
+}
+
+function updateName() {
+  let new_name = document.getElementById("titleName").innerText;
+  let len = new_name.length;
+  let max = 40;
+
+  if (len > max){
+    return;
+  }
+
+  $("#titleNameCharCount").hide();
+
+  updateAboutData(new_name, null, null, null);
+};
+
+function showErrorModal(data, reason) {
+  $("#errorModal").show();
+  $("#errorModal").find(".modal-title").text(reason);
+
+  let html = '';
+  for (let key in data){
+    html = html + `<h7>Field '` + key + `' has the following error(s):</h7>`;
+    html = html + `<ul>`;
+
+    for (let n = 0; n < data[key].length; n ++){
+      html = html + `<li>` + data[key][n] + `</li>`;
+    }
+
+    html = html + `</ul><br>`;
+  }
+
+  $("#errorModal").find(".modal-body").html(html);
+}
+
+function closeErrorModal() {
+  $("#errorModal").hide();
+}
+
+function updateAboutData(name, tag_line, profile_pic, about) {
+  let data = {"name": name, "tag_line": tag_line, "profile_pic": profile_pic, "about": about}
+
+  $.ajax({
+    url: '/portfolio/update_about/',
+    type: 'POST',
+    data: data,
+    dataType: "json",
+    success: function (data, textStatus, response) {
+      // alert(response.statusText);
+    },
+    error: function (data) {
+      showErrorModal(data.responseJSON, data.statusText);
+    }
+  });
+}
+
+function check_charcount(content_id, max, e) {
+  let len;
+
+  if (content_id == "aboutOrange") {
+    len = $("#aboutDiv").find(".note-editable").text().length;
+    $('#' + content_id + "CharCount").css("font-size", "1.5rem");
+  }
+  else if (content_id != "aboutOrange") {
+    len = $('#'+content_id).text().length;
+    $('#' + content_id + "CharCount").css("font-size", "1rem");
+  }
+
+  $("#" + content_id + "CharCount").text(len + "/" + max);
+  $("#" + content_id + "CharCount").css("color", "green");
+
+  if(len > max) {
+    $('#'+content_id + "CharCount").css("color", "red");
+
+    if (content_id == "aboutOrange") {
+      $('#' + content_id + "CharCount").css("font-size", "1.7rem");
+    }
+    else if (content_id != "aboutOrange") {
+      $('#' + content_id + "CharCount").css("font-size", "1.5rem");
+    }
+  }
+}
+
+function showCharCount(element, max) {
+  let len = $(element).text().length;
+  $("#" + element.id + "CharCount").show();
+  $("#" + element.id + "CharCount").text(len + "/" + max);
+}
+
+function aboutOrangeFocusIn(element, max) {
+  let content = $(element).innerHTML;
+
+  $(element).summernote({
+    codemirror: {"theme": "ambiance"},
+    fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Open Sans'],
+    toolbar: [
+      ['fontsize', ['fontsize']],
+      ['fontname', ['fontname']],
+      ['color', ['color']],
+      ['para', ['ul', 'ol', 'paragraph']]
+    ],
+    code: content,
+  });
+
+  $("#aboutDiv").find(".note-editable").css({
+    "opacity": "86%",
+    "font-family": "'Open Sans', sans-serif",
+    "width":"90%",
+    "min-height": "450px",
+    "color": "black",
+    "padding": "30px 5% 50px 15%",
+    "border-radius": "0 25px 25px 0",
+    "background": "#ececec",
+    "font-size": "1.6rem",
+  });
+
+  $("#aboutDiv").find(".note-toolbar").css({
+    "text-align":"center",
+  });
+
+  $("#aboutDiv").find(".note-toolbar").find("button").css({
+    "background":"#ff8080",
+  });
+
+  $("#aboutDiv").find(".note-editable").keyup(function(e){ check_charcount("aboutOrange", 500, e); });
+
+  $("#aboutDiv").find(".note-editor").focusout(function () {
+    updateAbout();
+  });
+
+  showCharCount(element, max);
+}
+
+function updateAbout() {
+  let aboutHtml = $("#aboutOrange").summernote('code');
+  let max = 2000;
+  console.log(aboutHtml.length);
+
+  if (aboutHtml.length >= max) {
+    return;
+  }
+
+  updateAboutData(null, null, null, aboutHtml);
 }
