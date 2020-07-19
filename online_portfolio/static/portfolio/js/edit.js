@@ -457,7 +457,7 @@ function aboutOrangeFocusIn(element, max) {
     "text-align":"center",
   });
 
-  $("#aboutDiv").find(".note-toolbar").find("button").css({
+  $("#aboutDiv").find(".note-toolbar").find(".note-btn").css({
     "background":"#ff8080",
   });
 
