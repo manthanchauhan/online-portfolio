@@ -481,3 +481,22 @@ function updateAbout() {
 
   updateAboutData(null, null, null, aboutHtml);
 }
+
+$('#carouselExampleControls').on('slid.bs.carousel', function () {
+  $(".skillCell").each(function () {
+    let element = $(this);
+    resize_skill_names(element);
+  });
+})
+
+function resize_skill_names(element){
+  let child = element.find(".skillName").first();
+
+  if ((child.height() > element.height()) || (child.width() > element.width())) {
+    let fontsize = child.css("font-size");
+    child.css("font-size", parseFloat(fontsize) - 10);
+    resize_skill_names(element);
+  }
+
+  return;
+}
