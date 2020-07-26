@@ -244,16 +244,16 @@
   flex-direction: column;
   justify-content: center;
   height: 67vh;
-  margin-left: 30px;
-  margin-right: 30px;
-  width: 40rem;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
 }
 
 .skillCell{
-  height: 8.4rem;
-  width: 8.4rem;
-  margin: 0.8rem 0.8rem 0.8rem 0.8rem;
-  font-size: 2rem;
+  height: 6.3rem;
+  width: 6.3rem;
+  margin: 0.6rem 0.6rem 0.6rem 0.6rem;
+  font-size: 1.5rem;
   background: #30475e;
   color: white;
   display: flex;
@@ -265,14 +265,15 @@
   display: flex;
   justify-content: center;
   text-align: center;
-  width: 40rem;
+  width: 30rem;
+  margin: 0 auto 0 auto;
 }
 
 #skillContentDiv{
   display: flex;
   flex-direction: row;
   justify-content: center;
-  width: 40rem;
+  width: 45rem;
 }
 
 .skillButton{
@@ -281,7 +282,7 @@
   height: 67vh;
   outline: none;
   border: none;
-  /*width: 50px;*/
+  z-index: 5;
 }
 
 .skillButton img{
@@ -465,15 +466,13 @@ body{
   src: url("'https://fonts.googleapis.com/css2?family=Open+Sans&display=swap'");
 }
 
-@media screen and (max-width: 1000px) {
-  .skillsGrey{
-    width: 100%;
-    border-radius: 0;
+@media screen and (max-width: 750px) {
+  #skillsDiv{
+    padding-top: 7vh;
   }
 
-  .skillButton{
-    margin-left: 7%;
-    margin-right: 7%;
+  .skillsGrey{
+    min-height: 93vh;
   }
 }
 
@@ -486,6 +485,19 @@ body{
     width: 95%;
     padding: 30px 10px 50px 20px;
     font-size: 1rem;
+  }
+
+  .skillsGrey{
+    width: 95%;
+  }
+
+  .skillButton{
+    margin-left: 7%;
+    margin-right: 7%;
+  }
+
+  .sectionHeadingDiv h2{
+    font-size: 1.5rem;
   }
 }
 

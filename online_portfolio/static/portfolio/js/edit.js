@@ -25,6 +25,7 @@ $(document).ready(function () {
 
   $("#titleName").keyup(function(e){ check_charcount("titleName", 40, e); });
   $("#titleTagline").keyup(function(e){ check_charcount("titleTagline", 55, e); });
+
 });
 
 function UploadProjectImage(username, sno) {
@@ -494,9 +495,11 @@ function resize_skill_names(element){
 
   if ((child.height() > element.height()) || (child.width() > element.width())) {
     let fontsize = child.css("font-size");
-    child.css("font-size", parseFloat(fontsize) - 10);
+    child.css("font-size", parseFloat(fontsize) - 1);
     resize_skill_names(element);
   }
 
   return;
 }
+
+
