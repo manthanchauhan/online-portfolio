@@ -164,7 +164,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
-if ENV == "prod ":
+if ENV == "prod":
     STATIC_URL = "https://" + AWS_S3_CUSTOM_DOMAIN + "/" + AWS_LOCATION + "/"
     STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
@@ -199,3 +199,5 @@ DEFAULT_PROJECT = {
     "image": "https://online-portfolio123.s3.ap-south-1.amazonaws.com/static/portfolio/763856+(1).jpg",
 }
 DEFAULT_USER = "manthanchauhan913@gmail.com"
+
+DEFAULT_SKILL = {"skill_name": "New Skill", "category": "New Category"}

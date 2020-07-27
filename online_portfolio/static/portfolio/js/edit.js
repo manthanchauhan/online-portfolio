@@ -25,6 +25,7 @@ $(document).ready(function () {
 
   $("#titleName").keyup(function(e){ check_charcount("titleName", 40, e); });
   $("#titleTagline").keyup(function(e){ check_charcount("titleTagline", 55, e); });
+
 });
 
 function UploadProjectImage(username, sno) {
@@ -457,7 +458,7 @@ function aboutOrangeFocusIn(element, max) {
     "text-align":"center",
   });
 
-  $("#aboutDiv").find(".note-toolbar").find("button").css({
+  $("#aboutDiv").find(".note-toolbar").find(".note-btn").css({
     "background":"#ff8080",
   });
 
@@ -481,3 +482,24 @@ function updateAbout() {
 
   updateAboutData(null, null, null, aboutHtml);
 }
+
+$('#carouselExampleControls').on('slid.bs.carousel', function () {
+  $(".skillCell").each(function () {
+    let element = $(this);
+    resize_skill_names(element);
+  });
+})
+
+function resize_skill_names(element){
+  let child = element.find(".skillName").first();
+
+  if ((child.height() > element.height()) || (child.width() > element.width())) {
+    let fontsize = child.css("font-size");
+    child.css("font-size", parseFloat(fontsize) - 1);
+    resize_skill_names(element);
+  }
+
+  return;
+}
+
+

@@ -67,3 +67,20 @@ def create_default_project(user):
     basic_info.total_projects += 1
     basic_info.save()
     return project
+
+
+def get_skills(basic_info):
+    skills = list(basic_info.skill_set.all())
+    skills.sort(key=lambda x: x.timestamp)
+
+    skill_data = {}
+
+    for skill in skills:
+        category = skill.category
+
+        if skill_data.get(category) is None:
+            skill_data[category] = [skill.skill_name]
+        else:
+            skill_data[category].append(skill.skill_name)
+
+    return skill_data

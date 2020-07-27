@@ -71,46 +71,38 @@ Edit | Portfolio
 </div>
 
 <div id="skillsDiv">
-    <div id="skillsGrey">
-        <div id="sectionHeadingDiv">
-            <h2>Programming Languages</h2>
-        </div>
-        <br>
+    
+    <div class="skillsGrey carousel slide" id="carouselExampleControls" data-ride="carousel">
+        <a class="skillButton carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <img src="{% static 'portfolio/icons8-chevron-left-96.png' %}">
+        </a>
+    
+       <div id="skillContentDiv" class="carousel-inner">
+           {% for page in skills %}
+           <div class="carousel-item {% if forloop.first %} active {% endif %}">
+               <div class="sectionHeadingDiv">
+                   <h2>{{page.category}}</h2>
+               </div>
+               
+               <div class="skillData">
+                   {% for row in page.data %}
+                   <div class="skillRow">
+                       {% for skill_name in row %}
+                       <div class="skillCell float-left">
+                           <p class="skillName">{{skill_name}}</p>
+                       </div>
+                       {% endfor %}
+                    </div>
+                   {% endfor %}
+               </div>
+           </div>
+           {% endfor %}
+       </div>
         
-        <div id="skillContentDiv">
-            <div class="skillButtonDiv">
-                <button class="skillButton">
-                    <img src="{% static 'portfolio/icons8-chevron-left-96.png' %}">
-                </button>
-            </div>
-            
-            <div id="skillData">
-                <div class="skillRow">
-                <div class="skillCell">
-                    Python
-                </div>
-                
-                <div class="skillCell">
-                    C++
-                </div>
-                
-                <div class="skillCell">
-                    C
-                </div>
-                
-                <div class="skillCell">
-                    JS
-                </div>
-            </div>
-            </div>
-            
-            <div class="skillButtonDiv">
-                <button class="skillButton" style="transform: rotate(180deg)">
-                    <img src="{% static 'portfolio/icons8-chevron-left-96.png' %}">
-                </button>
-            </div>
-        </div>
-
+        <a class="skillButton carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next"
+        style="transform: rotate(180deg);">
+            <img src="{% static 'portfolio/icons8-chevron-left-96.png' %}">
+        </a>
     </div>
 </div>
 
