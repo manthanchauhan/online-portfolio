@@ -32,7 +32,7 @@ jobs:
 #        pytest
 #    -
     - name: Deploy to EC2
-      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/new-theme' }}
+      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
       uses: garygrossgarten/github-action-ssh@release
       with:
         command: ./install
