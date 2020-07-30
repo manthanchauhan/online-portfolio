@@ -1,7 +1,8 @@
-/**{*/
-/*  padding:0px;*/
-/*  margin:0px;*/
-/*}*/
+*{
+ padding:0px;
+ margin:0px;
+ /* overflow:hidden; */
+}
 
 #profile_pic_alt{
   border-radius: 50%;
@@ -226,7 +227,7 @@
   /*display: flex;*/
   /*flex-direction: row;*/
   min-height: 85vh;
-  margin: 0 auto 0 auto;
+  margin: 0 auto;
   /*justify-content: center;*/
   width: 80%;
   background-color: rgba(236, 236, 236, 0.86);
@@ -234,22 +235,55 @@
   padding: 25px 25px 0 25px;
 }
 
+#skillContentDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border:1px solid black; */
+}
+
 .sectionHeadingDiv{
   font-family: 'Open Sans', sans-serif;
   height: 50px;
+  /* border:1px solid green; */
+}
+
+#skillDataContainer{
+    min-height:70%;
+    /* border:1px solid blue; */
+    width: 80%;
+    margin:auto;
+    min-height: 70vh;
+    display:flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .skillData{
-  /*display: flex;*/
-  /*display: flex;*/
-  /*flex-direction: column;*/
-  justify-content: center;
-  /*min-height: 67vh;*/
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
+    /* border:1px solid red; */
+    overflow:hidden;
+    margin:auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    max-width: 31rem;  
 }
 
+.skillCellContainer{
+    float:left;
+    overflow: hidden;
+    /* border:1px solid yellow; */
+    min-width:25%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*(6.3+0.6+0.6)*4
+
+7.5*4*/
 .skillCell{
   height: 6.3rem;
   width: 6.3rem;
@@ -261,15 +295,16 @@
   flex-direction: row;
   justify-content: center;
 }
-
+/* 
 .skillRow{
-  /*display: flex;*/
   justify-content: center;
-  /*text-align: center;*/
+
   max-width: 30rem;
   height: 7.5rem;
   margin: auto;
-}
+} */
+
+
 
 #skillContentDiv{
   width: 100%;

@@ -7,56 +7,57 @@ Edit | Portfolio
 
 {% block content %}
 <div class="modal" tabindex="-1" role="dialog" id="portfolioLink">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Share the following link!!</h5>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Share the following link!!</h5>
 
-        <button type="button" class="close" onclick="closePortLink();" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
+                <button type="button" class="close" onclick="closePortLink();" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
 
-      <div class="modal-body">
-        <form>
-          <div class="form-group" style="text-align:left;">
-            <input type="text" class="form-control" id="portLink"
-            value="">
-          </div>
-        </form>
-      </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group" style="text-align:left;">
+                        <input type="text" class="form-control" id="portLink" value="">
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <div class="modal" tabindex="-1" role="dialog" id="errorModal">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content" style="background: #ff9999;">
-      <div class="modal-header">
-        <h5 class="modal-title"></h5>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background: #ff9999;">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
 
-        <button onclick="closeErrorModal();" type="button" class="close" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
+                <button onclick="closeErrorModal();" type="button" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
 
-      <div class="modal-body">
-      </div>
+            <div class="modal-body">
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <div id="titleDiv">
     <div id="titleWithButton">
         <div id="titleDivInner">
             <div>
-                <img id="profile_pic_alt" class="img-fluid" {% if profile_pic %} src="{{profile_pic}}"
-                {% else %} src="{% static 'portfolio/avatar.png' %}" {% endif %} alt="Avatar">
+                <img id="profile_pic_alt" class="img-fluid" {% if profile_pic %} src="{{profile_pic}}" {% else %}
+                    src="{% static 'portfolio/avatar.png' %}" {% endif %} alt="Avatar">
                 <input type="file" id="profile_picture" onchange="UploadProfilePic('{{request.user.username}}');">
-                
-                <h1 id="titleName" contenteditable="true" onfocusin="showCharCount(this, 40);" onfocusout="updateName();"><strong>{{name}}</strong></h1>
+
+                <h1 id="titleName" contenteditable="true" onfocusin="showCharCount(this, 40);"
+                    onfocusout="updateName();"><strong>{{name}}</strong></h1>
                 <small id="titleNameCharCount" class="charCount"></small>
-                <h5 id="titleTagline" contenteditable="true" onfocusin="showCharCount(this, 55);" onfocusout="updateTagline();">{{tag_line}}</h5>
+                <h5 id="titleTagline" contenteditable="true" onfocusin="showCharCount(this, 55);"
+                    onfocusout="updateTagline();">{{tag_line}}</h5>
                 <small id="titleTaglineCharCount" class="charCount"></small>
             </div>
         </div>
@@ -71,36 +72,39 @@ Edit | Portfolio
 </div>
 
 <div id="skillsDiv">
-    
+
     <div class="skillsGrey carousel slide" id="carouselExampleControls" data-ride="carousel">
         <a class="skillButton carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
             <img src="{% static 'portfolio/icons8-chevron-left-96.png' %}">
         </a>
-    
-       <div id="skillContentDiv" class="carousel-inner">
-           {% for page in skills %}
-           <div class="carousel-item {% if forloop.first %} active {% endif %}">
-               <div class="sectionHeadingDiv">
-                   <h2>{{page.category}}</h2>
-               </div>
-               
-               <div class="skillData">
-                   {% for row in page.data %}
-                   <div class="skillRow">
-                       {% for skill_name in row %}
-                       <div class="skillCell float-left">
-                           <p class="skillName">{{skill_name}}</p>
-                       </div>
-                       {% endfor %}
+
+        <div id="skillContentDiv" class="carousel-inner">
+            {% for page in skills %}
+
+            <div class="carousel-item {% if forloop.first %} active {% endif %}">
+                <div class="sectionHeadingDiv">
+                    <h2>{{page.category}}</h2>
+                </div>
+                <div id="skillDataContainer">
+                    <div class="skillData">
+                        {% for row in page.data %}
+                        {% for skill_name in row %}
+                        <div class="skillCellContainer">
+                            <div class="skillCell float-left">
+                                <p class="skillName">{{skill_name}}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% endfor %}
                     </div>
-                   {% endfor %}
-               </div>
-           </div>
-           {% endfor %}
-       </div>
-        
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+
         <a class="skillButton carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next"
-        style="transform: rotate(180deg);">
+            style="transform: rotate(180deg);">
             <img src="{% static 'portfolio/icons8-chevron-left-96.png' %}">
         </a>
     </div>
@@ -111,15 +115,15 @@ Edit | Portfolio
         <div id="project_heading_text">
             My Projects
         </div>
-        
+
         <br>
-        
+
         <div id="projectHeadingButton">
             <button class="skillButton" style="transform: rotate(270deg)">
                 <img src="{% static 'portfolio/icons8-chevron-left-96.png' %}">
             </button>
         </div>
-        
+
     </div>
 </div>
 
@@ -129,31 +133,35 @@ Edit | Portfolio
             Portfolio Builder
         </div>
     </div>
-    
+
     <div id="projectContentDiv">
         <div id="projectInfo">
             <div class="projectDesc">
                 <ol>
                     <li>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</li>
-                    <li>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</li>
-                    <li>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</li>
-                    <li>It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</li>
+                    <li>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+                        printer took a galley of type and scrambled it to make a type specimen book.</li>
+                    <li>It has survived not only five centuries, but also the leap into electronic typesetting,
+                        remaining essentially unchanged.</li>
+                    <li>It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
+                        passages, and more recently with desktop publishing software like Aldus PageMaker including
+                        versions of Lorem Ipsum.</li>
                 </ol>
             </div>
-            
+
             <div class="projectImage">
                 <div class="projectImageInner">
                     <img class="img-fluid" src="{% static 'portfolio/project_sample_image.png' %}">
                 </div>
             </div>
         </div>
-        
+
         <div id="projectSkills">
             <div class="skillBar">
                 <div class="skills">
                     <p><strong>Skills Utilized:</strong> Python, C++, Django</p>
                 </div>
-                
+
                 <div class="codeButtonsDiv">
                     <button class="btn">View Live</button>
                     <button class="btn">View Code</button>
