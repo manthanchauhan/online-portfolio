@@ -1,0 +1,75 @@
+
+@media screen and (max-width: 370px) {
+
+    #skillDataContainer{
+        padding:0px 25px;
+    }
+}
+/*1 sec bs*/
+
+@media screen and (max-width: 750px) {
+    #skillsDiv{
+      padding-top: 7vh;
+    }
+  
+    .skillsGrey{
+      min-height: 93vh;
+      padding:25px 0px;
+      width:90%;
+    }
+
+    #skillDataContainer{
+        padding:0px 25px;
+    }
+  }
+
+  @media screen and (max-width: 621px){
+          
+.skillButton{
+    width:30px;
+    height:30px;
+  
+  }
+  
+  #skillDataContainer{
+    padding:0px 25px;
+}
+  
+  .carousel-control-next, .carousel-control-prev{
+        width:30px !important;
+  }
+  
+  .skillButton img{
+      width:30px;
+  }
+    
+    #titleWithButton{
+      width: 90%;
+    }
+  
+    #aboutOrange{
+      width: 95%;
+      padding: 30px 10px 50px 20px;
+      font-size: 1rem;
+    }
+  
+    .skillData{
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+  
+    .skillsGrey{
+      width: 95%;
+    }
+/*   
+    .skillButton{
+      margin-left: 7%;
+      margin-right: 7%;
+    } */
+  
+    .sectionHeadingDiv h2{
+      font-size: 1.5rem;
+    }
+  }
+  
+  

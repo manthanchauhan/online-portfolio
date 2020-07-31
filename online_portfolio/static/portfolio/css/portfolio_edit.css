@@ -233,6 +233,7 @@
   background-color: rgba(236, 236, 236, 0.86);
   border-radius: 20px 20px 0 0;
   padding: 25px 25px 0 25px;
+  /* border:1px solid palevioletred; */
 }
 
 #skillContentDiv{
@@ -251,7 +252,7 @@
 #skillDataContainer{
     min-height:70%;
     /* border:1px solid blue; */
-    width: 80%;
+    width: 100%;
     margin:auto;
     min-height: 70vh;
     display:flex;
@@ -281,9 +282,6 @@
     align-items: center;
 }
 
-/*(6.3+0.6+0.6)*4
-
-7.5*4*/
 .skillCell{
   height: 6.3rem;
   width: 6.3rem;
@@ -304,24 +302,37 @@
   margin: auto;
 } */
 
-
-
 #skillContentDiv{
   width: 100%;
 }
 
 .skillButton{
-  margin-top: 75px;
-  background-color: transparent;
-  height: 67vh;
-  outline: none;
-  border: none;
+  /* background-color: transparent; */
+  /* outline: none;
+  border: none; */
   z-index: 5;
+  width:50px;
+  height:50px;
+  /* border:1px solid purple; */
+  margin:0;
+
+}
+
+.carousel-control-next, .carousel-control-prev{
+    /* position: unset !important;  */
+      width:50px !important;
+      top:50% !important;
 }
 
 .skillButton img{
-  width: 50px;
+    width:50px;
+    /* border:1px solid orange; */
 }
+  
+/* 
+.skillButton img{
+  width: 50px;
+} */
 
 .section{
   min-height: 100vh;
@@ -499,44 +510,3 @@ body{
   font-weight: 500;
   src: url("'https://fonts.googleapis.com/css2?family=Open+Sans&display=swap'");
 }
-
-@media screen and (max-width: 750px) {
-  #skillsDiv{
-    padding-top: 7vh;
-  }
-
-  .skillsGrey{
-    min-height: 93vh;
-  }
-}
-
-@media screen and (max-width: 621px){
-  #titleWithButton{
-    width: 90%;
-  }
-
-  #aboutOrange{
-    width: 95%;
-    padding: 30px 10px 50px 20px;
-    font-size: 1rem;
-  }
-
-  .skillData{
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
-
-  .skillsGrey{
-    width: 95%;
-  }
-
-  .skillButton{
-    margin-left: 7%;
-    margin-right: 7%;
-  }
-
-  .sectionHeadingDiv h2{
-    font-size: 1.5rem;
-  }
-}
-
