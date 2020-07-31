@@ -5,7 +5,7 @@ from http import HTTPStatus
 from django.template.loader import render_to_string
 from online_portfolio.classes import MediaStorage
 
-from .forms import BasicInfoForm, ProjectForm
+from .forms import BasicInfoForm, ProjectForm, AddSkillForm
 import os
 from .helper import *
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -36,7 +36,7 @@ class PortfolioEdit(LoginRequiredMixin, View):
             skill_pages += pages
 
         # skill_pages = skill_pages[::-1]
-        print(skill_pages)
+        # print(skill_pages)
 
         context = basic_info
         context["projects"] = projects
@@ -86,7 +86,7 @@ class UpdateAboutSection(LoginRequiredMixin, View):
         # show error if data is invalid
         if not form.is_valid():
             error_dict = dict(form.errors.items())
-            print(error_dict)
+            # print(error_dict)
 
             return JsonResponse(
                 data=error_dict,
@@ -216,3 +216,30 @@ class ExportPortfolio(LoginRequiredMixin, View):
         os.remove(os.path.join(settings.BASE_DIR, "media", "port.html"))
 
         return JsonResponse({"success": True, "message": "success", "url": url})
+
+
+class AddSkill(LoginRequiredMixin, View):
+    @staticmethod
+    def post(request):
+        print(request.POST)
+        skill_name = request.POST.get("skill_name")
+        category = request.POST.get("category")
+
+        form = AddSkillForm(
+            initial={
+                "user_profile": request.user.basicinfo,
+                "skill_name": skill_name,
+                "category": category,
+            }
+        )
+
+        if not form.is_valid():
+            error_dict = dict(form.errors.items())
+
+            return JsonResponse(
+                data=error_dict, status=HTTPStatus.BAD_REQUEST, reason="Invalid Data"
+            )
+
+        form.save()
+
+        return JsonResponse(data={}, status=HTTPStatus.OK, reason="Success",)
