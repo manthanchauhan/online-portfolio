@@ -1,5 +1,5 @@
 
-@media screen and (max-width: 370px) {
+@media screen and (max-width: 360px) {
 
     #skillDataContainer{
         padding:0px 25px;
@@ -23,11 +23,11 @@
     }
   }
 
-  @media screen and (max-width: 621px){
+@media screen and (max-width: 621px){
           
 .skillButton{
-    width:30px;
-    height:30px;
+    width:40px;
+    height:40px;
   
   }
   
@@ -36,11 +36,11 @@
 }
   
   .carousel-control-next, .carousel-control-prev{
-        width:30px !important;
+        width:40px !important;
   }
   
   .skillButton img{
-      width:30px;
+      width:40px;
   }
     
     #titleWithButton{
@@ -61,12 +61,7 @@
     .skillsGrey{
       width: 95%;
     }
-/*   
-    .skillButton{
-      margin-left: 7%;
-      margin-right: 7%;
-    } */
-  
+
     .sectionHeadingDiv h2{
       font-size: 1.5rem;
     }

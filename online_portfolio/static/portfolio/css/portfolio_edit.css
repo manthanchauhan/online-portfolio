@@ -2,6 +2,7 @@
  padding:0px;
  margin:0px;
  /* overflow:hidden; */
+ overflow-x:hidden;
 }
 
 #profile_pic_alt{
