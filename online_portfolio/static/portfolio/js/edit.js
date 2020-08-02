@@ -26,6 +26,10 @@ $(document).ready(function () {
     $("#titleName").keyup(function (e) { check_charcount("titleName", 40, e); });
     $("#titleTagline").keyup(function (e) { check_charcount("titleTagline", 55, e); });
 
+    $(".skillCell").each(function () {
+        let element = $(this);
+        resize_skill_names(element);
+    });
 });
 
 function UploadProjectImage(username, sno) {
