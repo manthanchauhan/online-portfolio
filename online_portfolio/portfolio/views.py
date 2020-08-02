@@ -19,28 +19,9 @@ class PortfolioEdit(LoginRequiredMixin, View):
         projects = get_projects_info(request.user)
         skills = get_skills(request.user.basicinfo)
 
-        skill_pages = []
-        skills_in_a_row = 4
-        rows_in_a_page = 2
-
-        for category in skills:
-            skills[category] = [
-                skills[category][i : i + skills_in_a_row]
-                for i in range(0, len(skills[category]), skills_in_a_row)
-            ]
-
-            pages = [
-                {"category": category, "data": skills[category][i : i + rows_in_a_page]}
-                for i in range(0, len(skills[category]), rows_in_a_page)
-            ]
-            skill_pages += pages
-
-        # skill_pages = skill_pages[::-1]
-        # print(skill_pages)
-
         context = basic_info
         context["projects"] = projects
-        context["skills"] = skill_pages
+        context["skills"] = skills
         return render(request, template_name=self.template, context=context)
 
 
