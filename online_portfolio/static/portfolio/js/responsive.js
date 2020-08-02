@@ -13,7 +13,9 @@ function myFunction(x) {
 }
 
 var x = window.matchMedia("(max-width: 450px)");
-myFunction(x); // Call listener function at run time
+myFunction(x);
+// Call listener function at run time
+
 x.addListener(myFunction);
 
 //===============================================Adding Swipe Feature==============================================//
@@ -44,22 +46,11 @@ var bindEvents = function () {
     function handleGesure() {
         var swiped = 'swiped: ';
         if (touchendX < touchstartX) {
-            // console.log(swiped + 'left!');
             $('.carousel').carousel('next');
         }
         if (touchendX > touchstartX) {
-            // console.log(swiped + 'right!');
             $('.carousel').carousel('prev');
         }
-        // if (touchendY < touchstartY) {
-        //     console.log(swiped + 'up!');
-        // }
-        // if (touchendY > touchstartY) {
-        //     console.log(swiped + 'down!');
-        // }
-        // if (touchendY == touchstartY) {
-        //     alert('tap!');
-        // }
     }
 }
 
