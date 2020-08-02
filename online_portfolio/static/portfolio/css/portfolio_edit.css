@@ -1,7 +1,6 @@
 *{
  padding:0px;
  margin:0px;
- /* overflow:hidden; */
 }
 
 #profile_pic_alt{
@@ -21,7 +20,6 @@
 }
 
 .project_images {
-  /* height: 50vw; */
   padding-top: 20px;
 }
 
@@ -59,7 +57,6 @@
   }
 
   .project_images {
-    /* height: 20vw; */
     padding-top: 0px;
   }
 
@@ -210,25 +207,11 @@
   padding-top: 15vh;
 }
 
-/*#skillsHeadDiv{*/
-/*  background: #23374d;*/
-/*  color: lightgray;*/
-/*  padding: 10px 7% 10px 0;*/
-/*  width: 90%;*/
-/*  margin-left: 10%;*/
-/*  margin-bottom: 20px;*/
-/*  font-size: 2rem;*/
-/*  border-radius: 15px 0 0 15px;*/
-/*  font-weight: 800;*/
-/*}*/
+
 .skillsGrey{
-  /*opacity: 94%;*/
   height: 100%;
-  /*display: flex;*/
-  /*flex-direction: row;*/
   min-height: 85vh;
   margin: 0 auto;
-  /*justify-content: center;*/
   width: 80%;
   background-color: rgba(236, 236, 236, 0.86);
   border-radius: 20px 20px 0 0;
@@ -239,19 +222,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* border:1px solid black; */
 }
 
 .sectionHeadingDiv{
   font-family: 'Open Sans', sans-serif;
   height: 50px;
-  /* border:1px solid green; */
 }
 
 #skillDataContainer{
     min-height:70%;
-    /* border:1px solid blue; */
-    width: 80%;
+    width: 100%;
     margin:auto;
     min-height: 70vh;
     display:flex;
@@ -260,7 +240,6 @@
 }
 
 .skillData{
-    /* border:1px solid red; */
     overflow:hidden;
     margin:auto;
     display: flex;
@@ -273,7 +252,6 @@
 .skillCellContainer{
     float:left;
     overflow: hidden;
-    /* border:1px solid yellow; */
     min-width:25%;
     text-align: center;
     display: flex;
@@ -281,9 +259,6 @@
     align-items: center;
 }
 
-/*(6.3+0.6+0.6)*4
-
-7.5*4*/
 .skillCell{
   height: 6.3rem;
   width: 6.3rem;
@@ -295,32 +270,25 @@
   flex-direction: row;
   justify-content: center;
 }
-/* 
-.skillRow{
-  justify-content: center;
-
-  max-width: 30rem;
-  height: 7.5rem;
-  margin: auto;
-} */
-
-
 
 #skillContentDiv{
   width: 100%;
 }
 
 .skillButton{
-  margin-top: 75px;
-  background-color: transparent;
-  height: 67vh;
-  outline: none;
-  border: none;
   z-index: 5;
+  width:50px;
+  height:50px;
+  margin:0;
+}
+
+.carousel-control-next, .carousel-control-prev{
+      width:50px !important;
+      top:50% !important;
 }
 
 .skillButton img{
-  width: 50px;
+    width:50px;
 }
 
 .section{
@@ -461,20 +429,6 @@
   display: none;
 }
 
-/*#aboutOrange{*/
-/*  opacity: 86%;*/
-/*  font-family: 'Open Sans', sans-serif;*/
-/*  width:90%;*/
-/*  min-height: 450px;*/
-/*  color: black;*/
-/*  padding: 30px 5% 50px 15%;*/
-/*  border-radius: 0 25px 25px 0;*/
-/*  background: #ececec;*/
-/*  font-size: 1.6rem;*/
-/*}*/
-
-
-
 body{
   max-width: 100vw;
 }
@@ -499,44 +453,3 @@ body{
   font-weight: 500;
   src: url("'https://fonts.googleapis.com/css2?family=Open+Sans&display=swap'");
 }
-
-@media screen and (max-width: 750px) {
-  #skillsDiv{
-    padding-top: 7vh;
-  }
-
-  .skillsGrey{
-    min-height: 93vh;
-  }
-}
-
-@media screen and (max-width: 621px){
-  #titleWithButton{
-    width: 90%;
-  }
-
-  #aboutOrange{
-    width: 95%;
-    padding: 30px 10px 50px 20px;
-    font-size: 1rem;
-  }
-
-  .skillData{
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
-
-  .skillsGrey{
-    width: 95%;
-  }
-
-  .skillButton{
-    margin-left: 7%;
-    margin-right: 7%;
-  }
-
-  .sectionHeadingDiv h2{
-    font-size: 1.5rem;
-  }
-}
-

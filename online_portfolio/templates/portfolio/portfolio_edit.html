@@ -74,14 +74,17 @@ Edit | Portfolio
 <div id="skillsDiv">
 
     <div class="skillsGrey carousel slide" id="carouselExampleControls" data-ride="carousel">
-        <a class="skillButton carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-            <img src="{% static 'portfolio/icons8-chevron-left-96.png' %}">
-        </a>
 
         <div id="skillContentDiv" class="carousel-inner">
             {% for page in skills %}
 
             <div class="carousel-item {% if forloop.first %} active {% endif %}">
+
+                <a class="carousel-control-prev skillButton" href="#carouselExampleControls" role="button"
+                    data-slide="prev">
+                    <img src="{% static 'portfolio/icons8-chevron-left-96.png' %}">
+                </a>
+
                 <div class="sectionHeadingDiv">
                     <h2>{{page.category}}</h2>
                 </div>
@@ -97,16 +100,19 @@ Edit | Portfolio
                         {% endfor %}
                         {% endfor %}
                     </div>
+
                 </div>
 
+                <a class="skillButton carousel-control-next" href="#carouselExampleControls" role="button"
+                    data-slide="next" style="transform: rotate(180deg);">
+                    <img src="{% static 'portfolio/icons8-chevron-left-96.png' %}">
+                </a>
             </div>
+
             {% endfor %}
+
         </div>
 
-        <a class="skillButton carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next"
-            style="transform: rotate(180deg);">
-            <img src="{% static 'portfolio/icons8-chevron-left-96.png' %}">
-        </a>
     </div>
 </div>
 
