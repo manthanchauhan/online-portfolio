@@ -67,7 +67,6 @@ class UpdateAboutSection(LoginRequiredMixin, View):
         # show error if data is invalid
         if not form.is_valid():
             error_dict = dict(form.errors.items())
-            # print(error_dict)
 
             return JsonResponse(
                 data=error_dict,
@@ -158,7 +157,6 @@ class ExportPortfolio(LoginRequiredMixin, View):
     template = "portfolio/portfolio_export.html"
 
     def post(self, request):
-        # print(request.POST)
         basic_info = request.user.basicinfo
         about_data = {
             "name": basic_info.name,
