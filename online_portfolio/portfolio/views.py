@@ -5,7 +5,7 @@ from http import HTTPStatus
 from django.template.loader import render_to_string
 from online_portfolio.classes import MediaStorage
 
-from .forms import BasicInfoForm, ProjectForm
+from .forms import BasicInfoForm, ProjectForm, AddSkillForm
 import os
 from .helper import *
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -19,28 +19,9 @@ class PortfolioEdit(LoginRequiredMixin, View):
         projects = get_projects_info(request.user)
         skills = get_skills(request.user.basicinfo)
 
-        skill_pages = []
-        skills_in_a_row = 4
-        rows_in_a_page = 2
-
-        for category in skills:
-            skills[category] = [
-                skills[category][i : i + skills_in_a_row]
-                for i in range(0, len(skills[category]), skills_in_a_row)
-            ]
-
-            pages = [
-                {"category": category, "data": skills[category][i : i + rows_in_a_page]}
-                for i in range(0, len(skills[category]), rows_in_a_page)
-            ]
-            skill_pages += pages
-
-        # skill_pages = skill_pages[::-1]
-        print(skill_pages)
-
         context = basic_info
         context["projects"] = projects
-        context["skills"] = skill_pages
+        context["skills"] = skills
         return render(request, template_name=self.template, context=context)
 
 
@@ -86,7 +67,6 @@ class UpdateAboutSection(LoginRequiredMixin, View):
         # show error if data is invalid
         if not form.is_valid():
             error_dict = dict(form.errors.items())
-            print(error_dict)
 
             return JsonResponse(
                 data=error_dict,
@@ -177,7 +157,6 @@ class ExportPortfolio(LoginRequiredMixin, View):
     template = "portfolio/portfolio_export.html"
 
     def post(self, request):
-        # print(request.POST)
         basic_info = request.user.basicinfo
         about_data = {
             "name": basic_info.name,
@@ -216,3 +195,30 @@ class ExportPortfolio(LoginRequiredMixin, View):
         os.remove(os.path.join(settings.BASE_DIR, "media", "port.html"))
 
         return JsonResponse({"success": True, "message": "success", "url": url})
+
+
+class AddSkill(LoginRequiredMixin, View):
+    @staticmethod
+    def post(request):
+        print(request.POST)
+        skill_name = request.POST.get("skill_name")
+        category = request.POST.get("category")
+
+        form = AddSkillForm(
+            initial={
+                "user_profile": request.user.basicinfo,
+                "skill_name": skill_name,
+                "category": category,
+            }
+        )
+
+        if not form.is_valid():
+            error_dict = dict(form.errors.items())
+
+            return JsonResponse(
+                data=error_dict, status=HTTPStatus.BAD_REQUEST, reason="Invalid Data"
+            )
+
+        form.save()
+
+        return JsonResponse(data={}, status=HTTPStatus.OK, reason="Success",)
