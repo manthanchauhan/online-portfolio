@@ -592,6 +592,5 @@ function showSkillNameInput(element) {
 
     let spanEle = element.parentElement.querySelector("span");
     spanEle.style.display = "block";
-
     $(element).hide();
 }
