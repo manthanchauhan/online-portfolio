@@ -147,7 +147,9 @@ Edit | Portfolio
 <script type="text/javascript" src="{% static 'portfolio/js/init-aws.js' %}"></script>
 <script type="text/javascript" src="{% static 'portfolio/js/edit.js' %}"></script>
 <script>
+    setAddButtonpath(`{% static 'portfolio/plus.svg' %}`);
     let skills = JSON.parse(`{{skills|safe}}`);
+    console.log("setskillcalling!");
     setSkills(skills);
     fillSkillCarousel(`{% static 'portfolio/icons8-chevron-left-96.png' %}`);
 </script>

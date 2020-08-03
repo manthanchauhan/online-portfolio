@@ -1,6 +1,7 @@
 let skillMap = {};
 let skillOnAPage = 8;
-
+let AddNew = "s5Ryu";
+var AddButtonPath = null;
 
 function getCookie(name) {
     var cookieValue = null;
@@ -513,10 +514,11 @@ function resize_skill_names(element) {
 
 
 function setSkills(skills) {
+    console.log("setSkills");
     skillMap = skills;
 
-    for (let category in skillMap){
-        skillMap[category].push("AddNew");
+    for (let category in skillMap) {
+        skillMap[category].push(AddNew);
     }
 }
 
@@ -524,14 +526,15 @@ function fillSkillCarousel(buttonUrl) {
     console.log(buttonUrl);
     let slideIndx = 0;
 
-    for (let category in skillMap){
+    for (let category in skillMap) {
 
-        for (let i = 0; i < skillMap[category].length; i += skillOnAPage){
+        for (let i = 0; i < skillMap[category].length; i += skillOnAPage) {
+
             let skills = skillMap[category].slice(i, i + skillOnAPage);
 
             let carouselSlide = `<div class="carousel-item `;
 
-            if (slideIndx === 0){
+            if (slideIndx === 0) {
                 carouselSlide += `active`;
             }
             slideIndx += 1;
@@ -548,10 +551,18 @@ function fillSkillCarousel(buttonUrl) {
                 <div id="skillDataContainer">
                     <div class="skillData">`;
 
-            for (let j = 0; j < skills.length; j ++){
+            for (let j = 0; j < skills.length; j++) {
+                let text = `<p class="skillName">` + skills[j] + `</p>`;
+
+                if (skills[j] == AddNew) {
+                    text = `<img src="` + AddButtonPath + `"alt="Add Skill" class="add-new-skill" category="` + category + `" onclick="showSkillNameInput(this);">
+                    <span class="newSkillInput" >Skill Name</span>`;
+                }
+
+
                 let skillCell = `<div class="skillCellContainer">
                             <div class="skillCell float-left">
-                                <p class="skillName">` + skills[j] + `</p>
+                               `+ text + `
                             </div>
                         </div>`;
 
@@ -569,4 +580,18 @@ function fillSkillCarousel(buttonUrl) {
             $("#skillContentDiv").append(carouselSlide);
         }
     }
+}
+
+function setAddButtonpath(path) {
+    AddButtonPath = path;
+}
+
+
+function showSkillNameInput(element) {
+    let category = $(element).attr("category");
+
+    let spanEle = element.parentElement.querySelector("span");
+    spanEle.style.display = "block";
+
+    $(element).hide();
 }
