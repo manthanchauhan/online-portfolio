@@ -1,3 +1,7 @@
+let skillMap = {};
+let skillOnAPage = 8;
+
+
 function getCookie(name) {
     var cookieValue = null;
 
@@ -508,3 +512,61 @@ function resize_skill_names(element) {
 }
 
 
+function setSkills(skills) {
+    skillMap = skills;
+
+    for (let category in skillMap){
+        skillMap[category].push("AddNew");
+    }
+}
+
+function fillSkillCarousel(buttonUrl) {
+    console.log(buttonUrl);
+    let slideIndx = 0;
+
+    for (let category in skillMap){
+
+        for (let i = 0; i < skillMap[category].length; i += skillOnAPage){
+            let skills = skillMap[category].slice(i, i + skillOnAPage);
+
+            let carouselSlide = `<div class="carousel-item `;
+
+            if (slideIndx === 0){
+                carouselSlide += `active`;
+            }
+            slideIndx += 1;
+
+            carouselSlide += `">
+                <a class="carousel-control-prev skillButton" href="#carouselExampleControls" role="button"
+                    data-slide="prev">
+                    <img src="` + buttonUrl + `">
+                </a>
+
+                <div class="sectionHeadingDiv">
+                    <h2>` + category + `</h2>
+                </div>
+                <div id="skillDataContainer">
+                    <div class="skillData">`;
+
+            for (let j = 0; j < skills.length; j ++){
+                let skillCell = `<div class="skillCellContainer">
+                            <div class="skillCell float-left">
+                                <p class="skillName">` + skills[j] + `</p>
+                            </div>
+                        </div>`;
+
+                carouselSlide += skillCell;
+            }
+
+            carouselSlide += `</div>
+                </div>
+                <a class="skillButton carousel-control-next" href="#carouselExampleControls" role="button"
+                    data-slide="next" style="transform: rotate(180deg);">
+                    <img src="` + buttonUrl + `">
+                </a>
+            </div>`;
+
+            $("#skillContentDiv").append(carouselSlide);
+        }
+    }
+}

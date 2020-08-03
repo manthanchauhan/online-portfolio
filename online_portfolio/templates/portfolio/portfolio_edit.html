@@ -76,41 +76,6 @@ Edit | Portfolio
     <div class="skillsGrey carousel slide" id="carouselExampleControls" data-ride="carousel">
 
         <div id="skillContentDiv" class="carousel-inner">
-            {% for page in skills %}
-
-            <div class="carousel-item {% if forloop.first %} active {% endif %}">
-
-                <a class="carousel-control-prev skillButton" href="#carouselExampleControls" role="button"
-                    data-slide="prev">
-                    <img src="{% static 'portfolio/icons8-chevron-left-96.png' %}">
-                </a>
-
-                <div class="sectionHeadingDiv">
-                    <h2>{{page.category}}</h2>
-                </div>
-                <div id="skillDataContainer">
-                    <div class="skillData">
-                        {% for row in page.data %}
-                        {% for skill_name in row %}
-                        <div class="skillCellContainer">
-                            <div class="skillCell float-left">
-                                <p class="skillName">{{skill_name}}</p>
-                            </div>
-                        </div>
-                        {% endfor %}
-                        {% endfor %}
-                    </div>
-
-                </div>
-
-                <a class="skillButton carousel-control-next" href="#carouselExampleControls" role="button"
-                    data-slide="next" style="transform: rotate(180deg);">
-                    <img src="{% static 'portfolio/icons8-chevron-left-96.png' %}">
-                </a>
-            </div>
-
-            {% endfor %}
-
         </div>
 
     </div>
@@ -181,4 +146,9 @@ Edit | Portfolio
 {% block scripts %}
 <script type="text/javascript" src="{% static 'portfolio/js/init-aws.js' %}"></script>
 <script type="text/javascript" src="{% static 'portfolio/js/edit.js' %}"></script>
+<script>
+    let skills = JSON.parse(`{{skills|safe}}`);
+    setSkills(skills);
+    fillSkillCarousel(`{% static 'portfolio/icons8-chevron-left-96.png' %}`);
+</script>
 {% endblock %}
