@@ -20,8 +20,6 @@ class PortfolioEdit(LoginRequiredMixin, View):
         projects = get_projects_info(request.user)
         skills = json.dumps(get_skills(request.user.basicinfo))
 
-        print(skills)
-
         context = basic_info
         context["projects"] = projects
         context["skills"] = skills
