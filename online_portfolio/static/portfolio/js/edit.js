@@ -3,6 +3,7 @@ let skillOnAPage = 8;
 let AddNew = "s5Ryu";
 let AddButtonPath = null;
 let CarouselButton = null;
+let skillNameLength = 25
 
 function getCookie(name) {
     var cookieValue = null;
@@ -611,14 +612,19 @@ function showSkillNameCharCount(element, max, fontSize) {
 function updateSkillName(ele) {
     let new_skill = ele.innerText;
     let len = new_skill.length;
-    let max = 40;
 
-    if (len > max) {
+    if (len > skillNameLength) {
         return;
     }
+
     $(ele).parent().find(".skillNameCharCount").hide();
     let category = $(ele).attr("category");
     let slideIndex = $(ele).attr("carousel-index");
+
+    if (jQuery.inArray(skillMap[category], new_skill) !== -1){
+        alert("This Skill Already Exists!!")
+        return;
+    }
 
     $.ajax({
         url: "/portfolio/add_new_skill/",
