@@ -267,14 +267,21 @@
   background: #30475e;
   color: white;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
 .skillCell img{
     width:40%;
     cursor: pointer;
 }
+
+.skillNameCharCount{
+    font-size:1rem;
+    color:white;
+}
+
 .newSkillInput{
     display: none;
 }

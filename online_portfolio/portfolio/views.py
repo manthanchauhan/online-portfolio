@@ -201,12 +201,11 @@ class ExportPortfolio(LoginRequiredMixin, View):
 class AddSkill(LoginRequiredMixin, View):
     @staticmethod
     def post(request):
-        print(request.POST)
         skill_name = request.POST.get("skill_name")
         category = request.POST.get("category")
 
         form = AddSkillForm(
-            initial={
+            data={
                 "user_profile": request.user.basicinfo,
                 "skill_name": skill_name,
                 "category": category,

@@ -1,7 +1,8 @@
 let skillMap = {};
 let skillOnAPage = 8;
 let AddNew = "s5Ryu";
-var AddButtonPath = null;
+let AddButtonPath = null;
+let CarouselButton = null;
 
 function getCookie(name) {
     var cookieValue = null;
@@ -30,11 +31,11 @@ $(document).ready(function () {
 
     let titleNameElement = $("#titleName");
     let nameCharCountElement = $("#titleNameCharCount");
-    titleNameElement.keyup(function (e) { check_charcount(titleNameElement, nameCharCountElement, 40, "1rem", "1.5rem", e); });
+    titleNameElement.keyup(function (e) { check_charcount(titleNameElement, nameCharCountElement, 40, "1rem", "1.5rem", "green", e); });
 
     let taglineTextElement = $("#titleTagline");
     let taglineCharCountElement = $("#titleTaglineCharCount");
-    $("#titleTagline").keyup(function (e) { check_charcount(taglineTextElement, taglineCharCountElement, 55, "1rem", "1.5rem", e); });
+    $("#titleTagline").keyup(function (e) { check_charcount(taglineTextElement, taglineCharCountElement, 55, "1rem", "1.5rem", "green", e); });
 
     $(".skillCell").each(function () {
         let element = $(this);
@@ -408,12 +409,15 @@ function updateAboutData(name, tag_line, profile_pic, about) {
     });
 }
 
-function check_charcount(textElement, charCountElement, max, fontSize, maxExceedFontSize, e) {
+function check_charcount(textElement, charCountElement, max, fontSize, maxExceedFontSize, color, e) {
+    console.log(textElement.text());
+
     let len = textElement.text().length;
+    console.log(len);
 
     charCountElement.css("font-size", fontSize);
     charCountElement.text(len + "/" + max);
-    charCountElement.css("color", "green");
+    charCountElement.css("color", color);
 
     if (len > max) {
         charCountElement.css("color", "red");
@@ -421,7 +425,7 @@ function check_charcount(textElement, charCountElement, max, fontSize, maxExceed
     }
 }
 
-function showCharCount(element, max) {
+function showCharCount(element, max, isID = true) {
     let len = $(element).text().length;
     $("#" + element.id + "CharCount").show();
     $("#" + element.id + "CharCount").text(len + "/" + max);
@@ -515,8 +519,9 @@ function setSkills(skills) {
     }
 }
 
-function fillSkillCarousel(buttonUrl) {
+function fillSkillCarousel() {
     let slideIndx = 0;
+    let buttonUrl = CarouselButton;
 
     for (let category in skillMap) {
 
@@ -529,7 +534,6 @@ function fillSkillCarousel(buttonUrl) {
             if (slideIndx === 0) {
                 carouselSlide += `active`;
             }
-            slideIndx += 1;
 
             carouselSlide += `">
                 <a class="carousel-control-prev skillButton" href="#carouselExampleControls" role="button"
@@ -546,11 +550,13 @@ function fillSkillCarousel(buttonUrl) {
             for (let j = 0; j < skills.length; j++) {
                 let text = `<p class="skillName">` + skills[j] + `</p>`;
 
-                if (skills[j] == AddNew) {
+                if (skills[j] === AddNew) {
                     text = `<img src="` + AddButtonPath + `"alt="Add Skill" class="add-new-skill" category="` + category + `" onclick="showSkillNameInput(this);">
-                    <p class="newSkillInput skillName" contenteditable="true">Skill Name</p>`;
-                }
 
+                    <p class="newSkillInput skillName" contenteditable="true" onfocusin="showSkillNameCharCount(this,20,'1rem');" carousel-index="` + slideIndx + `" id="newSkillNameInput" category="` + category + `" onfocusout="updateSkillName(this);"></p>
+
+                    <small class="skillNameCharCount"></small>`;
+                }
 
                 let skillCell = `<div class="skillCellContainer">
                             <div class="skillCell float-left">
@@ -570,6 +576,7 @@ function fillSkillCarousel(buttonUrl) {
             </div>`;
 
             $("#skillContentDiv").append(carouselSlide);
+            slideIndx += 1;
         }
     }
 }
@@ -580,9 +587,60 @@ function setAddButtonpath(path) {
 
 
 function showSkillNameInput(element) {
-    let category = $(element).attr("category");
-
     let spanEle = element.parentElement.querySelector(".newSkillInput");
     spanEle.style.display = "block";
     $(element).hide();
+
+    let ele = $(spanEle);
+    let skillCharCountElement = $(element).parent().find(".skillNameCharCount");
+    ele.focus();
+    ele.keyup(function (e) { check_charcount(ele, skillCharCountElement, 25, "1rem", "1.5rem", "white", e); });
+}
+
+function showSkillNameCharCount(element, max, fontSize) {
+    console.log("hi");
+    let len = $(element).text().length;
+
+    let skillCharCountElement = $(element).parent().find(".skillNameCharCount");
+
+    skillCharCountElement.show();
+    skillCharCountElement.text(len + "/" + max);
+}
+
+
+function updateSkillName(ele) {
+    let new_skill = ele.innerText;
+    let len = new_skill.length;
+    let max = 40;
+
+    if (len > max) {
+        return;
+    }
+    $(ele).parent().find(".skillNameCharCount").hide();
+    let category = $(ele).attr("category");
+    let slideIndex = $(ele).attr("carousel-index");
+
+    $.ajax({
+        url: "/portfolio/add_new_skill/",
+        type: "POST",
+        data: {"skill_name": new_skill, "category": category},
+        dataType: "json",
+        success: function(){
+            skillMap[category].pop();
+            skillMap[category].push(new_skill);
+            skillMap[category].push(AddNew);
+
+            $("#skillContentDiv").empty();
+            fillSkillCarousel();
+
+            $("#carouselExampleControls").carousel(parseInt(slideIndex));
+        },
+        error: function(data){
+            showErrorModal(data.responseJSON, data.statusText);
+        },
+    });
+}
+
+function setCarouselButtonPath(path) {
+    CarouselButton = path;
 }

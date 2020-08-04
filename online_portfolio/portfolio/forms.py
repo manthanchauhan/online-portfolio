@@ -20,4 +20,4 @@ class ProjectForm(ModelForm):
 class AddSkillForm(ModelForm):
     class Meta:
         model = Skill
-        fields = "__all__"
+        fields = ["skill_name", "category", "user_profile"]

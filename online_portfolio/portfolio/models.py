@@ -86,10 +86,10 @@ class Project(models.Model):
 class Skill(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True, editable=False)
     user_profile = models.ForeignKey(
-        to=BasicInfo, on_delete=models.CASCADE, editable=False,
+        to=BasicInfo, on_delete=models.CASCADE, editable=True,
     )
     skill_name = models.CharField(
-        max_length=40, default=settings.DEFAULT_SKILL["skill_name"]
+        max_length=25, default=settings.DEFAULT_SKILL["skill_name"]
     )
     category = models.CharField(
         max_length=50, default=settings.DEFAULT_SKILL["category"]
