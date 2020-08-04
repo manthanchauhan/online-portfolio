@@ -89,7 +89,7 @@ class Skill(models.Model):
         to=BasicInfo, on_delete=models.CASCADE, editable=True,
     )
     skill_name = models.CharField(
-        max_length=40, default=settings.DEFAULT_SKILL["skill_name"]
+        max_length=25, default=settings.DEFAULT_SKILL["skill_name"]
     )
     category = models.CharField(
         max_length=50, default=settings.DEFAULT_SKILL["category"]

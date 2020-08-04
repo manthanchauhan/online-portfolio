@@ -1,7 +1,8 @@
 let skillMap = {};
 let skillOnAPage = 8;
 let AddNew = "s5Ryu";
-var AddButtonPath = null;
+let AddButtonPath = null;
+let CarouselButton = null;
 
 function getCookie(name) {
     var cookieValue = null;
@@ -518,8 +519,9 @@ function setSkills(skills) {
     }
 }
 
-function fillSkillCarousel(buttonUrl) {
+function fillSkillCarousel() {
     let slideIndx = 0;
+    let buttonUrl = CarouselButton;
 
     for (let category in skillMap) {
 
@@ -532,7 +534,6 @@ function fillSkillCarousel(buttonUrl) {
             if (slideIndx === 0) {
                 carouselSlide += `active`;
             }
-            slideIndx += 1;
 
             carouselSlide += `">
                 <a class="carousel-control-prev skillButton" href="#carouselExampleControls" role="button"
@@ -549,10 +550,10 @@ function fillSkillCarousel(buttonUrl) {
             for (let j = 0; j < skills.length; j++) {
                 let text = `<p class="skillName">` + skills[j] + `</p>`;
 
-                if (skills[j] == AddNew) {
+                if (skills[j] === AddNew) {
                     text = `<img src="` + AddButtonPath + `"alt="Add Skill" class="add-new-skill" category="` + category + `" onclick="showSkillNameInput(this);">
 
-                    <p class="newSkillInput skillName" contenteditable="true" onfocusin="showSkillNameCharCount(this,20,'1rem');" id="newSkillNameInput" onfocusout="updateSkillName(this);">Skill Name</p>
+                    <p class="newSkillInput skillName" contenteditable="true" onfocusin="showSkillNameCharCount(this,20,'1rem');" carousel-index="` + slideIndx + `" id="newSkillNameInput" category="` + category + `" onfocusout="updateSkillName(this);"></p>
 
                     <small class="skillNameCharCount"></small>`;
                 }
@@ -575,6 +576,7 @@ function fillSkillCarousel(buttonUrl) {
             </div>`;
 
             $("#skillContentDiv").append(carouselSlide);
+            slideIndx += 1;
         }
     }
 }
@@ -585,16 +587,14 @@ function setAddButtonpath(path) {
 
 
 function showSkillNameInput(element) {
-    let category = $(element).attr("category");
-
     let spanEle = element.parentElement.querySelector(".newSkillInput");
     spanEle.style.display = "block";
     $(element).hide();
 
     let ele = $(spanEle);
     let skillCharCountElement = $(element).parent().find(".skillNameCharCount");
-
-    ele.keyup(function (e) { check_charcount(ele, skillCharCountElement, 20, "1rem", "1.5rem", "white", e); });
+    ele.focus();
+    ele.keyup(function (e) { check_charcount(ele, skillCharCountElement, 25, "1rem", "1.5rem", "white", e); });
 }
 
 function showSkillNameCharCount(element, max, fontSize) {
@@ -617,25 +617,30 @@ function updateSkillName(ele) {
         return;
     }
     $(ele).parent().find(".skillNameCharCount").hide();
+    let category = $(ele).attr("category");
+    let slideIndex = $(ele).attr("carousel-index");
 
-    //here we get our new skills now we need to integrate here with backend 
-    //cell with + sign add krna h !
     $.ajax({
         url: "/portfolio/add_new_skill/",
         type: "POST",
-        data: {"skill_name": new_skill, "category": "figure this out"},
+        data: {"skill_name": new_skill, "category": category},
         dataType: "json",
         success: function(){
-            console.log("success");
-            // do somtehing here
+            skillMap[category].pop();
+            skillMap[category].push(new_skill);
+            skillMap[category].push(AddNew);
+
+            $("#skillContentDiv").empty();
+            fillSkillCarousel();
+
+            $("#carouselExampleControls").carousel(parseInt(slideIndex));
         },
         error: function(data){
-            console.log(data);
             showErrorModal(data.responseJSON, data.statusText);
         },
     });
+}
 
-    console.log(new_skill);
-
-    // updateAboutData(new_name, null, null, null);
+function setCarouselButtonPath(path) {
+    CarouselButton = path;
 }
