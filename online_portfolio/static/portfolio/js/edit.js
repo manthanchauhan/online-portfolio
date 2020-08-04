@@ -30,11 +30,11 @@ $(document).ready(function () {
 
     let titleNameElement = $("#titleName");
     let nameCharCountElement = $("#titleNameCharCount");
-    titleNameElement.keyup(function (e) { check_charcount(titleNameElement, nameCharCountElement, 40, "1rem", "1.5rem", e); });
+    titleNameElement.keyup(function (e) { check_charcount(titleNameElement, nameCharCountElement, 40, "1rem", "1.5rem", "green", e); });
 
     let taglineTextElement = $("#titleTagline");
     let taglineCharCountElement = $("#titleTaglineCharCount");
-    $("#titleTagline").keyup(function (e) { check_charcount(taglineTextElement, taglineCharCountElement, 55, "1rem", "1.5rem", e); });
+    $("#titleTagline").keyup(function (e) { check_charcount(taglineTextElement, taglineCharCountElement, 55, "1rem", "1.5rem", "green", e); });
 
     $(".skillCell").each(function () {
         let element = $(this);
@@ -408,12 +408,15 @@ function updateAboutData(name, tag_line, profile_pic, about) {
     });
 }
 
-function check_charcount(textElement, charCountElement, max, fontSize, maxExceedFontSize, e) {
+function check_charcount(textElement, charCountElement, max, fontSize, maxExceedFontSize, color, e) {
+    console.log(textElement.text());
+
     let len = textElement.text().length;
+    console.log(len);
 
     charCountElement.css("font-size", fontSize);
     charCountElement.text(len + "/" + max);
-    charCountElement.css("color", "green");
+    charCountElement.css("color", color);
 
     if (len > max) {
         charCountElement.css("color", "red");
@@ -421,7 +424,7 @@ function check_charcount(textElement, charCountElement, max, fontSize, maxExceed
     }
 }
 
-function showCharCount(element, max) {
+function showCharCount(element, max, isID = true) {
     let len = $(element).text().length;
     $("#" + element.id + "CharCount").show();
     $("#" + element.id + "CharCount").text(len + "/" + max);
@@ -548,9 +551,11 @@ function fillSkillCarousel(buttonUrl) {
 
                 if (skills[j] == AddNew) {
                     text = `<img src="` + AddButtonPath + `"alt="Add Skill" class="add-new-skill" category="` + category + `" onclick="showSkillNameInput(this);">
-                    <p class="newSkillInput skillName" contenteditable="true">Skill Name</p>`;
-                }
 
+                    <p class="newSkillInput skillName" contenteditable="true" onfocusin="showSkillNameCharCount(this,20,'1rem');" id="newSkillNameInput" onfocusout="updateSkillName(this);">Skill Name</p>
+
+                    <small class="skillNameCharCount"></small>`;
+                }
 
                 let skillCell = `<div class="skillCellContainer">
                             <div class="skillCell float-left">
@@ -585,4 +590,52 @@ function showSkillNameInput(element) {
     let spanEle = element.parentElement.querySelector(".newSkillInput");
     spanEle.style.display = "block";
     $(element).hide();
+
+    let ele = $(spanEle);
+    let skillCharCountElement = $(element).parent().find(".skillNameCharCount");
+
+    ele.keyup(function (e) { check_charcount(ele, skillCharCountElement, 20, "1rem", "1.5rem", "white", e); });
+}
+
+function showSkillNameCharCount(element, max, fontSize) {
+    console.log("hi");
+    let len = $(element).text().length;
+
+    let skillCharCountElement = $(element).parent().find(".skillNameCharCount");
+
+    skillCharCountElement.show();
+    skillCharCountElement.text(len + "/" + max);
+}
+
+
+function updateSkillName(ele) {
+    let new_skill = ele.innerText;
+    let len = new_skill.length;
+    let max = 40;
+
+    if (len > max) {
+        return;
+    }
+    $(ele).parent().find(".skillNameCharCount").hide();
+
+    //here we get our new skills now we need to integrate here with backend 
+    //cell with + sign add krna h !
+    $.ajax({
+        url: "/portfolio/add_new_skill/",
+        type: "POST",
+        data: {"skill_name": new_skill, "category": "figure this out"},
+        dataType: "json",
+        success: function(){
+            console.log("success");
+            // do somtehing here
+        },
+        error: function(data){
+            console.log(data);
+            showErrorModal(data.responseJSON, data.statusText);
+        },
+    });
+
+    console.log(new_skill);
+
+    // updateAboutData(new_name, null, null, null);
 }

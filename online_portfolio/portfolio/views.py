@@ -215,6 +215,8 @@ class AddSkill(LoginRequiredMixin, View):
 
         if not form.is_valid():
             error_dict = dict(form.errors.items())
+            print(form.non_field_errors())
+            print(form.errors)
 
             return JsonResponse(
                 data=error_dict, status=HTTPStatus.BAD_REQUEST, reason="Invalid Data"
