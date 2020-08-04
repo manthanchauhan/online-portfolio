@@ -521,7 +521,6 @@ function setSkills(skills) {
 }
 
 function fillSkillCarousel(buttonUrl) {
-    console.log(buttonUrl);
     let slideIndx = 0;
 
     for (let category in skillMap){
