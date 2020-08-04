@@ -271,6 +271,14 @@
   justify-content: center;
 }
 
+.skillCell img{
+    width:40%;
+    cursor: pointer;
+}
+.newSkillInput{
+    display: none;
+}
+
 #skillContentDiv{
   width: 100%;
 }

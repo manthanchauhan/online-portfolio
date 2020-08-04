@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views import View
 from django.http import JsonResponse
+import json
 from http import HTTPStatus
 from django.template.loader import render_to_string
 from online_portfolio.classes import MediaStorage
@@ -17,7 +18,7 @@ class PortfolioEdit(LoginRequiredMixin, View):
     def get(self, request):
         basic_info = get_basic_info(request.user)
         projects = get_projects_info(request.user)
-        skills = get_skills(request.user.basicinfo)
+        skills = json.dumps(get_skills(request.user.basicinfo))
 
         context = basic_info
         context["projects"] = projects
