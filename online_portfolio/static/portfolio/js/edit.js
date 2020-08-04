@@ -28,8 +28,13 @@ $(document).ready(function () {
         }
     });
 
-    $("#titleName").keyup(function (e) { check_charcount("titleName", 40, e); });
-    $("#titleTagline").keyup(function (e) { check_charcount("titleTagline", 55, e); });
+    let titleNameElement = $("#titleName");
+    let nameCharCountElement = $("#titleNameCharCount");
+    titleNameElement.keyup(function (e) { check_charcount(titleNameElement, nameCharCountElement, 40, "1rem", "1.5rem", e); });
+
+    let taglineTextElement = $("#titleTagline");
+    let taglineCharCountElement = $("#titleTaglineCharCount");
+    $("#titleTagline").keyup(function (e) { check_charcount(taglineTextElement, taglineCharCountElement, 55, "1rem", "1.5rem", e); });
 
     $(".skillCell").each(function () {
         let element = $(this);
@@ -403,30 +408,16 @@ function updateAboutData(name, tag_line, profile_pic, about) {
     });
 }
 
-function check_charcount(content_id, max, e) {
-    let len;
+function check_charcount(textElement, charCountElement, max, fontSize, maxExceedFontSize, e) {
+    let len = textElement.text().length;
 
-    if (content_id == "aboutOrange") {
-        len = $("#aboutDiv").find(".note-editable").text().length;
-        $('#' + content_id + "CharCount").css("font-size", "1.5rem");
-    }
-    else if (content_id != "aboutOrange") {
-        len = $('#' + content_id).text().length;
-        $('#' + content_id + "CharCount").css("font-size", "1rem");
-    }
-
-    $("#" + content_id + "CharCount").text(len + "/" + max);
-    $("#" + content_id + "CharCount").css("color", "green");
+    charCountElement.css("font-size", fontSize);
+    charCountElement.text(len + "/" + max);
+    charCountElement.css("color", "green");
 
     if (len > max) {
-        $('#' + content_id + "CharCount").css("color", "red");
-
-        if (content_id == "aboutOrange") {
-            $('#' + content_id + "CharCount").css("font-size", "1.7rem");
-        }
-        else if (content_id != "aboutOrange") {
-            $('#' + content_id + "CharCount").css("font-size", "1.5rem");
-        }
+        charCountElement.css("color", "red");
+        charCountElement.css("font-size", maxExceedFontSize);
     }
 }
 
@@ -471,7 +462,9 @@ function aboutOrangeFocusIn(element, max) {
         "background": "#ff8080",
     });
 
-    $("#aboutDiv").find(".note-editable").keyup(function (e) { check_charcount("aboutOrange", 500, e); });
+    let aboutTextElement = $("#aboutDiv").find(".note-editable");
+    let aboutCharCount = $("#aboutOrangeCharCount")
+    aboutTextElement.keyup(function (e) { check_charcount(aboutTextElement, aboutCharCount, 500, "1.5rem", "1.7rem", e); });
 
     $("#aboutDiv").find(".note-editor").focusout(function () {
         updateAbout();
@@ -555,7 +548,7 @@ function fillSkillCarousel(buttonUrl) {
 
                 if (skills[j] == AddNew) {
                     text = `<img src="` + AddButtonPath + `"alt="Add Skill" class="add-new-skill" category="` + category + `" onclick="showSkillNameInput(this);">
-                    <span class="newSkillInput" >Skill Name</span>`;
+                    <span class="newSkillInput" contenteditable="true">Skill Name</span>`;
                 }
 
 
