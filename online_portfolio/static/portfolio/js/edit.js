@@ -548,7 +548,7 @@ function fillSkillCarousel(buttonUrl) {
 
                 if (skills[j] == AddNew) {
                     text = `<img src="` + AddButtonPath + `"alt="Add Skill" class="add-new-skill" category="` + category + `" onclick="showSkillNameInput(this);">
-                    <span class="newSkillInput" contenteditable="true">Skill Name</span>`;
+                    <p class="newSkillInput skillName" contenteditable="true">Skill Name</p>`;
                 }
 
 
@@ -582,7 +582,7 @@ function setAddButtonpath(path) {
 function showSkillNameInput(element) {
     let category = $(element).attr("category");
 
-    let spanEle = element.parentElement.querySelector("span");
+    let spanEle = element.parentElement.querySelector(".newSkillInput");
     spanEle.style.display = "block";
     $(element).hide();
 }
