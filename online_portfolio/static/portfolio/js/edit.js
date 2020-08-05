@@ -577,7 +577,7 @@ function showSkillNameInput(element) {
     let ele = $(spanEle);
     let skillCharCountElement = $(element).parent().find(".skillNameCharCount");
     ele.focus();
-    ele.keyup(function (e) { check_charcount(ele, skillCharCountElement, 25, "1rem", "1.5rem", "white", e); });
+    ele.keyup(function (e) { check_charcount(ele, skillCharCountElement, 25, "1rem", "1rem", "white", e); });
 }
 
 function showSkillNameCharCount(element, max, fontSize) {
@@ -602,7 +602,10 @@ function updateSkillName(ele, event) {
             $(ele).parent().find(".skillNameCharCount").hide();
             $(ele).parent().find(".add-new-skill").css('margin-top', '40%');
         }
-        // event.preventDefault();
+        else {
+            alert("Max LIMIT EXCEED!!!")
+            event.preventDefault();
+        }
         return false;
     }
     else {

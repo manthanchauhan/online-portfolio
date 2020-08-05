@@ -281,6 +281,8 @@
 [contenteditable="true"]:focus
 {
   width: calc(100% - 13px);
+  height: calc(100% - 13px);
+  font-size:16px;
 }
 
 .skillNameCharCount{
