@@ -531,13 +531,12 @@ function fillSkillCarousel() {
                     <div class="skillData">`;
 
             for (let j = 0; j < skills.length; j++) {
-                let text = `<p class="skillName">` + skills[j] + `</p>`;
+                let text = `<p class="skillName">` + skills[j] + `</p> <p class="skillCross" onclick="skillRemove(` + i + `,` + j + `)">X</p>`;
 
                 if (skills[j] === AddNew) {
                     text = `<img src="` + AddButtonPath + `"alt="Add Skill" class="add-new-skill" category="` + category + `" onclick="showSkillNameInput(this);">
 
                     <p class="newSkillInput skillName" contenteditable="true" onfocusin="showSkillNameCharCount(this,25,'1rem');" carousel-index="` + slideIndx + `" id="newSkillNameInput" category="` + category + `" onfocusout="updateSkillName(this,event);"></p>
-
                     <small class="skillNameCharCount"></small>`;
                 }
 
@@ -645,4 +644,10 @@ function updateSkillName(ele, event) {
 
 function setCarouselButtonPath(path) {
     CarouselButton = path;
+}
+
+function skillRemove(i_index, j_index) {
+    console.log(i_index);
+    console.log(j_index);
+    console.log(skills);
 }
