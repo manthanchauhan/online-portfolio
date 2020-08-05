@@ -277,6 +277,12 @@
     cursor: pointer;
 }
 
+.skillCell [contenteditable="true"]:active,
+[contenteditable="true"]:focus
+{
+  width: calc(100% - 13px);
+}
+
 .skillNameCharCount{
     font-size:1rem;
     color:white;

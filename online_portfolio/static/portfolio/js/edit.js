@@ -53,7 +53,6 @@ function UploadProjectImage(username, sno) {
 
     image = image[0];
     var filename = image.name;
-    console.log(filename);
 
     var upload = new AWS.S3.ManagedUpload({
         params: {
@@ -76,7 +75,6 @@ function UploadProjectImage(username, sno) {
 };
 
 function UploadProfilePic(username) {
-    // console.log("hi");
     var image = document.getElementById("profile_picture").files;
 
     if (!image.length) {
@@ -86,7 +84,6 @@ function UploadProfilePic(username) {
     var picture = image[0];
     var filename = picture.name;
 
-    // console.log(filename);
 
     var upload = new AWS.S3.ManagedUpload({
         params: {
@@ -101,7 +98,6 @@ function UploadProfilePic(username) {
 
     promise.then(
         function (data) {
-            console.log(data);
             url = "https://" + albumBucketName + ".s3." + bucketRegion + ".amazonaws.com/media/" + username + "_profile_pic." + filename.split('.').pop();
             $("#profile_pic_alt").attr("src", url);
             updateAboutData(null, null, url, null);
@@ -117,7 +113,6 @@ $("#profile_pic_alt").on("click", function () {
 });
 
 function uploadProjImage(sno) {
-    // console.log(sno);
     $("#project_picture" + sno).click();
 };
 
@@ -127,7 +122,6 @@ function save_project(project) {
     description = $("#proj_desc" + id).summernote('code');
     skills = $("#proj_skills" + id).text();
     image = $("#project_thumb" + id).attr("src");
-    // console.log(description);
 
     data = {
         'id': id,
@@ -137,7 +131,6 @@ function save_project(project) {
         'image': image
     };
 
-    console.log(data);
 
     $.ajax({
         url: '/portfolio/edit_projects/',
@@ -170,11 +163,9 @@ function delete_project(project) {
             alert(response.responseJSON.message);
         }
     });
-    //console.log("hidden");
 }
 
 function addProject(avatar) {
-    // console.log("hi");
 
     $.ajax({
         url: '/portfolio/add_project/',
@@ -186,9 +177,7 @@ function addProject(avatar) {
             return false;
         },
         success: function (response) {
-            // console.log(response);
-            // console.log(response.responseJSON);
-            // console.log(response.project_data);
+
             project = response.project_data;
 
             var element = `<div class="modal" tabindex="-1" role="dialog" id="projectLinks` + project.serial_no + `">
@@ -284,7 +273,6 @@ function saveProjLinks(sno) {
     });
 
     $('#projectLinks' + sno).modal('toggle');
-    // console.log(liveLink);
 };
 
 function exportPortfolio() {
@@ -298,8 +286,6 @@ function exportPortfolio() {
         data: {},
         dataType: "json",
         success: function (response) {
-            // console.log(response.url);
-            // console.log(response);
             $("#portLink").attr("value", response.url);
             $("#portLink2").attr("href", response.url);
             $("#portfolioLink").show();
@@ -411,10 +397,8 @@ function updateAboutData(name, tag_line, profile_pic, about) {
 }
 
 function check_charcount(textElement, charCountElement, max, fontSize, maxExceedFontSize, color, e) {
-    console.log(textElement.text());
 
     let len = textElement.text().length;
-    console.log(len);
 
     charCountElement.css("font-size", fontSize);
     charCountElement.text(len + "/" + max);
@@ -424,6 +408,7 @@ function check_charcount(textElement, charCountElement, max, fontSize, maxExceed
         charCountElement.css("color", "red");
         charCountElement.css("font-size", maxExceedFontSize);
     }
+
 }
 
 function showCharCount(element, max, isID = true) {
@@ -481,7 +466,6 @@ function aboutOrangeFocusIn(element, max) {
 function updateAbout() {
     let aboutHtml = $("#aboutOrange").summernote('code');
     let max = 2000;
-    console.log(aboutHtml.length);
 
     if (aboutHtml.length >= max) {
         return;
@@ -512,9 +496,7 @@ function resize_skill_names(element) {
 
 
 function setSkills(skills) {
-    console.log("setSkills");
     skillMap = skills;
-
     for (let category in skillMap) {
         skillMap[category].push(AddNew);
     }
@@ -554,7 +536,7 @@ function fillSkillCarousel() {
                 if (skills[j] === AddNew) {
                     text = `<img src="` + AddButtonPath + `"alt="Add Skill" class="add-new-skill" category="` + category + `" onclick="showSkillNameInput(this);">
 
-                    <p class="newSkillInput skillName" contenteditable="true" onfocusin="showSkillNameCharCount(this,20,'1rem');" carousel-index="` + slideIndx + `" id="newSkillNameInput" category="` + category + `" onfocusout="updateSkillName(this);"></p>
+                    <p class="newSkillInput skillName" contenteditable="true" onfocusin="showSkillNameCharCount(this,25,'1rem');" carousel-index="` + slideIndx + `" id="newSkillNameInput" category="` + category + `" onfocusout="updateSkillName(this,event);"></p>
 
                     <small class="skillNameCharCount"></small>`;
                 }
@@ -599,7 +581,6 @@ function showSkillNameInput(element) {
 }
 
 function showSkillNameCharCount(element, max, fontSize) {
-    console.log("hi");
     let len = $(element).text().length;
 
     let skillCharCountElement = $(element).parent().find(".skillNameCharCount");
@@ -609,42 +590,54 @@ function showSkillNameCharCount(element, max, fontSize) {
 }
 
 
-function updateSkillName(ele) {
+function updateSkillName(ele, event) {
     let new_skill = ele.innerText;
     let len = new_skill.length;
 
-    if (len > skillNameLength) {
-        return;
+
+    if (len > skillNameLength || len === 0) {
+
+        if (len === 0) {
+            $(ele).parent().find(".add-new-skill").show();
+            $(ele).parent().find(".skillNameCharCount").hide();
+            $(ele).parent().find(".add-new-skill").css('margin-top', '40%');
+        }
+        // event.preventDefault();
+        return false;
+    }
+    else {
+
+        $(ele).parent().find(".skillNameCharCount").hide();
+
+        let category = $(ele).attr("category");
+        let slideIndex = $(ele).attr("carousel-index");
+
+        if (jQuery.inArray(skillMap[category], new_skill) !== -1) {
+            alert("This Skill Already Exists!!")
+            return;
+        }
+
+        $.ajax({
+            url: "/portfolio/add_new_skill/",
+            type: "POST",
+            data: { "skill_name": new_skill, "category": category },
+            dataType: "json",
+            success: function () {
+                skillMap[category].pop();
+                skillMap[category].push(new_skill);
+                skillMap[category].push(AddNew);
+
+                $("#skillContentDiv").empty();
+                fillSkillCarousel();
+
+                $("#carouselExampleControls").carousel(parseInt(slideIndex));
+            },
+            error: function (data) {
+                showErrorModal(data.responseJSON, data.statusText);
+            },
+        });
     }
 
-    $(ele).parent().find(".skillNameCharCount").hide();
-    let category = $(ele).attr("category");
-    let slideIndex = $(ele).attr("carousel-index");
-
-    if (jQuery.inArray(skillMap[category], new_skill) !== -1){
-        alert("This Skill Already Exists!!")
-        return;
-    }
-
-    $.ajax({
-        url: "/portfolio/add_new_skill/",
-        type: "POST",
-        data: {"skill_name": new_skill, "category": category},
-        dataType: "json",
-        success: function(){
-            skillMap[category].pop();
-            skillMap[category].push(new_skill);
-            skillMap[category].push(AddNew);
-
-            $("#skillContentDiv").empty();
-            fillSkillCarousel();
-
-            $("#carouselExampleControls").carousel(parseInt(slideIndex));
-        },
-        error: function(data){
-            showErrorModal(data.responseJSON, data.statusText);
-        },
-    });
 }
 
 function setCarouselButtonPath(path) {
