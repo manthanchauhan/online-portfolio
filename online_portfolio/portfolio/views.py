@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.views import View
 from django.http import JsonResponse
+import datetime
 import json
+from pytz import UTC
 from http import HTTPStatus
 from django.template.loader import render_to_string
 from online_portfolio.classes import MediaStorage
@@ -20,9 +22,14 @@ class PortfolioEdit(LoginRequiredMixin, View):
         projects = get_projects_info(request.user)
         skills = json.dumps(get_skills(request.user.basicinfo))
 
+        first_day = request.user.date_joined + datetime.timedelta(
+            hours=3
+        ) >= UTC.localize(datetime.datetime.now())
+
         context = basic_info
         context["projects"] = projects
         context["skills"] = skills
+        context["first_day"] = first_day
         return render(request, template_name=self.template, context=context)
 
 

@@ -187,7 +187,7 @@ SOCIAL_AUTH_GITHUB_SECRET = config("GITHUB_SECRET")
 # app functionality settings
 DEFAULT_BASIC_INFO = {
     "name": "Manthan Chauhan",
-    "about": "Lorem Ipsum is simply dummy text of the **printing** and *typesetting* industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged",
+    "about": '<div style=""><span style="font-size: 24px; background-color: rgb(255, 198, 156);">I\'m a <u style="">Backend Engineer</u><b style="">&nbsp;</b>whose top priorities are <b style="">Speed</b>, <b style="">Scalability</b>, <b style="">Security </b>&amp; <b style="">Reliability</b>.</span></div><div style=""><span style="font-size: 24px;"><br></span></div><p><span style="font-size: 24px;">I also have knowledge of basic Frontend technologies and I\'m capable of building <b>Complex Systems </b>entirely <u>from scratch</u>.</span></p><div style=""><span style="font-size: 24px;"><br></span></div><div style=""><span style="font-size: 24px;">I\'ve <b>leaded </b>software development teams towards the&nbsp;<b>GOAL </b>multiple times. I\'m a <u>team leader</u>&nbsp;&amp;&nbsp;<u>team builder</u>.</span></div>',
     "tag_line": "Django Developer & Competitive Programmer",
     "profile_pic": "https://online-portfolio123.s3.ap-south-1.amazonaws.com/static/portfolio/avatar.png",
 }
