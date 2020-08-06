@@ -5,7 +5,7 @@ from django.shortcuts import redirect, render
 class Home(View):
     @staticmethod
     def get(request):
-        return redirect("accounts:login")
+        return redirect("portfolio:portfolio_edit")
 
 
 class About(View):

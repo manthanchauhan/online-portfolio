@@ -468,3 +468,17 @@ body{
   font-weight: 500;
   src: url("'https://fonts.googleapis.com/css2?family=Open+Sans&display=swap'");
 }
+
+#infoStrip{
+  min-height: 3em;
+  padding: 0.5em;
+  font-size: 1em;
+  background: #db9b51;
+  text-align: center;
+}
+
+#infoStrip p{
+  width: 85%;
+  max-width: 70em;
+  margin: auto;
+}
