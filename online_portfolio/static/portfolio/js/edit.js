@@ -595,15 +595,13 @@ function updateSkillName(ele, event) {
 
 
     if (len > skillNameLength || len === 0) {
+        $(ele).parent().find(".add-new-skill").show();
+        $(ele).parent().find(".skillNameCharCount").hide();
+        $(ele).parent().find(".add-new-skill").css('margin-top', '40%');
 
-        if (len === 0) {
-            $(ele).parent().find(".add-new-skill").show();
-            $(ele).parent().find(".skillNameCharCount").hide();
-            $(ele).parent().find(".add-new-skill").css('margin-top', '40%');
-        }
-        else {
-            alert("Max LIMIT EXCEED!!!")
-            event.preventDefault();
+        if (len !== 0) {
+            alert("Skill name is too long!!");
+            $(ele).empty();
         }
         return false;
     }
@@ -614,9 +612,23 @@ function updateSkillName(ele, event) {
         let category = $(ele).attr("category");
         let slideIndex = $(ele).attr("carousel-index");
 
-        if (jQuery.inArray(skillMap[category], new_skill) !== -1) {
-            alert("This Skill Already Exists!!")
-            return;
+        let already_exists = false;
+
+        for (let cat in skillMap){
+            for (let i = 0; i < skillMap[cat].length; i ++) {
+                if (skillMap[cat][i] === new_skill) {
+                    already_exists = true;
+                }
+            }
+        }
+
+        if (already_exists){
+            alert("This skill already exists!!");
+            $(ele).parent().find(".add-new-skill").show();
+            $(ele).parent().find(".skillNameCharCount").hide();
+            $(ele).parent().find(".add-new-skill").css('margin-top', '40%');
+            $(ele).empty();
+            return false;
         }
 
         $.ajax({
