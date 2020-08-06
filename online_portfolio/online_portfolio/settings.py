@@ -200,4 +200,17 @@ DEFAULT_PROJECT = {
 }
 DEFAULT_USER = "manthanchauhan913@gmail.com"
 
-DEFAULT_SKILL = {"skill_name": "New Skill", "category": "New Category"}
+DEFAULT_SKILLS = {
+    "Programming Languages": ["C", "C++", "Python", "Embedded C"],
+    "Web Development": [
+        "Django",
+        "Django Rest Framework",
+        "PostgreSQL",
+        "Apache HTTP Webserver",
+        "AWS",
+        "HTML",
+        "CSS",
+        "jQuery",
+        "Bootstrap",
+    ],
+}
