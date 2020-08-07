@@ -5,6 +5,7 @@ Sign Up
 {% endblock %}
 
 {% block content %}
+{% include 'render_messages.html' %}
     <div class="container" id="enterEmailContent" style="display:inline-block;">
         <div id="enterEmailImage" class="container col-sm-4 float-right">
             <img onclick="githubLogin();" src="{% static 'portfolio/github.png' %}" class="img-fluid" style="width: 100px;">

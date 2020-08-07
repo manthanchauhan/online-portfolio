@@ -531,7 +531,9 @@ function fillSkillCarousel() {
                     <div class="skillData">`;
 
             for (let j = 0; j < skills.length; j++) {
-                let text = `<p class="skillName">` + skills[j] + `</p> <p class="skillCross" onclick="skillRemove(` + i + `,` + j + `)">X</p>`;
+                let text = `<p class="skillName">` + skills[j] + `</p> `;
+
+                // <p class="skillCross" onclick="skillRemove(` + i + `,` + j + `)">X</p>
 
                 if (skills[j] === AddNew) {
                     text = `<img src="` + AddButtonPath + `"alt="Add Skill" class="add-new-skill" category="` + category + `" onclick="showSkillNameInput(this);">
