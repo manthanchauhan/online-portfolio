@@ -12,7 +12,7 @@ function myFunction(x) {
     }
 }
 
-var x = window.matchMedia("(max-width: 450px)");
+var x = window.matchMedia("(max-width: 621px)");
 myFunction(x);
 // Call listener function at run time
 
@@ -55,3 +55,15 @@ var bindEvents = function () {
 }
 
 bindEvents();
+
+//==========================================Scroll slide stop=========================================================//
+
+
+$(document).bind('scroll', function (e) {
+    console.log("scroll");
+    // console.log(e);
+});
+
+$('.carousel').carousel({
+    interval: false,
+});
