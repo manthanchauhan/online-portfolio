@@ -88,12 +88,8 @@ class Skill(models.Model):
     user_profile = models.ForeignKey(
         to=BasicInfo, on_delete=models.CASCADE, editable=True,
     )
-    skill_name = models.CharField(
-        max_length=25, default=settings.DEFAULT_SKILL["skill_name"]
-    )
-    category = models.CharField(
-        max_length=50, default=settings.DEFAULT_SKILL["category"]
-    )
+    skill_name = models.CharField(max_length=25)
+    category = models.CharField(max_length=50)
 
     class Meta:
         unique_together = [("user_profile", "skill_name")]

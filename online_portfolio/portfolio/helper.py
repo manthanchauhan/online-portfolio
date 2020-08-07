@@ -71,6 +71,10 @@ def create_default_project(user):
 
 def get_skills(basic_info):
     skills = list(basic_info.skill_set.all())
+
+    if not skills:
+        return settings.DEFAULT_SKILLS
+
     skills.sort(key=lambda x: x.timestamp)
 
     skill_data = {}
