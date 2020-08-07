@@ -155,9 +155,12 @@ Edit | Portfolio
 <script>
     setAddButtonpath(`{% static 'portfolio/plus.svg' %}`);
     setCarouselButtonPath(`{% static 'portfolio/icons8-chevron-left-96.png' %}`);
-    let skills = JSON.parse(`{{skills|safe}}`);
-    console.log("setskillcalling!");
+
+    let skills = `{{skills|safe}}`;
+    skills = JSON.parse(skills.replace(/\n/g, " "));
+
     setSkills(skills);
+
     fillSkillCarousel();
 </script>
 {% endblock %}

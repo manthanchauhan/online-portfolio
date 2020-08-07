@@ -270,11 +270,32 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+    position: relative;
 }
 
 .skillCell img{
     width:40%;
     cursor: pointer;
+}
+
+.skillCross{
+    font-weight: bold;
+    position: absolute;
+    top:2.5px;
+    right:2.5px;
+    font-size: 10px;
+}
+.skillCross:hover{
+    color:red !important;
+    cursor: pointer;
+}
+
+.skillCell [contenteditable="true"]:active,
+[contenteditable="true"]:focus
+{
+  width: calc(100% - 13px);
+  height: calc(100% - 13px);
+  font-size:16px;
 }
 
 .skillNameCharCount{

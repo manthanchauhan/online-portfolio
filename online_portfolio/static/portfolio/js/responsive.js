@@ -12,7 +12,7 @@ function myFunction(x) {
     }
 }
 
-var x = window.matchMedia("(max-width: 450px)");
+var x = window.matchMedia("(max-width: 621px)");
 myFunction(x);
 // Call listener function at run time
 
@@ -45,6 +45,18 @@ var bindEvents = function () {
 
     function handleGesure() {
         var swiped = 'swiped: ';
+
+        if (touchendX === touchstartX){
+            return;
+        }
+
+        let slope = (touchstartY - touchendY)/(touchstartX - touchendX);
+        slope = Math.abs(slope);
+
+        if (slope >= 1) {
+            return;
+        }
+
         if (touchendX < touchstartX) {
             $('.carousel').carousel('next');
         }
