@@ -58,7 +58,6 @@ bindEvents();
 
 //==========================================Scroll slide stop=========================================================//
 
-
 $(document).bind('scroll', function (e) {
     console.log("scroll");
     // console.log(e);
