@@ -27,7 +27,7 @@
 .skillButton{
     width:40px;
     height:40px;
-
+    display:none !important; 
   }
   
   #skillDataContainer{
@@ -53,16 +53,19 @@
     }
   
     .skillData{
-      margin-top: 20px;
-      margin-bottom: 20px;
+      margin:0;
     }
   
     .skillsGrey{
       width: 95%;
+      padding:0;
     }
 
     .sectionHeadingDiv h2{
       font-size: 1.5rem;
+    }
+    .sectionHeadingDiv{
+        margin:0;
     }
 
     #infoStrip p{
