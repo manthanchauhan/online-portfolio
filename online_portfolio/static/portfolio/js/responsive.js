@@ -45,6 +45,18 @@ var bindEvents = function () {
 
     function handleGesure() {
         var swiped = 'swiped: ';
+
+        if (touchendX === touchstartX){
+            return;
+        }
+
+        let slope = (touchstartY - touchendY)/(touchstartX - touchendX);
+        slope = Math.abs(slope);
+
+        if (slope >= 1) {
+            return;
+        }
+
         if (touchendX < touchstartX) {
             $('.carousel').carousel('next');
         }
@@ -55,14 +67,3 @@ var bindEvents = function () {
 }
 
 bindEvents();
-
-//==========================================Scroll slide stop=========================================================//
-
-$(document).bind('scroll', function (e) {
-    console.log("scroll");
-    // console.log(e);
-});
-
-$('.carousel').carousel({
-    interval: false,
-});
