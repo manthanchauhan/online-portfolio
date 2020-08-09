@@ -227,13 +227,9 @@
 
 .sectionHeadingDiv{
   font-family: 'Open Sans', sans-serif;
-  min-height: 50px;
+  padding-top: 50px;
 }
 
-.sectionHeadingDiv h2{
-    font-family: 'Open Sans', sans-serif;
-    line-height: 50px;
-  }
 
 #skillDataContainer{
     width: 100%;
