@@ -227,7 +227,7 @@
 
 .sectionHeadingDiv{
   font-family: 'Open Sans', sans-serif;
-  height: 50px;
+  min-height: 50px;
 }
 
 .sectionHeadingDiv h2{
