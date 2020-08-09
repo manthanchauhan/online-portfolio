@@ -230,6 +230,11 @@
   height: 50px;
 }
 
+.sectionHeadingDiv h2{
+    font-family: 'Open Sans', sans-serif;
+    line-height: 50px;
+  }
+
 #skillDataContainer{
     width: 100%;
     margin:auto;
