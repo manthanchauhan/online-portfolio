@@ -1,23 +1,3 @@
-//==================================For buttons disappearance in smaller screen ====================================//
-
-function myFunction(x) {
-    if (x.matches) {
-        document.querySelectorAll(".skillButton").forEach(btn => {
-            btn.style.display = "none";
-        })
-    } else {
-        document.querySelectorAll(".skillButton").forEach(btn => {
-            btn.style.display = "block";
-        })
-    }
-}
-
-var x = window.matchMedia("(max-width: 621px)");
-myFunction(x);
-// Call listener function at run time
-
-x.addListener(myFunction);
-
 //===============================================Adding Swipe Feature==============================================//
 
 var bindEvents = function () {
