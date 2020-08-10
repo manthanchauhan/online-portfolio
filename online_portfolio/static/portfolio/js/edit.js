@@ -2,6 +2,7 @@ let skillMap = {};
 let skillOnAPage = 8;
 let AddNew = "s5Ryu";
 let AddButtonPath = null;
+let DeleteButtonPath = null;
 let CarouselButton = null;
 let skillNameLength = 25
 
@@ -531,9 +532,8 @@ function fillSkillCarousel() {
                     <div class="skillData">`;
 
             for (let j = 0; j < skills.length; j++) {
-                let text = `<p class="skillName">` + skills[j] + `</p> `;
-
-                // <p class="skillCross" onclick="skillRemove(` + i + `,` + j + `)">X</p>
+                let text = `<p class="skillName">` + skills[j] + `</p> 
+                <img src="` + DeleteButtonPath + `" alt="X" class="delete-skill" category="` + category + `"  onclick="skillRemove(` + i + `,` + j + `)">`;
 
                 if (skills[j] === AddNew) {
                     text = `<img src="` + AddButtonPath + `"alt="Add Skill" class="add-new-skill" category="` + category + `" onclick="showSkillNameInput(this);">
@@ -567,6 +567,10 @@ function fillSkillCarousel() {
 
 function setAddButtonpath(path) {
     AddButtonPath = path;
+}
+
+function setDeleteButtonpath(path) {
+    DeleteButtonPath = path;
 }
 
 
@@ -616,15 +620,15 @@ function updateSkillName(ele, event) {
 
         let already_exists = false;
 
-        for (let cat in skillMap){
-            for (let i = 0; i < skillMap[cat].length; i ++) {
+        for (let cat in skillMap) {
+            for (let i = 0; i < skillMap[cat].length; i++) {
                 if (skillMap[cat][i] === new_skill) {
                     already_exists = true;
                 }
             }
         }
 
-        if (already_exists){
+        if (already_exists) {
             alert("This skill already exists!!");
             $(ele).parent().find(".add-new-skill").show();
             $(ele).parent().find(".skillNameCharCount").hide();

@@ -279,17 +279,6 @@
     cursor: pointer;
 }
 
-.skillCross{
-    font-weight: bold;
-    position: absolute;
-    top:2.5px;
-    right:2.5px;
-    font-size: 10px;
-}
-.skillCross:hover{
-    color:red !important;
-    cursor: pointer;
-}
 
 .skillCell [contenteditable="true"]:active,
 [contenteditable="true"]:focus
@@ -310,6 +299,19 @@
 
 #skillContentDiv{
   width: 100%;
+}
+
+.delete-skill{
+    width:15px !important;
+    height: 15px;
+    font-weight: bold;
+    position: absolute;
+    top:5px;
+    right:5px;
+}
+
+.skillDelete:hover{
+    cursor: pointer;
 }
 
 .skillButton{

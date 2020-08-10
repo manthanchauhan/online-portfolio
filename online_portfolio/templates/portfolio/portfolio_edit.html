@@ -47,7 +47,8 @@ Edit | Portfolio
 
 {% if first_day %}
 <div id="infoStrip">
-    <p>Hi! this is a sample portfolio for your reference, it is completely editable so that you can make it yours. Just click on any field and you'll get it :).</p>
+    <p>Hi! this is a sample portfolio for your reference, it is completely editable so that you can make it yours. Just
+        click on any field and you'll get it :).</p>
 </div>
 {% endif %}
 
@@ -154,6 +155,7 @@ Edit | Portfolio
 <script type="text/javascript" src="{% static 'portfolio/js/edit.js' %}"></script>
 <script>
     setAddButtonpath(`{% static 'portfolio/plus.svg' %}`);
+    setDeleteButtonpath(`{% static 'portfolio/trash.svg' %}`);
     setCarouselButtonPath(`{% static 'portfolio/icons8-chevron-left-96.png' %}`);
 
     let skills = `{{skills|safe}}`;
