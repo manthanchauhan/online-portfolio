@@ -153,14 +153,13 @@ Edit | Portfolio
 <script type="text/javascript" src="{% static 'portfolio/js/init-aws.js' %}"></script>
 <script type="text/javascript" src="{% static 'portfolio/js/edit.js' %}"></script>
 <script>
-    setAddButtonpath(`{% static 'portfolio/plus.svg' %}`);
-    setCarouselButtonPath(`{% static 'portfolio/icons8-chevron-left-96.png' %}`);
-
-    let skills = `{{skills|safe}}`;
-    skills = JSON.parse(skills.replace(/\n/g, " "));
-
-    setSkills(skills);
-
-    fillSkillCarousel();
+    const AddButtonPath = "{% static 'portfolio/plus.svg' %}";
+    const CarouselButton = "{% static 'portfolio/icons8-chevron-left-96.png' %}";
+    let json_skills = `{{skills|safe}}`;
+    const skills = JSON.parse(json_skills.replace(/\n/g, " "));
+    const edit_project_url = "{% url 'portfolio:edit_projects' %}";
+    const export_url = "{% url 'portfolio:export_portfolio' %}";
+    const update_about_url = "{% url 'portfolio:update_about' %}";
+    const add_skill_url = "{% url 'portfolio:add_new_skill' %}";
 </script>
 {% endblock %}
