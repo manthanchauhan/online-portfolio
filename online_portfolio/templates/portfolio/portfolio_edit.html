@@ -47,7 +47,8 @@ Edit | Portfolio
 
 {% if first_day %}
 <div id="infoStrip">
-    <p>Hi! this is a sample portfolio for your reference, it is completely editable so that you can make it yours. Just click on any field and you'll get it :).</p>
+    <p>Hi! this is a sample portfolio for your reference, it is completely editable so that you can make it yours. Just
+        click on any field and you'll get it :).</p>
 </div>
 {% endif %}
 
@@ -153,14 +154,14 @@ Edit | Portfolio
 <script type="text/javascript" src="{% static 'portfolio/js/init-aws.js' %}"></script>
 <script type="text/javascript" src="{% static 'portfolio/js/edit.js' %}"></script>
 <script>
-    setAddButtonpath(`{% static 'portfolio/plus.svg' %}`);
-    setCarouselButtonPath(`{% static 'portfolio/icons8-chevron-left-96.png' %}`);
-
-    let skills = `{{skills|safe}}`;
-    skills = JSON.parse(skills.replace(/\n/g, " "));
-
-    setSkills(skills);
-
-    fillSkillCarousel();
+    const AddButtonPath = "{% static 'portfolio/plus.svg' %}";
+    const DeleteButtonPath = "{% static 'portfolio/trash.png' %}";
+    const CarouselButton = "{% static 'portfolio/icons8-chevron-left-96.png' %}";
+    let json_skills = `{{skills|safe}}`;
+    const skills = JSON.parse(json_skills.replace(/\n/g, " "));
+    const edit_project_url = "{% url 'portfolio:edit_projects' %}";
+    const export_url = "{% url 'portfolio:export_portfolio' %}";
+    const update_about_url = "{% url 'portfolio:update_about' %}";
+    const add_skill_url = "{% url 'portfolio:add_new_skill' %}";
 </script>
 {% endblock %}

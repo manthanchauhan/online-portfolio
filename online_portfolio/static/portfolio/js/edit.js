@@ -1,19 +1,17 @@
 let skillMap = {};
 let skillOnAPage = 8;
 let AddNew = "s5Ryu";
-let AddButtonPath = null;
-let CarouselButton = null;
-let skillNameLength = 25
+let skillNameLength = 25;
 
 function getCookie(name) {
-    var cookieValue = null;
+    let cookieValue = null;
 
-    if (document.cookie && document.cookie != '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
+    if (document.cookie && document.cookie !== '') {
+        let cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            let cookie = jQuery.trim(cookies[i]);
             // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
                 break;
             }
@@ -25,7 +23,7 @@ function getCookie(name) {
 $(document).ready(function () {
     $.ajaxSetup({
         beforeSend: function (xhr, settings) {
-            var csrftoken = getCookie('csrftoken');
+            let csrftoken = getCookie('csrftoken');
             xhr.setRequestHeader("X-CSRFToken", csrftoken);
         }
     });
@@ -36,7 +34,10 @@ $(document).ready(function () {
 
     let taglineTextElement = $("#titleTagline");
     let taglineCharCountElement = $("#titleTaglineCharCount");
-    $("#titleTagline").keyup(function (e) { check_charcount(taglineTextElement, taglineCharCountElement, 55, "1rem", "1.5rem", "green", e); });
+    taglineTextElement.keyup(function (e) { check_charcount(taglineTextElement, taglineCharCountElement, 55, "1rem", "1.5rem", "green", e); });
+
+    setSkills();
+    fillSkillCarousel();
 
     $(".skillCell").each(function () {
         let element = $(this);
@@ -45,16 +46,16 @@ $(document).ready(function () {
 });
 
 function UploadProjectImage(username, sno) {
-    var image = document.getElementById("project_picture" + sno).files;
+    let image = document.getElementById("project_picture" + sno).files;
 
     if (!image.length) {
         return alert("Upload an image first");
     }
 
     image = image[0];
-    var filename = image.name;
+    let filename = image.name;
 
-    var upload = new AWS.S3.ManagedUpload({
+    let upload = new AWS.S3.ManagedUpload({
         params: {
             Bucket: mediaPath + "/projectImages",
             Key: username + "_projectImage_" + sno + "." + filename.split('.').pop(),
@@ -63,29 +64,29 @@ function UploadProjectImage(username, sno) {
         }
     });
 
-    var promise = upload.promise();
+    let promise = upload.promise();
 
     promise.then(function (data) {
-        url = "https://" + albumBucketName + ".s3." + bucketRegion + ".amazonaws.com/media/projectImages/" + username + "_projectImage_" + sno + "." + filename.split('.').pop();
+        let url = "https://" + albumBucketName + ".s3." + bucketRegion + ".amazonaws.com/media/projectImages/" + username + "_projectImage_" + sno + "." + filename.split('.').pop();
         $("#project_thumb" + sno).attr("src", url);
     },
         function (err) {
-            return alert("There was an error uploading your photo: ", err.message);
+            return alert("There was an error uploading your photo!!");
         });
-};
+}
 
 function UploadProfilePic(username) {
-    var image = document.getElementById("profile_picture").files;
+    let image = document.getElementById("profile_picture").files;
 
     if (!image.length) {
         return alert("Upload an image first");
     }
 
-    var picture = image[0];
-    var filename = picture.name;
+    let picture = image[0];
+    let filename = picture.name;
 
 
-    var upload = new AWS.S3.ManagedUpload({
+    let upload = new AWS.S3.ManagedUpload({
         params: {
             Bucket: mediaPath,
             Key: username + "_profile_pic." + filename.split('.').pop(),
@@ -94,11 +95,11 @@ function UploadProfilePic(username) {
         }
     });
 
-    var promise = upload.promise();
+    let promise = upload.promise();
 
     promise.then(
         function (data) {
-            url = "https://" + albumBucketName + ".s3." + bucketRegion + ".amazonaws.com/media/" + username + "_profile_pic." + filename.split('.').pop();
+            let url = "https://" + albumBucketName + ".s3." + bucketRegion + ".amazonaws.com/media/" + username + "_profile_pic." + filename.split('.').pop();
             $("#profile_pic_alt").attr("src", url);
             updateAboutData(null, null, url, null);
         },
@@ -106,7 +107,7 @@ function UploadProfilePic(username) {
             return alert("There was an error uploading your photo: " + err.message);
         }
     );
-};
+}
 
 $("#profile_pic_alt").on("click", function () {
     $("#profile_picture").click();
@@ -114,20 +115,20 @@ $("#profile_pic_alt").on("click", function () {
 
 function uploadProjImage(sno) {
     $("#project_picture" + sno).click();
-};
+}
 
 function save_project(project) {
-    id = project.attr("proj_id");
-    title = $("#proj_title" + id).text();
-    description = $("#proj_desc" + id).summernote('code');
-    skills = $("#proj_skills" + id).text();
-    image = $("#project_thumb" + id).attr("src");
+    let id = project.attr("proj_id");
+    let title = $("#proj_title" + id).text();
+    let description = $("#proj_desc" + id).summernote('code');
+    let project_skills = $("#proj_skills" + id).text();
+    let image = $("#project_thumb" + id).attr("src");
 
-    data = {
+    let data = {
         'id': id,
         'title': title,
         'description': description,
-        'skills': skills,
+        'skills': project_skills,
         'image': image
     };
 
@@ -141,10 +142,10 @@ function save_project(project) {
             alert(response.responseJSON.message);
         }
     });
-};
+}
 
 function delete_project(project) {
-    id = project.attr("proj_id");
+    let id = project.attr("proj_id");
 
     if (!confirm('Do you want to delete the project?')) {
         return false;
@@ -178,9 +179,9 @@ function addProject(avatar) {
         },
         success: function (response) {
 
-            project = response.project_data;
+            let project = response.project_data;
 
-            var element = `<div class="modal" tabindex="-1" role="dialog" id="projectLinks` + project.serial_no + `">
+            let element = `<div class="modal" tabindex="-1" role="dialog" id="projectLinks` + project.serial_no + `">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -255,11 +256,11 @@ function addProject(avatar) {
 }
 
 function saveProjLinks(sno) {
-    liveLink = $("#projLiveLink" + sno).val();
-    codeLink = $("#projCodeLink" + sno).val();
+    let liveLink = $("#projLiveLink" + sno).val();
+    let codeLink = $("#projCodeLink" + sno).val();
 
     $.ajax({
-        url: '/portfolio/edit_projects/',
+        url: edit_project_url,
         type: 'POST',
         data: {
             'id': sno,
@@ -273,7 +274,7 @@ function saveProjLinks(sno) {
     });
 
     $('#projectLinks' + sno).modal('toggle');
-};
+}
 
 function exportPortfolio() {
     if (!confirm("Do you want to export your new portfolio?")) {
@@ -281,7 +282,7 @@ function exportPortfolio() {
     }
 
     $.ajax({
-        url: '/portfolio/export_portfolio/',
+        url: export_url,
         type: 'POST',
         data: {},
         dataType: "json",
@@ -291,10 +292,10 @@ function exportPortfolio() {
             $("#portfolioLink").show();
         },
         error: function (response) {
-            alert(response, response.responseJSON.message);
+            alert(response);
         }
     });
-};
+}
 
 function closePortLink() {
     $("#portfolioLink").hide();
@@ -324,9 +325,6 @@ function toSummernote(element, type) {
             code: content,
         });
     }
-
-    // $(element).summernote('code', content);
-
 }
 
 function updateTagline() {
@@ -354,11 +352,12 @@ function updateName() {
     $("#titleNameCharCount").hide();
 
     updateAboutData(new_name, null, null, null);
-};
+}
 
 function showErrorModal(data, reason) {
-    $("#errorModal").show();
-    $("#errorModal").find(".modal-title").text(reason);
+    let errorModal = $("#errorModal");
+    errorModal.show();
+    errorModal.find(".modal-title").text(reason);
 
     let html = '';
     for (let key in data) {
@@ -372,7 +371,7 @@ function showErrorModal(data, reason) {
         html = html + `</ul><br>`;
     }
 
-    $("#errorModal").find(".modal-body").html(html);
+    errorModal.find(".modal-body").html(html);
 }
 
 function closeErrorModal() {
@@ -383,7 +382,7 @@ function updateAboutData(name, tag_line, profile_pic, about) {
     let data = { "name": name, "tag_line": tag_line, "profile_pic": profile_pic, "about": about }
 
     $.ajax({
-        url: '/portfolio/update_about/',
+        url: update_about_url,
         type: 'POST',
         data: data,
         dataType: "json",
@@ -397,7 +396,6 @@ function updateAboutData(name, tag_line, profile_pic, about) {
 }
 
 function check_charcount(textElement, charCountElement, max, fontSize, maxExceedFontSize, color, e) {
-
     let len = textElement.text().length;
 
     charCountElement.css("font-size", fontSize);
@@ -413,8 +411,9 @@ function check_charcount(textElement, charCountElement, max, fontSize, maxExceed
 
 function showCharCount(element, max, isID = true) {
     let len = $(element).text().length;
-    $("#" + element.id + "CharCount").show();
-    $("#" + element.id + "CharCount").text(len + "/" + max);
+    let charCountElement = $("#" + element.id + "CharCount");
+    charCountElement.show();
+    charCountElement.text(len + "/" + max);
 }
 
 function aboutOrangeFocusIn(element, max) {
@@ -432,7 +431,9 @@ function aboutOrangeFocusIn(element, max) {
         code: content,
     });
 
-    $("#aboutDiv").find(".note-editable").css({
+    let aboutDiv = $("#aboutDiv");
+
+    aboutDiv.find(".note-editable").css({
         "opacity": "86%",
         "font-family": "'Open Sans', sans-serif",
         "width": "90%",
@@ -444,19 +445,19 @@ function aboutOrangeFocusIn(element, max) {
         "font-size": "1.6rem",
     });
 
-    $("#aboutDiv").find(".note-toolbar").css({
+    aboutDiv.find(".note-toolbar").css({
         "text-align": "center",
     });
 
-    $("#aboutDiv").find(".note-toolbar").find(".note-btn").css({
+    aboutDiv.find(".note-toolbar").find(".note-btn").css({
         "background": "#ff8080",
     });
 
-    let aboutTextElement = $("#aboutDiv").find(".note-editable");
+    let aboutTextElement = aboutDiv.find(".note-editable");
     let aboutCharCount = $("#aboutOrangeCharCount")
     aboutTextElement.keyup(function (e) { check_charcount(aboutTextElement, aboutCharCount, 500, "1.5rem", "1.7rem", e); });
 
-    $("#aboutDiv").find(".note-editor").focusout(function () {
+    aboutDiv.find(".note-editor").focusout(function () {
         updateAbout();
     });
 
@@ -490,13 +491,11 @@ function resize_skill_names(element) {
         child.css("font-size", parseFloat(fontsize) - 1);
         resize_skill_names(element);
     }
-
-    return;
 }
 
-
-function setSkills(skills) {
+function setSkills() {
     skillMap = skills;
+
     for (let category in skillMap) {
         skillMap[category].push(AddNew);
     }
@@ -531,9 +530,8 @@ function fillSkillCarousel() {
                     <div class="skillData">`;
 
             for (let j = 0; j < skills.length; j++) {
-                let text = `<p class="skillName">` + skills[j] + `</p> `;
-
-                // <p class="skillCross" onclick="skillRemove(` + i + `,` + j + `)">X</p>
+                let text = `<p class="skillName">` + skills[j] + `</p> 
+                <img src="` + DeleteButtonPath + `" alt ="X" class="skillCross">`;
 
                 if (skills[j] === AddNew) {
                     text = `<img src="` + AddButtonPath + `"alt="Add Skill" class="add-new-skill" category="` + category + `" onclick="showSkillNameInput(this);">
@@ -543,7 +541,7 @@ function fillSkillCarousel() {
                 }
 
                 let skillCell = `<div class="skillCellContainer">
-                            <div class="skillCell float-left">
+                            <div class="skillCell float-left" onmouseover="skillcellhover(this);" onmouseout ="skillcellhoverout(this);">
                                `+ text + `
                             </div>
                         </div>`;
@@ -564,11 +562,6 @@ function fillSkillCarousel() {
         }
     }
 }
-
-function setAddButtonpath(path) {
-    AddButtonPath = path;
-}
-
 
 function showSkillNameInput(element) {
     let spanEle = element.parentElement.querySelector(".newSkillInput");
@@ -616,15 +609,15 @@ function updateSkillName(ele, event) {
 
         let already_exists = false;
 
-        for (let cat in skillMap){
-            for (let i = 0; i < skillMap[cat].length; i ++) {
+        for (let cat in skillMap) {
+            for (let i = 0; i < skillMap[cat].length; i++) {
                 if (skillMap[cat][i] === new_skill) {
                     already_exists = true;
                 }
             }
         }
 
-        if (already_exists){
+        if (already_exists) {
             alert("This skill already exists!!");
             $(ele).parent().find(".add-new-skill").show();
             $(ele).parent().find(".skillNameCharCount").hide();
@@ -634,7 +627,7 @@ function updateSkillName(ele, event) {
         }
 
         $.ajax({
-            url: "/portfolio/add_new_skill/",
+            url: add_skill_url,
             type: "POST",
             data: { "skill_name": new_skill, "category": category },
             dataType: "json",
@@ -656,12 +649,14 @@ function updateSkillName(ele, event) {
 
 }
 
-function setCarouselButtonPath(path) {
-    CarouselButton = path;
+
+function skillcellhover(element) {
+    const delete_btn = element.querySelector('.skillCross');
+    if (delete_btn) delete_btn.style.display = "block";
 }
 
-function skillRemove(i_index, j_index) {
-    console.log(i_index);
-    console.log(j_index);
-    console.log(skills);
+
+function skillcellhoverout(element) {
+    const delete_btn = element.querySelector('.skillCross');
+    if (delete_btn) delete_btn.style.display = "none";
 }
