@@ -1,7 +1,8 @@
 let skillMap = {};
 let skillOnAPage = 8;
 let AddNew = "s5Ryu";
-let skillNameLength = 25
+let skillNameLength = 25;
+let DeleteButtonPath = null;
 
 function getCookie(name) {
     let cookieValue = null;
@@ -493,7 +494,6 @@ function resize_skill_names(element) {
     }
 }
 
-
 function setSkills() {
     skillMap = skills;
 
@@ -531,9 +531,8 @@ function fillSkillCarousel() {
                     <div class="skillData">`;
 
             for (let j = 0; j < skills.length; j++) {
-                let text = `<p class="skillName">` + skills[j] + `</p> `;
-
-                // <p class="skillCross" onclick="skillRemove(` + i + `,` + j + `)">X</p>
+                let text = `<p class="skillName">` + skills[j] + `</p> 
+                <img src="` + DeleteButtonPath + `" alt ="X" class="skillCross">`;
 
                 if (skills[j] === AddNew) {
                     text = `<img src="` + AddButtonPath + `"alt="Add Skill" class="add-new-skill" category="` + category + `" onclick="showSkillNameInput(this);">
@@ -543,7 +542,7 @@ function fillSkillCarousel() {
                 }
 
                 let skillCell = `<div class="skillCellContainer">
-                            <div class="skillCell float-left">
+                            <div class="skillCell float-left" onmouseover="skillcellhover(this);" onmouseout ="skillcellhoverout(this);">
                                `+ text + `
                             </div>
                         </div>`;
@@ -611,15 +610,15 @@ function updateSkillName(ele, event) {
 
         let already_exists = false;
 
-        for (let cat in skillMap){
-            for (let i = 0; i < skillMap[cat].length; i ++) {
+        for (let cat in skillMap) {
+            for (let i = 0; i < skillMap[cat].length; i++) {
                 if (skillMap[cat][i] === new_skill) {
                     already_exists = true;
                 }
             }
         }
 
-        if (already_exists){
+        if (already_exists) {
             alert("This skill already exists!!");
             $(ele).parent().find(".add-new-skill").show();
             $(ele).parent().find(".skillNameCharCount").hide();
@@ -651,8 +650,18 @@ function updateSkillName(ele, event) {
 
 }
 
-function skillRemove(i_index, j_index) {
-    console.log(i_index);
-    console.log(j_index);
-    console.log(skills);
+function setDeleteButtonpath(path) {
+    DeleteButtonPath = path;
+}
+
+
+function skillcellhover(element) {
+    const delete_btn = element.querySelector('.skillCross');
+    if (delete_btn) delete_btn.style.display = "block";
+}
+
+
+function skillcellhoverout(element) {
+    const delete_btn = element.querySelector('.skillCross');
+    if (delete_btn) delete_btn.style.display = "none";
 }
