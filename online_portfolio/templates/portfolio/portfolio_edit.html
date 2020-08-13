@@ -155,8 +155,7 @@ Edit | Portfolio
 <script type="text/javascript" src="{% static 'portfolio/js/edit.js' %}"></script>
 <script>
     const AddButtonPath = "{% static 'portfolio/plus.svg' %}";
-
-    setDeleteButtonpath(`{% static 'portfolio/trash.svg' %}`);
+    const DeleteButtonPath = "{% static 'portfolio/trash.png' %}";
     const CarouselButton = "{% static 'portfolio/icons8-chevron-left-96.png' %}";
     let json_skills = `{{skills|safe}}`;
     const skills = JSON.parse(json_skills.replace(/\n/g, " "));

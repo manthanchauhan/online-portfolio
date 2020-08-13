@@ -2,7 +2,6 @@ let skillMap = {};
 let skillOnAPage = 8;
 let AddNew = "s5Ryu";
 let skillNameLength = 25;
-let DeleteButtonPath = null;
 
 function getCookie(name) {
     let cookieValue = null;
@@ -648,10 +647,6 @@ function updateSkillName(ele, event) {
         });
     }
 
-}
-
-function setDeleteButtonpath(path) {
-    DeleteButtonPath = path;
 }
 
 
