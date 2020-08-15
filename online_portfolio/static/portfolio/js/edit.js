@@ -530,8 +530,9 @@ function fillSkillCarousel() {
                     <div class="skillData">`;
 
             for (let j = 0; j < skills.length; j++) {
+                let skill_index = i+j;
                 let text = `<p class="skillName">` + skills[j] + `</p> 
-                <img src="` + DeleteButtonPath + `" alt ="X" class="skillCross">`;
+                <img src="` + DeleteButtonPath + `" alt ="X" class="skillCross"  category="` + category + `" onclick="skillRemove(this, ` + skill_index + `)">`;
 
                 if (skills[j] === AddNew) {
                     text = `<img src="` + AddButtonPath + `"alt="Add Skill" class="add-new-skill" category="` + category + `" onclick="showSkillNameInput(this);">
@@ -541,7 +542,7 @@ function fillSkillCarousel() {
                 }
 
                 let skillCell = `<div class="skillCellContainer">
-                            <div class="skillCell float-left" onmouseover="skillcellhover(this);" onmouseout ="skillcellhoverout(this);">
+                            <div class="skillCell float-left" onmouseover="skillCellHover(this);" onmouseout ="skillCellHoverOut(this);">
                                `+ text + `
                             </div>
                         </div>`;
@@ -649,14 +650,22 @@ function updateSkillName(ele, event) {
 
 }
 
-
-function skillcellhover(element) {
+function skillCellHover(element) {
     const delete_btn = element.querySelector('.skillCross');
     if (delete_btn) delete_btn.style.display = "block";
 }
 
-
-function skillcellhoverout(element) {
+function skillCellHoverOut(element) {
     const delete_btn = element.querySelector('.skillCross');
     if (delete_btn) delete_btn.style.display = "none";
+}
+
+function skillRemove(ele, index) {
+
+    let category = $(ele).attr("category");
+
+    let should_delete = confirm("Are you sure you want to delete this skill ?");
+    if (should_delete === true) {
+        console.log(skillMap[category][index]);
+    }
 }
