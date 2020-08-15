@@ -667,5 +667,6 @@ function skillRemove(ele, index) {
     let should_delete = confirm("Are you sure you want to delete this skill ?");
     if (should_delete === true) {
         console.log(skillMap[category][index]);
+        // Add ajax call here...
     }
 }
