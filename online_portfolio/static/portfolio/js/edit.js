@@ -531,7 +531,7 @@ function fillSkillCarousel() {
 
             for (let j = 0; j < skills.length; j++) {
                 let text = `<p class="skillName">` + skills[j] + `</p> 
-                <img src="` + DeleteButtonPath + `" alt ="X" class="skillCross">`;
+                <img src="` + DeleteButtonPath + `" alt ="X" class="skillCross"  category="` + category + `" onclick="skillRemove(this,` + i + `,` + j + `)">`;
 
                 if (skills[j] === AddNew) {
                     text = `<img src="` + AddButtonPath + `"alt="Add Skill" class="add-new-skill" category="` + category + `" onclick="showSkillNameInput(this);">
@@ -649,14 +649,23 @@ function updateSkillName(ele, event) {
 
 }
 
-
 function skillcellhover(element) {
     const delete_btn = element.querySelector('.skillCross');
     if (delete_btn) delete_btn.style.display = "block";
 }
 
-
 function skillcellhoverout(element) {
     const delete_btn = element.querySelector('.skillCross');
     if (delete_btn) delete_btn.style.display = "none";
+}
+
+function skillRemove(ele, i, j) {
+
+    let category = $(ele).attr("category");
+    let index = i + j;
+
+    var should_delete = confirm("Are you sure you want to delete your skill ? Press either OK or Cancel.");
+    if (should_delete == true) {
+        console.log(skillMap[category][index]);
+    }
 }
