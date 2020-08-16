@@ -674,7 +674,7 @@ function skillRemove(ele, index) {
             data: {"skillName": skillName},
             dataType: "json",
             success: function (){
-                // ele.classList.add("d-none");
+                // hide skill cell here.
             },
             error: function (data){
                 alert(data.statusText);
