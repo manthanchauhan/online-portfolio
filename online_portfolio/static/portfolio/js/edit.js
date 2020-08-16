@@ -666,7 +666,19 @@ function skillRemove(ele, index) {
 
     let should_delete = confirm("Are you sure you want to delete this skill ?");
     if (should_delete === true) {
-        console.log(skillMap[category][index]);
-        // Add ajax call here...
+        let skillName = skillMap[category][index];
+
+        $.ajax({
+            url: delete_skill_url,
+            type: "POST",
+            data: {"skillName": skillName},
+            dataType: "json",
+            success: function (){
+                // ele.classList.add("d-none");
+            },
+            error: function (data){
+                alert(data.statusText);
+            }
+        });
     }
 }

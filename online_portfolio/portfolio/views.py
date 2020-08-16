@@ -236,8 +236,7 @@ class AddSkill(LoginRequiredMixin, View):
 class DeleteSkill(LoginRequiredMixin, View):
     @staticmethod
     def post(request):
-        print(request.POST)
-        skill_name = request.POST.get("skill_name")
+        skill_name = request.POST.get("skillName")
         user_profile = request.user.basicinfo
 
         try:
