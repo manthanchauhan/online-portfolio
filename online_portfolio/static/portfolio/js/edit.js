@@ -530,7 +530,7 @@ function fillSkillCarousel() {
                     <div class="skillData">`;
 
             for (let j = 0; j < skills.length; j++) {
-                let skill_index = i+j;
+                let skill_index = i + j;
                 let text = `<p class="skillName">` + skills[j] + `</p> 
                 <img src="` + DeleteButtonPath + `" alt ="X" class="skillCross"  category="` + category + `" onclick="skillRemove(this, ` + skill_index + `)">`;
 
@@ -671,12 +671,12 @@ function skillRemove(ele, index) {
         $.ajax({
             url: delete_skill_url,
             type: "POST",
-            data: {"skillName": skillName},
+            data: { "skillName": skillName },
             dataType: "json",
-            success: function (){
-                // ele.classList.add("d-none");
+            success: function () {
+                ele.parentNode.parentNode.style.display = "none";
             },
-            error: function (data){
+            error: function (data) {
                 alert(data.statusText);
             }
         });
