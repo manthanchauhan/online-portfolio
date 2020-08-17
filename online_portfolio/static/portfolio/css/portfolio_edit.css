@@ -282,12 +282,16 @@
 .skillCross{
     font-weight: bold;
     position: absolute;
+    background-color: #30475e;
+    height:25px !important;
+    width:25px !important;
     top:2.5px;
     right:2.5px;
     font-size: 10px;
+    display: none;
 }
+
 .skillCross:hover{
-    color:red !important;
     cursor: pointer;
 }
 

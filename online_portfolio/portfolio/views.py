@@ -7,8 +7,10 @@ from pytz import UTC
 from http import HTTPStatus
 from django.template.loader import render_to_string
 from online_portfolio.classes import MediaStorage
+from django.core.exceptions import ObjectDoesNotExist
 
 from .forms import BasicInfoForm, ProjectForm, AddSkillForm
+from .models import Skill
 import os
 from .helper import *
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -229,3 +231,22 @@ class AddSkill(LoginRequiredMixin, View):
         form.save()
 
         return JsonResponse(data={}, status=HTTPStatus.OK, reason="Success",)
+
+
+class DeleteSkill(LoginRequiredMixin, View):
+    @staticmethod
+    def post(request):
+        skill_name = request.POST.get("skillName")
+        user_profile = request.user.basicinfo
+
+        try:
+            skill = Skill.objects.get(user_profile=user_profile, skill_name=skill_name)
+        except ObjectDoesNotExist:
+            return JsonResponse(
+                data={},
+                status=HTTPStatus.UNPROCESSABLE_ENTITY,
+                reason="Skill Does Not Exists!!",
+            )
+
+        skill.delete()
+        return JsonResponse(data={}, status=HTTPStatus.OK, reason="Success!!")
