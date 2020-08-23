@@ -523,7 +523,7 @@ function fillSkillCarousel() {
                     <img src="` + buttonUrl + `">
                 </a>
 
-                <div class="sectionHeadingDiv">
+                <div class="sectionHeadingDiv" contenteditable="true" category="` + category + `" onfocusout="updateCategoryName(this);">
                     <h2>` + category + `</h2>
                 </div>
                 <div id="skillDataContainer">
@@ -681,4 +681,17 @@ function skillRemove(ele, index) {
             }
         });
     }
+}
+
+
+function updateCategoryName(element) {
+    let oldName = element.getAttribute("category");
+    let newName = $(element).find("h2").text();
+
+    if (newName.length > 50){
+        return;
+    }
+
+    console.log(oldName);
+    console.log(newName);
 }
