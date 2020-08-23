@@ -702,6 +702,16 @@ function updateCategoryName(element, slideIndex) {
 
     document.getElementById("catCharCount" + slideIndex).style.display = "none";
 
-    // console.log(oldName);
-    // console.log(newName);
+    $.ajax({
+        url: edit_category_name_url,
+        type: "POST",
+        data: {"oldName": oldName, "newName": newName},
+        dataType: "json",
+        success: function (data){
+            // add name change logic for frontend.
+        },
+        error: function (response){
+            alert(response.statusText);
+        }
+    });
 }
