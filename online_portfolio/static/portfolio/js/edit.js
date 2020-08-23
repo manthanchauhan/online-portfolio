@@ -409,9 +409,9 @@ function check_charcount(textElement, charCountElement, max, fontSize, maxExceed
 
 }
 
-function showCharCount(element, max, isID = true) {
-    let len = $(element).text().length;
-    let charCountElement = $("#" + element.id + "CharCount");
+function showCharCount(elementId, charCountId, max, isID = true) {
+    let len = $("#" + elementId).text().length;
+    let charCountElement = $("#" + charCountId);
     charCountElement.show();
     charCountElement.text(len + "/" + max);
 }
@@ -523,8 +523,9 @@ function fillSkillCarousel() {
                     <img src="` + buttonUrl + `">
                 </a>
 
-                <div class="sectionHeadingDiv" contenteditable="true" category="` + category + `" onfocusout="updateCategoryName(this);">
-                    <h2>` + category + `</h2>
+                <div id="catDiv` + slideIndx + `" class="sectionHeadingDiv" contenteditable="true" category="` + category + `" onfocusin="showCharCount('catName` + slideIndx + `', 'catCharCount` + slideIndx + `', 50);" onfocusout="updateCategoryName(this, ` + slideIndx + `);">
+                    <h2 id="catName` + slideIndx + `">` + category + `</h2>
+                    <span id="catCharCount` + slideIndx + `" class="charCount"></span>
                 </div>
                 <div id="skillDataContainer">
                     <div class="skillData">`;
@@ -559,6 +560,13 @@ function fillSkillCarousel() {
             </div>`;
 
             $("#skillContentDiv").append(carouselSlide);
+
+            let catElement = $("#catDiv" + slideIndx);
+            let catNameElement = $("#catName" + slideIndx);
+            let catCharCountEl = $("#catCharCount" + slideIndx);
+
+            catElement.keyup(function (e) { check_charcount(catNameElement, catCharCountEl, 50, "1rem", "1.5rem", "green", e); });
+
             slideIndx += 1;
         }
     }
@@ -684,14 +692,16 @@ function skillRemove(ele, index) {
 }
 
 
-function updateCategoryName(element) {
+function updateCategoryName(element, slideIndex) {
     let oldName = element.getAttribute("category");
-    let newName = $(element).find("h2").text();
+    let newName = document.getElementById("catName" + slideIndex).innerText;
 
     if (newName.length > 50){
         return;
     }
 
-    console.log(oldName);
-    console.log(newName);
+    document.getElementById("catCharCount" + slideIndex).style.display = "none";
+
+    // console.log(oldName);
+    // console.log(newName);
 }
