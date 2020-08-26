@@ -523,7 +523,13 @@ function fillSkillCarousel() {
                     <img src="` + buttonUrl + `">
                 </a>
 
-                <div id="catDiv` + slideIndx + `" class="sectionHeadingDiv" contenteditable="true" category="` + category + `" onfocusin="showCharCount('catName` + slideIndx + `', 'catCharCount` + slideIndx + `', 50);" onfocusout="updateCategoryName(this, ` + slideIndx + `);">
+                <div id="catDiv` + slideIndx + `" 
+                    class="sectionHeadingDiv" 
+                    contenteditable="true"
+                    category="` + category + `" 
+                    onfocusin="showCharCount('catName` + slideIndx + `', 'catCharCount` + slideIndx + `', 50);" 
+                    onfocusout="updateCategoryName(this, ` + slideIndx + `);">
+
                     <h2 id="catName` + slideIndx + `">` + category + `</h2>
                     <span id="catCharCount` + slideIndx + `" class="charCount"></span>
                 </div>
@@ -708,7 +714,13 @@ function updateCategoryName(element, slideIndex) {
         data: {"oldName": oldName, "newName": newName},
         dataType: "json",
         success: function (data){
-            // add name change logic for frontend.
+            const headings =  document.querySelectorAll(".sectionHeadingDiv");
+            headings.forEach(heading=>{
+                const headingCategory = heading.getAttribute('category');
+                if(headingCategory === oldName){
+                    heading.querySelector("h2").innerHTML=newName;
+                }
+            })
         },
         error: function (response){
             alert(response.statusText);
