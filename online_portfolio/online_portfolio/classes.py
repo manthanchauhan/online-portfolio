@@ -27,7 +27,8 @@ class ErrorHandlingMiddleware:
         response = self.get_response(request)
         return response
 
-    def process_exception(self, request, exception):
+    @staticmethod
+    def process_exception(request, exception):
         if settings.DEBUG:
             return None
 
