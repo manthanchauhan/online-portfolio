@@ -1,14 +1,20 @@
+# Do NOT import any app views here, this is a generic file.
+# importing any views might cause circular import issues.
+
 import base64
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import hashes
 from cryptography.fernet import Fernet
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from passlib.context import CryptContext
+from http import HTTPStatus
 
-# from sendgrid import SendGridAPIClient
-# from sendgrid.helpers.mail import Mail
 from django.core.mail import send_mail as send_mail_
 from django.conf import settings
+from django.http import JsonResponse
+from django.contrib import messages
+from django.contrib.auth import logout
+from django.shortcuts import redirect
 
 
 def generate_key(pass_phrase):
@@ -115,3 +121,44 @@ def send_mail(to_emails, content, subject):
         message="",
         html_message=content,
     )
+
+
+def handle_errors(request_indx):
+    """
+    The purpose of this decorator is to handle unexpected errors in the views and
+    provide a user friendly error response.
+
+    This decorator is meant to decorate only view functions,
+    The view to be decorated must have request as it's first argument.
+
+    :param request_indx: Index of request object in args list.
+    :return: View Function
+    """
+
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+
+            try:
+                return func(*args, **kwargs)
+            except Exception as e:
+                request = args[request_indx]
+
+                # TODO add error logging
+                print(e)
+
+                # handle ajax requests
+                if request.META.get("HTTP_X_REQUESTED_WITH") == "XMLHttpRequest":
+                    return JsonResponse(
+                        data={},
+                        status=HTTPStatus.INTERNAL_SERVER_ERROR,
+                        reason="Something Went Wrong!!",
+                    )
+
+                # handling other (synchronous) requests
+                messages.error(request, "Something Went Wrong!!")
+                logout(request)
+                return redirect("accounts:login")
+
+        return wrapper
+
+    return decorator
