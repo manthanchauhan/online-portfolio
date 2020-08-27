@@ -13,12 +13,17 @@ from .forms import BasicInfoForm, ProjectForm, AddSkillForm
 from .models import Skill
 import os
 from .helper import *
+from helper import *
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
+# from online_portfolio.helper import handle_errors
+
+
 class PortfolioEdit(LoginRequiredMixin, View):
     template = "portfolio/portfolio_edit.html"
 
+    @handle_errors(request_indx=1)
     def get(self, request):
         basic_info = get_basic_info(request.user)
         projects = get_projects_info(request.user)
@@ -41,6 +46,7 @@ class UpdateAboutSection(LoginRequiredMixin, View):
     """
 
     @staticmethod
+    @handle_errors(request_indx=0)
     def post(request):
         basic_info = request.user.basicinfo
 
@@ -94,6 +100,7 @@ class UpdateAboutSection(LoginRequiredMixin, View):
 
 class EditProjects(LoginRequiredMixin, View):
     @staticmethod
+    @handle_errors(request_indx=0)
     def post(request):
         project_id = int(request.POST["id"])
         project = Project.objects.get(pk=project_id)
@@ -124,6 +131,7 @@ class EditProjects(LoginRequiredMixin, View):
 
 class DeleteProject(LoginRequiredMixin, View):
     @staticmethod
+    @handle_errors(request_indx=0)
     def post(request):
         id_ = int(request.POST["id"])
         project = Project.objects.get(pk=id_)
@@ -147,6 +155,7 @@ class DeleteProject(LoginRequiredMixin, View):
 
 class AddNewProject(LoginRequiredMixin, View):
     @staticmethod
+    @handle_errors(request_indx=0)
     def post(request):
         total_projects = request.user.basicinfo.total_projects
 
@@ -166,6 +175,7 @@ class AddNewProject(LoginRequiredMixin, View):
 class ExportPortfolio(LoginRequiredMixin, View):
     template = "portfolio/portfolio_export.html"
 
+    @handle_errors(request_indx=1)
     def post(self, request):
         basic_info = request.user.basicinfo
         about_data = {
@@ -209,6 +219,7 @@ class ExportPortfolio(LoginRequiredMixin, View):
 
 class AddSkill(LoginRequiredMixin, View):
     @staticmethod
+    @handle_errors(request_indx=0)
     def post(request):
         skill_name = request.POST.get("skill_name")
         category = request.POST.get("category")
@@ -235,6 +246,7 @@ class AddSkill(LoginRequiredMixin, View):
 
 class DeleteSkill(LoginRequiredMixin, View):
     @staticmethod
+    @handle_errors(request_indx=0)
     def post(request):
         skill_name = request.POST.get("skillName")
         user_profile = request.user.basicinfo
