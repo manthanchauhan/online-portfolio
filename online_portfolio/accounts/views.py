@@ -19,14 +19,12 @@ class EnterEmail(View):
     template = "accounts/enter_email.html"
     email = "accounts/signup_email.html"
 
-    @handle_errors(request_indx=1)
     def get(self, request):
         form = EnterEmailForm()
         return render(
             request=request, template_name=self.template, context={"form": form}
         )
 
-    @handle_errors(request_indx=1)
     def post(self, request):
         form = EnterEmailForm(request.POST)
 
@@ -66,7 +64,6 @@ class EnterEmail(View):
 class SignupView(View):
     template = "accounts/signup.html"
 
-    @handle_errors(request_indx=1)
     def get(self, request, encoded_email):
         # decode the email
         user_email = decode_data(config("NEW_EMAIL_HASH"), encoded_email)
@@ -82,7 +79,6 @@ class SignupView(View):
         # render the form
         return render(request, template_name=self.template, context={"form": form})
 
-    @handle_errors(request_indx=1)
     def post(self, request, encoded_email):
         form = SignUpForm(request.POST)
 
@@ -118,7 +114,6 @@ class SignupView(View):
 
 class CustomPasswordResetDone(View):
     @staticmethod
-    @handle_errors(request_indx=0)
     def get(request):
         messages.success(request, "Check your mail!")
         return redirect(to="accounts:password_reset")
@@ -126,7 +121,6 @@ class CustomPasswordResetDone(View):
 
 class CustomPassResetComp(View):
     @staticmethod
-    @handle_errors(request_indx=0)
     def get(request):
         messages.success(request, "Password Changed Successfully")
         return redirect(to="accounts:login")
