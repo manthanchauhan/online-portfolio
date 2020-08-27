@@ -4,7 +4,6 @@ from django.http import JsonResponse
 import datetime
 import json
 from pytz import UTC
-from http import HTTPStatus
 from django.template.loader import render_to_string
 from online_portfolio.classes import MediaStorage
 from django.core.exceptions import ObjectDoesNotExist
@@ -15,9 +14,6 @@ import os
 from .helper import *
 from helper import *
 from django.contrib.auth.mixins import LoginRequiredMixin
-
-# Create your views here.
-# from online_portfolio.helper import handle_errors
 
 
 class PortfolioEdit(LoginRequiredMixin, View):
