@@ -17,7 +17,6 @@ from django.contrib import admin
 from django.urls import path, include
 from . import views
 
-handler500 = "helper.handle_500"
 
 urlpatterns = [
     path("", views.Home.as_view(), name="home"),

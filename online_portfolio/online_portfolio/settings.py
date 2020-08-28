@@ -62,7 +62,6 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "social_django.middleware.SocialAuthExceptionMiddleware",
-    "online_portfolio.classes.ErrorHandlingMiddleware",
 ]
 
 AUTHENTICATION_BACKENDS = (
