@@ -675,6 +675,7 @@ function skillRemove(ele, index) {
             dataType: "json",
             success: function () {
                 ele.parentNode.parentNode.style.display = "none";
+                skillMap[category].splice(index, 1);
             },
             error: function (data) {
                 alert(data.statusText);
