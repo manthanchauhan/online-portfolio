@@ -34,6 +34,9 @@ elif ENV == "prod":
     DEBUG = False
     ALLOWED_HOSTS = ["www.online-portfolio.live"]
 
+ADMINS = [
+    ("manthan", "manthanchauhan913@gmail.com"),
+]
 # Application definition
 
 INSTALLED_APPS = [

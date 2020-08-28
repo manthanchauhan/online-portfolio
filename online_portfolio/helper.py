@@ -121,3 +121,27 @@ def send_mail(to_emails, content, subject):
         message="",
         html_message=content,
     )
+
+
+def handle_500(request):
+    """
+    This is the custom 500 handler.
+    :param request: Django request object.
+    :return: redirect or JsonResponse
+    """
+    if settings.DEBUG:
+        return None
+
+    # TODO add logging here
+
+    if request.META.get("HTTP_X_REQUESTED_WITH") == "XMLHttpRequest":
+        return JsonResponse(
+            data={},
+            status=HTTPStatus.INTERNAL_SERVER_ERROR,
+            reason="Something Went Wrong!!",
+        )
+
+    # handling other (synchronous) requests
+    messages.error(request, "Something Went Wrong!!")
+    logout(request)
+    return redirect("accounts:login")
