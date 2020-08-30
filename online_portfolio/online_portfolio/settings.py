@@ -236,14 +236,18 @@ LOGGING = {
     "handlers": {
         "debug_handler": {
             "level": "DEBUG",
-            "class": "logging.FileHandler",
+            "class": "logging.handlers.RotatingFileHandler",
             "filename": debug_path,
+            "backupCount": 10,
+            "maxBytes": 5242880,
             "formatter": "formatter1",
         },
         "error_handler": {
             "level": "WARNING",
-            "class": "logging.FileHandler",
+            "class": "logging.handlers.RotatingFileHandler",
             "filename": error_path,
+            "backupCount": 10,
+            "maxBytes": 5242880,
             "formatter": "formatter1",
         },
     },
