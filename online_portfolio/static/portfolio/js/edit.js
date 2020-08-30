@@ -718,9 +718,12 @@ function updateCategoryName(element, slideIndex) {
             headings.forEach(heading=>{
                 const headingCategory = heading.getAttribute('category');
                 if(headingCategory === oldName){
+                    heading.setAttribute('category',newName);
                     heading.querySelector("h2").innerHTML=newName;
                 }
-            })
+            });
+            Object.defineProperty(skillMap, newName, Object.getOwnPropertyDescriptor(skillMap, oldName)); 
+            delete skillMap[oldName];
         },
         error: function (response){
             alert(response.statusText);
