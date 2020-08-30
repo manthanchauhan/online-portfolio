@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.views import View
-from django.http import JsonResponse
 import datetime
 import json
 from pytz import UTC
@@ -10,6 +9,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from .forms import BasicInfoForm, ProjectForm, AddSkillForm
 from .models import Skill
+from online_portfolio.logger import logger
 import os
 from .helper import *
 from helper import *
@@ -115,7 +115,6 @@ class EditProjects(LoginRequiredMixin, View):
         form = ProjectForm(data, instance=project)
 
         if not form.is_valid():
-            print(form.errors)
             return JsonResponse({"success": False, "message": "error"})
 
         form.save()

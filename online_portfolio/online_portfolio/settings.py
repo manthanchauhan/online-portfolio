@@ -217,3 +217,41 @@ DEFAULT_SKILLS = {
         "Bootstrap",
     ],
 }
+
+debug_path = None
+error_path = None
+
+if ENV == "local":
+    debug_path = "./logs/debug.log"
+    error_path = "./logs/error.log"
+else:
+    debug_path = "/home/ubuntu/logs/debug.log"
+    error_path = "/home/ubuntu/logs/error.log"
+
+LOGGING = {
+    "version": 1,
+    "loggers": {
+        "django": {"handlers": ["debug_handler", "error_handler"], "level": "DEBUG",},
+    },
+    "handlers": {
+        "debug_handler": {
+            "level": "DEBUG",
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": debug_path,
+            "backupCount": 10,
+            "maxBytes": 5242880,
+            "formatter": "formatter1",
+        },
+        "error_handler": {
+            "level": "WARNING",
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": error_path,
+            "backupCount": 10,
+            "maxBytes": 5242880,
+            "formatter": "formatter1",
+        },
+    },
+    "formatters": {
+        "formatter1": {"format": "\n{levelname} {asctime} \n{message}", "style": "{",}
+    },
+}
