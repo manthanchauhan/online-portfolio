@@ -562,6 +562,11 @@ function fillSkillCarousel() {
             slideIndx += 1;
         }
     }
+
+    $(".skillCell").each(function () {
+        let element = $(this);
+        resize_skill_names(element);
+    });
 }
 
 function showSkillNameInput(element) {
