@@ -22,7 +22,9 @@ class PortfolioEdit(LoginRequiredMixin, View):
     def get(self, request):
         basic_info = get_basic_info(request.user)
         projects = get_projects_info(request.user)
-        skills = json.dumps(get_skills(request.user.basicinfo))
+
+        are_skills_default, user_skill = get_skills(request.user.basicinfo)
+        skills = json.dumps(user_skill)
 
         first_day = request.user.date_joined + datetime.timedelta(
             hours=3
@@ -31,6 +33,7 @@ class PortfolioEdit(LoginRequiredMixin, View):
         context = basic_info
         context["projects"] = projects
         context["skills"] = skills
+        context["are_skills_default"] = are_skills_default
         context["first_day"] = first_day
         return render(request, template_name=self.template, context=context)
 

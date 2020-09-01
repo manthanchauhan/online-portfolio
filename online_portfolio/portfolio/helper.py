@@ -70,10 +70,17 @@ def create_default_project(user):
 
 
 def get_skills(basic_info):
+    """
+    Helper function with return the skills of a user, and differentiates default skills.
+    :param basic_info: user's BasicInfo object
+    :rtype: Bool, Dict[str, [str]]
+            Bool: whether the skills are default skills or not.
+            Dict: Dict[category_name: [skill_names]]
+    """
     skills = list(basic_info.skill_set.all())
 
     if not skills:
-        return settings.DEFAULT_SKILLS
+        return True, settings.DEFAULT_SKILLS
 
     skills.sort(key=lambda x: x.timestamp)
 
@@ -87,4 +94,4 @@ def get_skills(basic_info):
         else:
             skill_data[category].append(skill.skill_name)
 
-    return skill_data
+    return False, skill_data
