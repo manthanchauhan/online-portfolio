@@ -518,7 +518,10 @@ function fillSkillCarousel() {
             }
 
             carouselSlide += `">
-                <a class="carousel-control-prev skillButton" href="#carouselExampleControls" role="button"
+                <a 
+                    class="carousel-control-prev 
+                    skillButton" href="#carouselExampleControls" 
+                    role="button"
                     data-slide="prev">
                     <img src="` + buttonUrl + `">
                 </a>
@@ -720,6 +723,26 @@ function updateCategoryName(element, slideIndex) {
                 if(headingCategory === oldName){
                     heading.setAttribute('category',newName);
                     heading.querySelector("h2").innerHTML=newName;
+
+
+                    const corouselSlide = heading.parentNode;
+                    corouselSlide.querySelectorAll(".skillCross").forEach((item) =>{ 
+                        item.setAttribute('category', newName)
+                        // console.log(item);
+                    });
+
+                    const addNewSkill = corouselSlide.querySelectorAll(".add-new-skill");
+                    if (addNewSkill !== null) {
+                        addNewSkill.forEach((item) => {
+                            item.setAttribute('category', newName)
+                        });
+                    }
+
+                    const newSkillInput = corouselSlide.querySelector("#newSkillNameInput");
+                    if(newSkillInput !== null){
+                        newSkillInput.setAttribute('category', newName)
+                    }
+
                 }
             });
             Object.defineProperty(skillMap, newName, Object.getOwnPropertyDescriptor(skillMap, oldName)); 
