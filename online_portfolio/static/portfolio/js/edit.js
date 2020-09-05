@@ -725,7 +725,6 @@ function updateCategoryName(element, slideIndex) {
                     
                     const headingText = heading.querySelector("h2");
                     headingText.innerHTML = newName;
-                    headingText.setAttribute('category', newName);
 
                     const corouselSlide = heading.parentNode;
                     corouselSlide.querySelectorAll(".skillCross").forEach((item) =>{ 
