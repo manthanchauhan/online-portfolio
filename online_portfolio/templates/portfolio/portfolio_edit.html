@@ -60,10 +60,10 @@ Edit | Portfolio
                     src="{% static 'portfolio/avatar.png' %}" {% endif %} alt="Avatar">
                 <input type="file" id="profile_picture" onchange="UploadProfilePic('{{request.user.username}}');">
 
-                <h1 id="titleName" contenteditable="true" onfocusin="showCharCount(this, 40);"
+                <h1 contenteditable="true" id="titleName" onfocusin="showCharCount('titleName', 'titleNameCharCount', 40);"
                     onfocusout="updateName();"><strong>{{name}}</strong></h1>
                 <small id="titleNameCharCount" class="charCount"></small>
-                <h5 id="titleTagline" contenteditable="true" onfocusin="showCharCount(this, 55);"
+                <h5 contenteditable="true" id="titleTagline" onfocusin="showCharCount('titleTagline', 'titleTaglineCharCount', 55);"
                     onfocusout="updateTagline();">{{tag_line}}</h5>
                 <small id="titleTaglineCharCount" class="charCount"></small>
             </div>
@@ -164,5 +164,6 @@ Edit | Portfolio
     const update_about_url = "{% url 'portfolio:update_about' %}";
     const add_skill_url = "{% url 'portfolio:add_new_skill' %}";
     const delete_skill_url = "{% url 'portfolio:delete_skill' %}";
+    const edit_category_name_url = "{% url 'portfolio:edit_category_name' %}";
 </script>
 {% endblock %}

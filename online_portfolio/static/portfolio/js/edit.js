@@ -409,9 +409,9 @@ function check_charcount(textElement, charCountElement, max, fontSize, maxExceed
 
 }
 
-function showCharCount(element, max, isID = true) {
-    let len = $(element).text().length;
-    let charCountElement = $("#" + element.id + "CharCount");
+function showCharCount(elementId, charCountId, max, isID = true) {
+    let len = $("#" + elementId).text().length;
+    let charCountElement = $("#" + charCountId);
     charCountElement.show();
     charCountElement.text(len + "/" + max);
 }
@@ -518,13 +518,23 @@ function fillSkillCarousel() {
             }
 
             carouselSlide += `">
-                <a class="carousel-control-prev skillButton" href="#carouselExampleControls" role="button"
+                <a 
+                    class="carousel-control-prev 
+                    skillButton" href="#carouselExampleControls" 
+                    role="button"
                     data-slide="prev">
                     <img src="` + buttonUrl + `">
                 </a>
 
-                <div class="sectionHeadingDiv">
-                    <h2>` + category + `</h2>
+                <div id="catDiv` + slideIndx + `" 
+                    class="sectionHeadingDiv" 
+                    contenteditable="true"
+                    category="` + category + `" 
+                    onfocusin="showCharCount('catName` + slideIndx + `', 'catCharCount` + slideIndx + `', 50);" 
+                    onfocusout="updateCategoryName(this, ` + slideIndx + `);">
+
+                    <h2 id="catName` + slideIndx + `">` + category + `</h2>
+                    <span id="catCharCount` + slideIndx + `" class="charCount"></span>
                 </div>
                 <div id="skillDataContainer">
                     <div class="skillData">`;
@@ -559,6 +569,13 @@ function fillSkillCarousel() {
             </div>`;
 
             $("#skillContentDiv").append(carouselSlide);
+
+            let catElement = $("#catDiv" + slideIndx);
+            let catNameElement = $("#catName" + slideIndx);
+            let catCharCountEl = $("#catCharCount" + slideIndx);
+
+            catElement.keyup(function (e) { check_charcount(catNameElement, catCharCountEl, 50, "1rem", "1.5rem", "green", e); });
+
             slideIndx += 1;
         }
     }
@@ -689,4 +706,58 @@ function skillRemove(ele) {
             }
         });
     }
+}
+
+
+function updateCategoryName(element, slideIndex) {
+    let oldName = element.getAttribute("category");
+    let newName = document.getElementById("catName" + slideIndex).innerText;
+
+    if (newName.length > 50){
+        return;
+    }
+
+    document.getElementById("catCharCount" + slideIndex).style.display = "none";
+
+    $.ajax({
+        url: edit_category_name_url,
+        type: "POST",
+        data: {"oldName": oldName, "newName": newName},
+        dataType: "json",
+        success: function (data){
+            const headings =  document.querySelectorAll(".sectionHeadingDiv");
+            headings.forEach(heading=>{
+                const headingCategory = heading.getAttribute('category');
+                if(headingCategory === oldName){
+                    heading.setAttribute('category',newName);
+                    
+                    const headingText = heading.querySelector("h2");
+                    headingText.innerHTML = newName;
+
+                    const corouselSlide = heading.parentNode;
+                    corouselSlide.querySelectorAll(".skillCross").forEach((item) =>{ 
+                        item.setAttribute('category', newName)
+                    });
+
+                    const addNewSkill = corouselSlide.querySelectorAll(".add-new-skill");
+                    if (addNewSkill !== null) {
+                        addNewSkill.forEach((item) => {
+                            item.setAttribute('category', newName)
+                        });
+                    }
+
+                    const newSkillInput = corouselSlide.querySelector("#newSkillNameInput");
+                    if(newSkillInput !== null){
+                        newSkillInput.setAttribute('category', newName)
+                    }
+
+                }
+            });
+            Object.defineProperty(skillMap, newName, Object.getOwnPropertyDescriptor(skillMap, oldName)); 
+            delete skillMap[oldName];
+        },
+        error: function (response){
+            alert(response.statusText);
+        }
+    });
 }
