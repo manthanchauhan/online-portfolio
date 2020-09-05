@@ -518,12 +518,21 @@ function fillSkillCarousel() {
             }
 
             carouselSlide += `">
-                <a class="carousel-control-prev skillButton" href="#carouselExampleControls" role="button"
+                <a 
+                    class="carousel-control-prev 
+                    skillButton" href="#carouselExampleControls" 
+                    role="button"
                     data-slide="prev">
                     <img src="` + buttonUrl + `">
                 </a>
 
-                <div id="catDiv` + slideIndx + `" class="sectionHeadingDiv" contenteditable="true" category="` + category + `" onfocusin="showCharCount('catName` + slideIndx + `', 'catCharCount` + slideIndx + `', 50);" onfocusout="updateCategoryName(this, ` + slideIndx + `);">
+                <div id="catDiv` + slideIndx + `" 
+                    class="sectionHeadingDiv" 
+                    contenteditable="true"
+                    category="` + category + `" 
+                    onfocusin="showCharCount('catName` + slideIndx + `', 'catCharCount` + slideIndx + `', 50);" 
+                    onfocusout="updateCategoryName(this, ` + slideIndx + `);">
+
                     <h2 id="catName` + slideIndx + `">` + category + `</h2>
                     <span id="catCharCount` + slideIndx + `" class="charCount"></span>
                 </div>
@@ -708,7 +717,36 @@ function updateCategoryName(element, slideIndex) {
         data: {"oldName": oldName, "newName": newName},
         dataType: "json",
         success: function (data){
-            // add name change logic for frontend.
+            const headings =  document.querySelectorAll(".sectionHeadingDiv");
+            headings.forEach(heading=>{
+                const headingCategory = heading.getAttribute('category');
+                if(headingCategory === oldName){
+                    heading.setAttribute('category',newName);
+                    
+                    const headingText = heading.querySelector("h2");
+                    headingText.innerHTML = newName;
+
+                    const corouselSlide = heading.parentNode;
+                    corouselSlide.querySelectorAll(".skillCross").forEach((item) =>{ 
+                        item.setAttribute('category', newName)
+                    });
+
+                    const addNewSkill = corouselSlide.querySelectorAll(".add-new-skill");
+                    if (addNewSkill !== null) {
+                        addNewSkill.forEach((item) => {
+                            item.setAttribute('category', newName)
+                        });
+                    }
+
+                    const newSkillInput = corouselSlide.querySelector("#newSkillNameInput");
+                    if(newSkillInput !== null){
+                        newSkillInput.setAttribute('category', newName)
+                    }
+
+                }
+            });
+            Object.defineProperty(skillMap, newName, Object.getOwnPropertyDescriptor(skillMap, oldName)); 
+            delete skillMap[oldName];
         },
         error: function (response){
             alert(response.statusText);
