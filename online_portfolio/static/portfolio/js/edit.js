@@ -531,7 +531,6 @@ function fillSkillCarousel() {
 
             for (let j = 0; j < skills.length; j++) {
                 let skill_index = i + j;
-                console.log(typeof (areSkillsDefault));
                 let tooltip = `<img src="` + DeleteButtonPath + `" alt ="X" class="skillCross" skillName="` + skills[j] + `"  category="` + category + `" onclick="skillRemove(this);"></img>`
 
                 if (areSkillsDefault === "True") tooltip = `<span class="skillCross skillTooltip">Once you add a skill, these default skills will go away</span>` ;
