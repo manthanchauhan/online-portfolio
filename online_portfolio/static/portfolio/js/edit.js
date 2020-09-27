@@ -684,7 +684,7 @@ function updateSkillName(ele, event) {
             data: { "skill_name": new_skill, "category": category },
             dataType: "json",
             success: function () {
-
+                
                 if(areSkillsDefault==="True"){
                     skillMap = {};
                     skillMap[category] = [];
