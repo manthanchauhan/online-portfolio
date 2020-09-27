@@ -528,7 +528,7 @@ function fillSkillCarousel() {
 
                 <div class="sectionHeadingDiv">
                     <h2>` + category + `</h2>
-                </div>
+                </div>git 
                 <div id="skillDataContainer">
                     <div class="skillData">`;
 
@@ -684,7 +684,16 @@ function updateSkillName(ele, event) {
             data: { "skill_name": new_skill, "category": category },
             dataType: "json",
             success: function () {
-                skillMap[category].pop();
+
+                if(areSkillsDefault==="True"){
+                    skillMap = {};
+                    skillMap[category] = [];
+                    areSkillsDefault = "False";
+                }
+                else{
+                    skillMap[category].pop();
+                }
+                
                 skillMap[category].push(new_skill);
                 skillMap[category].push(AddNew);
 
