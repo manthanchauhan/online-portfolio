@@ -542,7 +542,7 @@ function fillSkillCarousel() {
                     skillName="` + skills[j] + `"  
                     category="` + category + `" 
                     onclick="skillRemove(this);">
-                </img>`
+                </img>`;
 
                 let tooltip = `
                 <span 
@@ -553,8 +553,8 @@ function fillSkillCarousel() {
                         Once you add a skill, these default skills will go away
                 </span>` ;
 
-                if (areSkillsDefault === "True") hoverContent = deleteBtn;
-                else hoverContent = tooltip;
+                if (areSkillsDefault === "True") hoverContent = tooltip;
+                else hoverContent = deleteBtn;
 
                 let text = `<p class="skillName">` + skills[j] + `</p> ` + hoverContent;
 
