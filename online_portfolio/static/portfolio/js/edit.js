@@ -530,12 +530,30 @@ function fillSkillCarousel() {
                     <div class="skillData">`;
 
             for (let j = 0; j < skills.length; j++) {
-                let skill_index = i + j;
-                let tooltip = `<img src="` + DeleteButtonPath + `" alt ="X" class="skillCross" skillName="` + skills[j] + `"  category="` + category + `" onclick="skillRemove(this);"></img>`
+                let hoverContent;
 
-                if (areSkillsDefault === "True") tooltip = `<span class="skillCross skillTooltip">Once you add a skill, these default skills will go away</span>` ;
+                let deleteBtn = `
+                <img 
+                    src="` + DeleteButtonPath + `" 
+                    alt ="X" class="skillCross" 
+                    skillName="` + skills[j] + `"  
+                    category="` + category + `" 
+                    onclick="skillRemove(this);">
+                </img>`
 
-                let text = `<p class="skillName">` + skills[j] + `</p> ` + tooltip;
+                let tooltip = `
+                <span 
+                    class="skillCross skillTooltip" 
+                    data-toggle="tooltip" 
+                    data-placement="top"
+                    title="Tooltip on top">
+                        Once you add a skill, these default skills will go away
+                </span>` ;
+
+                if (areSkillsDefault === "True") hoverContent = deleteBtn;
+                else hoverContent = tooltip;
+
+                let text = `<p class="skillName">` + skills[j] + `</p> ` + hoverContent;
 
                 if (skills[j] === AddNew) {
                     text = `<img src="` + AddButtonPath + `"alt="Add Skill" class="add-new-skill" category="` + category + `" onclick="showSkillNameInput(this);">
