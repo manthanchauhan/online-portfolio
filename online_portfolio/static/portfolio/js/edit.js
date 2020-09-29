@@ -661,21 +661,23 @@ function updateSkillName(ele, event) {
 
         let already_exists = false;
 
-        for (let cat in skillMap) {
-            for (let i = 0; i < skillMap[cat].length; i++) {
-                if (skillMap[cat][i] === new_skill) {
-                    already_exists = true;
+        if (areSkillsDefault === false) {
+            for (let cat in skillMap) {
+                for (let i = 0; i < skillMap[cat].length; i++) {
+                    if (skillMap[cat][i] === new_skill) {
+                        already_exists = true;
+                    }
                 }
             }
-        }
 
-        if (already_exists) {
-            alert("This skill already exists!!");
-            $(ele).parent().find(".add-new-skill").show();
-            $(ele).parent().find(".skillNameCharCount").hide();
-            $(ele).parent().find(".add-new-skill").css('margin-top', '40%');
-            $(ele).empty();
-            return false;
+            if (already_exists) {
+                alert("This skill already exists!!");
+                $(ele).parent().find(".add-new-skill").show();
+                $(ele).parent().find(".skillNameCharCount").hide();
+                $(ele).parent().find(".add-new-skill").css('margin-top', '40%');
+                $(ele).empty();
+                return false;
+            }
         }
 
         $.ajax({
@@ -684,7 +686,16 @@ function updateSkillName(ele, event) {
             data: { "skill_name": new_skill, "category": category },
             dataType: "json",
             success: function () {
-                skillMap[category].pop();
+                
+                if(areSkillsDefault==="True"){
+                    skillMap = {};
+                    skillMap[category] = [];
+                    areSkillsDefault = "False";
+                }
+                else{
+                    skillMap[category].pop();
+                }
+                
                 skillMap[category].push(new_skill);
                 skillMap[category].push(AddNew);
 

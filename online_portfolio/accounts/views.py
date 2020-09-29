@@ -10,7 +10,7 @@ from django.contrib import messages
 from django.template.loader import render_to_string
 from django.contrib.auth import authenticate, login
 
-# Create your views here.
+
 class EnterEmail(View):
     """
     This view accepts email from new user and sends him the signup link.
