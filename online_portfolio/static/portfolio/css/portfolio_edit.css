@@ -295,6 +295,19 @@
     cursor: pointer;
 }
 
+.skillTooltip{
+    top:2.5px;
+    left:0 !important;
+    width:100% !important;
+    height:50px !important;
+    background: black;
+    border-radius: 10px;
+}
+
+.skillTooltip:hover{
+    cursor: pointer;
+}
+
 .skillCell [contenteditable="true"]:active,
 [contenteditable="true"]:focus
 {

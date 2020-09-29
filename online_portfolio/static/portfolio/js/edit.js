@@ -519,11 +519,12 @@ function fillSkillCarousel() {
 
             carouselSlide += `">
                 <a 
-                    class="carousel-control-prev 
-                    skillButton" href="#carouselExampleControls" 
+                    class="carousel-control-prev skillButton" 
+                    href="#carouselExampleControls" 
+
                     role="button"
                     data-slide="prev">
-                    <img src="` + buttonUrl + `">
+                        <img src="` + buttonUrl + `">
                 </a>
 
                 <div id="catDiv` + slideIndx + `" 
@@ -540,31 +541,74 @@ function fillSkillCarousel() {
                     <div class="skillData">`;
 
             for (let j = 0; j < skills.length; j++) {
-                let skill_index = i + j;
-                let text = `<p class="skillName">` + skills[j] + `</p> 
-                <img src="` + DeleteButtonPath + `" alt ="X" class="skillCross" skillName="` + skills[j] + `"  category="` + category + `" onclick="skillRemove(this);">`;
+                let hoverContent;
+
+                let deleteBtn = `
+                <img 
+                    src="` + DeleteButtonPath + `" 
+                    alt ="X" class="skillCross" 
+                    skillName="` + skills[j] + `"  
+                    category="` + category + `" 
+                    onclick="skillRemove(this);">
+                </img>`;
+
+                let tooltip = `
+                <span 
+                    class="skillCross skillTooltip" 
+                    data-toggle="tooltip" 
+                    data-placement="top"
+                    title="Tooltip on top">
+                        Once you add a skill, these default skills will go away
+                </span>` ;
+
+                if (areSkillsDefault === "True") hoverContent = tooltip;
+                else hoverContent = deleteBtn;
+
+                let text = `<p class="skillName">` + skills[j] + `</p> ` + hoverContent;
 
                 if (skills[j] === AddNew) {
-                    text = `<img src="` + AddButtonPath + `"alt="Add Skill" class="add-new-skill" category="` + category + `" onclick="showSkillNameInput(this);">
+                    text = `
+                    <img 
+                        src="` + AddButtonPath + `"
+                        alt="Add Skill" 
+                        class="add-new-skill" 
+                        category="` + category + `" 
+                        onclick="showSkillNameInput(this);">
 
-                    <p class="newSkillInput skillName" contenteditable="true" onfocusin="showSkillNameCharCount(this,25,'1rem');" carousel-index="` + slideIndx + `" id="newSkillNameInput" category="` + category + `" onfocusout="updateSkillName(this,event);"></p>
+                    <p 
+                        class="newSkillInput skillName" 
+                        contenteditable="true" 
+                        onfocusin="showSkillNameCharCount(this,25,'1rem');" 
+                        carousel-index="` + slideIndx + `" 
+                        id="newSkillNameInput" 
+                        category="` + category + `" 
+                        onfocusout="updateSkillName(this,event);">
+                    </p>
+                    
                     <small class="skillNameCharCount"></small>`;
                 }
 
-                let skillCell = `<div class="skillCellContainer">
-                            <div class="skillCell float-left" onmouseover="skillCellHover(this);" onmouseout ="skillCellHoverOut(this);">
-                               `+ text + `
-                            </div>
-                        </div>`;
+                let skillCell = `
+                <div class="skillCellContainer">
+                    <div 
+                        class="skillCell float-left" 
+                        onmouseover="skillCellHover(this);" 
+                        onmouseout ="skillCellHoverOut(this);">`+ text + `
+                    </div>
+                </div>`;
 
                 carouselSlide += skillCell;
             }
 
             carouselSlide += `</div>
                 </div>
-                <a class="skillButton carousel-control-next" href="#carouselExampleControls" role="button"
-                    data-slide="next" style="transform: rotate(180deg);">
-                    <img src="` + buttonUrl + `">
+                <a 
+                    class="skillButton carousel-control-next" 
+                    href="#carouselExampleControls" 
+                    role="button"
+                    data-slide="next" 
+                    style="transform: rotate(180deg);">
+                        <img src="` + buttonUrl + `">
                 </a>
             </div>`;
 
@@ -632,21 +676,23 @@ function updateSkillName(ele, event) {
 
         let already_exists = false;
 
-        for (let cat in skillMap) {
-            for (let i = 0; i < skillMap[cat].length; i++) {
-                if (skillMap[cat][i] === new_skill) {
-                    already_exists = true;
+        if (areSkillsDefault === false) {
+            for (let cat in skillMap) {
+                for (let i = 0; i < skillMap[cat].length; i++) {
+                    if (skillMap[cat][i] === new_skill) {
+                        already_exists = true;
+                    }
                 }
             }
-        }
 
-        if (already_exists) {
-            alert("This skill already exists!!");
-            $(ele).parent().find(".add-new-skill").show();
-            $(ele).parent().find(".skillNameCharCount").hide();
-            $(ele).parent().find(".add-new-skill").css('margin-top', '40%');
-            $(ele).empty();
-            return false;
+            if (already_exists) {
+                alert("This skill already exists!!");
+                $(ele).parent().find(".add-new-skill").show();
+                $(ele).parent().find(".skillNameCharCount").hide();
+                $(ele).parent().find(".add-new-skill").css('margin-top', '40%');
+                $(ele).empty();
+                return false;
+            }
         }
 
         $.ajax({
@@ -655,7 +701,16 @@ function updateSkillName(ele, event) {
             data: { "skill_name": new_skill, "category": category },
             dataType: "json",
             success: function () {
-                skillMap[category].pop();
+                
+                if(areSkillsDefault==="True"){
+                    skillMap = {};
+                    skillMap[category] = [];
+                    areSkillsDefault = "False";
+                }
+                else{
+                    skillMap[category].pop();
+                }
+                
                 skillMap[category].push(new_skill);
                 skillMap[category].push(AddNew);
 
