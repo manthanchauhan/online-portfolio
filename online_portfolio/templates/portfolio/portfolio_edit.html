@@ -97,15 +97,19 @@ Edit | Portfolio
         <br>
 
         <div id="projectHeadingButton">
-            <button class="skillButton" style="transform: rotate(270deg)">
-                <img src="{% static 'portfolio/icons8-chevron-left-96.png' %}">
-            </button>
+                <a href="#projectSection">
+                        <div class="indicator">
+                            <span class="projectArrow"></span>
+                            <span class="projectArrow"></span>
+                            <span class="projectArrow"></span>
+                        </div>
+                </a>
         </div>
-
     </div>
 </div>
 
 <div class="section" id="projectSection">
+
     <div id="projectTitleDiv">
         <div id="projectTitle">
             Portfolio Builder
@@ -137,13 +141,14 @@ Edit | Portfolio
         <div id="projectSkills">
             <div class="skillBar">
                 <div class="skills">
-                    <p><strong>Skills Utilized:</strong> Python, C++, Django</p>
+                    <span><strong>Skills Utilized:</strong> Python, C++, Django</span>
                 </div>
 
-                <div class="codeButtonsDiv">
-                    <button class="btn">View Live</button>
-                    <button class="btn">View Code</button>
-                </div>
+                    <div class="codeButtonsDiv">
+                        <button class="btn">View Live</button>
+                        <button class="btn">View Code</button>
+                    </div>
+                
             </div>
         </div>
     </div>
