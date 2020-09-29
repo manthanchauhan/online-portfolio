@@ -1,4 +1,5 @@
 # Online Portfolio
+Live hosted at: http://www.online-portfolio.live/ (Development Phase)
 
 # Requirements
 1. sign-up with email and password

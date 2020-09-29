@@ -4,6 +4,7 @@ import datetime
 import json
 from pytz import UTC
 from django.template.loader import render_to_string
+from django.views.decorators.http import require_POST
 from online_portfolio.classes import MediaStorage
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -252,3 +253,26 @@ class DeleteSkill(LoginRequiredMixin, View):
 
         skill.delete()
         return JsonResponse(data={}, status=HTTPStatus.OK, reason="Success!!")
+
+
+@require_POST
+def change_category_name(request):
+    old_name = request.POST["oldName"]
+    new_name = request.POST["newName"]
+
+    if len(new_name) > 50:
+        return JsonResponse(
+            data={},
+            status=HTTPStatus.UNPROCESSABLE_ENTITY,
+            reason="Category Names Should Have Upto 50 Characters!!",
+        )
+
+    skills = Skill.objects.filter(
+        user_profile=request.user.basicinfo, category=old_name
+    )
+
+    for skill in skills:
+        skill.category = new_name
+        skill.save()
+
+    return JsonResponse(data={}, status=HTTPStatus.OK, reason="Success!!")
