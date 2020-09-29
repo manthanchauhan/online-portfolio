@@ -528,7 +528,7 @@ function fillSkillCarousel() {
 
                 <div class="sectionHeadingDiv">
                     <h2>` + category + `</h2>
-                </div>git 
+                </div>
                 <div id="skillDataContainer">
                     <div class="skillData">`;
 
