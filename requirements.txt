@@ -1,7 +1,7 @@
 appdirs==1.4.4
 asgiref==3.2.7
 attrs==19.3.0
-Babel==2.8.0
+Babel==2.9.1
 black==19.10b0
 boto3==1.14.5
 botocore==1.17.5
